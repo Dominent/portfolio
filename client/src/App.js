@@ -77,19 +77,13 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            {/* <AnimatedRoute
-              path="/gallery"
-              component={GalleryDetails}
-              atEnter={slideInAnimation.atEnter}
-              atLeave={slideInAnimation.atLeave}
-              atActive={slideInAnimation.atActive}
-              mapStyles={(styles) => ({
-                left: `${styles.left}%`
-              })}
-              className="switch-wrapper"
-            /> */}
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
+            
+            <Route exact path="/login" component={Login} />
+            <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
           </div>
         </Router>
       </Provider>
@@ -97,7 +91,7 @@ class App extends Component {
   }
 }
 
-const Spa = () => (
+const Spa = () =>
   (
     <Wrapper>
       <Navbar />
@@ -114,7 +108,6 @@ const Spa = () => (
       <Footer />
     </Wrapper>
   )
-)
 
 export default App;
 

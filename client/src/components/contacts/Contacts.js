@@ -80,69 +80,6 @@ class Contacts extends Component {
                                     </div>
                                 </div>
                             </form>
-
-
-                            {/* <form className="mt-2">
-                                <div className="form-group">
-                                    <div className="row">
-                                        <div className="ml-4 mt-2">
-                                            <i className="fas fa-user"></i>
-                                        </div>
-                                        <div className="col">
-                                            <input type="text" className="form-control" id="first-name" placeholder="Enter Your Name *"></input>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="row">
-                                        <div className="ml-4 mt-2">
-                                            <i className="fas fa-phone"></i>
-                                        </div>
-                                        <div className="col">
-                                            <input type="text" className="form-control" id="phone-number" placeholder="Enter Phone Number"></input>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <div className="row">
-                                        <div className="ml-4 mt-2">
-                                            <i className="fas fa-envelope"></i>
-                                        </div>
-                                        <div className="col">
-                                            <input type="email" className="form-control" id="email-address" placeholder="Enter Your Email *"></input>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div className="form-group">
-                                    <div className="row">
-                                        <div className="ml-4 mt-2">
-                                            <i className="fas fa-file-alt"></i>
-                                        </div>
-                                        <div className="col">
-                                            <textarea className="form-control" id="message" placeholder="Enter Your Message *" style={{
-                                                height: '200px',
-                                                resize: 'none'
-                                            }}></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row ml-4">
-                                    <div className="col">
-                                        <div className="g-recaptcha" data-sitekey="6LfSK2AUAAAAAKdP36BTVJpvSA1tQXhfSMGHYwqC"></div>
-                                    </div>
-                                </div>
-
-                                <div className="row ml-4 mt-3">
-                                    <div className="col">
-                                        <button type="submit" className="btn btn-lg btn-success mr-2">Submit</button>
-                                        <button type="submit" className="btn btn-lg btn-outline-danger">Cancel</button>
-                                    </div>
-                                </div>
-                            </form> */}
                         </main>
                     </div>
                 </div>

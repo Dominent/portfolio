@@ -7,21 +7,17 @@
     "classnames": "^2.2.5",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",
-    "nuka-carousel": "^4.2.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-magnifier": "^1.0.3",
     "react-moment": "^0.7.0",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.7",
-    "react-responsive-carousel": "^3.1.41",
     "react-router-dom": "^4.2.2",
     "react-router-transition": "^1.2.1",
     "react-scripts": "1.1.4",
-    "react-scrollchor": "^5.1.0",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "styled-components": "^3.3.3"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
