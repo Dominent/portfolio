@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import Scrollable from '../common/Scrollable';
 import PropTypes from 'prop-types';
-import BarrelGallery from './BarrelGallery';
-import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import isEmpty from '../../validation/is-empty';
 import Redirect from 'react-router-dom/Redirect';
-import Carousel from 'nuka-carousel';
+import { Motion, spring } from 'react-motion';
 
 class GalleryDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selected: 0,
+            close: false
         };
     }
 
@@ -45,7 +44,11 @@ class GalleryDetails extends Component {
                     <i
                         className="fas fa-angle-double-left pl-2 pr-2 ml-3"
                         style={style.arrow}
-                        onClick={() => this.props.history.push('/')}
+                        onClick={() => {
+                            this.setState({ close: true });
+
+                            this.props.history.push('/');
+                        }}
                     ></i>
                 </div>
             </React.Fragment>
@@ -59,48 +62,65 @@ class GalleryDetails extends Component {
                     className="gallery-details"
                     style={{ ...style.main, ...this.props.style }}
                 >
+                    <div className="row" >
+                        {animations.fadeIn((style) => (
+                            <div className="col-md-6"
+                                style={{ opacity: style.opacity }}
+                            >
+                                <Scrollable>
+                                    {meta}
+                                </Scrollable>
+                            </div>
+                        ))}
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Scrollable>
-                                {meta}
-                            </Scrollable>
-                        </div>
-                        <div className="col-md-6">
-                            {(images && images.length) ? (<img style={{
-                                boxShadow: '-10px 0px 10px 1px #aaaaaa',
-                                transform: `scale(${style.scale})`
-                            }} src={images[this.state.selected].src}
-                            ></img>) : null}
-                        </div>
+                        {animations.swipeLeft((style) => (
+                            <div className="col-md-6"
+                                style={{
+                                    transform: `translateX(${style.x}px)`
+                                }}>
+                                {(images && images.length) ? (<img style={{
+                                    boxShadow: '-10px 0px 10px 1px #aaaaaa',
+                                }} src={images[this.state.selected].src}
+                                ></img>) : null}
+                            </div>
+                        ))}
                     </div>
-
                 </div>
             </React.Fragment>
-
         )
     }
 }
 
-const style = {};
-
-style.main = {
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    zIndex: 1000,
-    backgroundColor: '#fff',
-    overflowX: 'hidden'
+const style = {
+    main: {
+        width: '100%',
+        height: '100%',
+        zIndex: 1000,
+        backgroundColor: '#fff',
+        overflowX: 'hidden'
+    },
+    arrow: {
+        fontSize: '4rem',
+        border: '1px solid #d9d9d9',
+        borderRadius: '5px',
+        backgroundColor: 'rgb(26, 188, 156)',
+        color: '#fff',
+        marginTop: '5%'
+    }
 };
 
-style.arrow = {
-    fontSize: '4rem',
-    border: '1px solid #d9d9d9',
-    borderRadius: '5px',
-    backgroundColor: 'rgb(26, 188, 156)',
-    color: '#fff',
-    marginTop: '5%'
-}
+const animations = {
+    fadeIn: (func) => (
+        <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(1) }}>
+            {func}
+        </Motion>
+    ),
+    swipeLeft: (func) => (
+        <Motion defaultStyle={{ x: 100 }} style={{ x: spring(0) }}>
+            {func}
+        </Motion>
+    )
+};
 
 GalleryDetails.propTypes = {
     onClickHandler: PropTypes.func

@@ -77,7 +77,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <AnimatedRoute
+            {/* <AnimatedRoute
               path="/gallery"
               component={GalleryDetails}
               atEnter={slideInAnimation.atEnter}
@@ -87,8 +87,9 @@ class App extends Component {
                 left: `${styles.left}%`
               })}
               className="switch-wrapper"
-            />
-             <Route exact path="/" component={Spa} />
+            /> */}
+            <Route exact path="/gallery" component={GalleryDetails} />
+            <Route exact path="/" component={Spa} />
           </div>
         </Router>
       </Provider>
