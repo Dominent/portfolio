@@ -66,8 +66,8 @@ class App extends Component {
   }
 }
 
-const Spa = () =>
-  (
+const Spa = () => {
+  return (
     <React.Fragment>
       <Navbar />
       <Landing />
@@ -83,5 +83,6 @@ const Spa = () =>
       <Footer />
     </React.Fragment>
   )
+}
 
 export default App;

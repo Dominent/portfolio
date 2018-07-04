@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { setGalleryDetails } from '../../actions/galleryActions';
 
-import items from './_data';
+import data from './_data';
+import ResponsiveGallery from './ResponsiveGallery';
 
 class Gallery extends Component {
     onGalleryItemClicked(details) {
@@ -13,6 +14,7 @@ class Gallery extends Component {
     }
 
     render() {
+        let images = [...data].map(x => x.src);
         return (
             <div className="gallery" style={{ backgroundColor: '#1abc9c' }}>
                 <div className="jumbotron" style={{ color: '#fff' }}>
@@ -20,10 +22,16 @@ class Gallery extends Component {
                         <header>
                             <h1 className="display-4">My Portfolio</h1>
                             <p>A Selection of My Work</p>
-                            <hr />
+                            <hr style={{ borderTop: '1px solid #fff' }} />
                         </header>
-                        <main>
-                            <div className="row mt-4">
+                    </div>
+                    <main>
+                        <ResponsiveGallery
+                            images={images}
+                            onImageClick={(src) => { console.log(src) }}
+                            columns={6}
+                        />
+                        {/* <div className="row mt-4">
                                 {items.map((x, index) => (
                                     <div className="col-md-3">
                                         <GalleryItem key={index}
@@ -33,11 +41,10 @@ class Gallery extends Component {
                                             onClickHandler={(ev) => this.onGalleryItemClicked(x.details)} />
                                     </div>
                                 ))}
-                            </div>
-                        </main>
-                    </div>
+                            </div> */}
+                    </main>
                 </div>
-            </div>)
+            </div >)
     }
 }
 

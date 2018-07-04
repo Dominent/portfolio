@@ -1,82 +1,81 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+function chunck(items, pieces) {
+    if (!(items instanceof Array)) {
+        return [];
+    }
+
+    let result = [];
+
+    let piecesLength = Math.floor(items.length / pieces);
+
+    for (let i = 0; i < pieces; i++) {
+        let start = piecesLength * i;
+        let end = start + piecesLength;
+        const elements = items.slice(start, end);
+
+        result.push(elements);
+    }
+
+    for (let i = (piecesLength * pieces), j = 0; i < items.length; i++ , j++) {
+        result[j].push(items[i])
+    }
+
+    return result;
+}
 
 class ResponsiveGallery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            styles
+            styles: styles(props.columns || 4)
         }
     }
 
     render() {
-        const images = [
-            "http://via.placeholder.com/350x150",
-            "http://via.placeholder.com/150x200",
-            "http://via.placeholder.com/80x100",
-            "http://via.placeholder.com/150x200",
-            "http://via.placeholder.com/350x65"
-        ]
-
-
-        const columnCount = 4;
-        const imagesByColumnCount = Math.floor(images.length / columnCount);
-
-        const extraImages = images.length % columnCount;
-
-        const columns = [];
-
-        for (let index = 0; index < columnCount; index++) {
-            let start = index * columnCount ;
-            columns.push(images.slice(start, start + columnCount));
-        }
-
-        // Set Extra Columns
+        const columns = this.props.columns || 4;
+        const images = chunck(this.props.images, columns);
 
         return (
             <Media onResize={(width, height) => {
                 let _styles = JSON.parse(JSON.stringify(this.state.styles));
 
                 if (width <= 600) {
-                    _styles.column.flex = '100%';
-                    _styles.column.maxWidth = '100%';
+                    _styles.column.flex = `${(100 / columns) * 4}%`;
+                    _styles.column.maxWidth = `${(100 / columns) * 4}%`;
                 } else if (width <= 800) {
-                    _styles.column.flex = '50%';
-                    _styles.column.maxWidth = '50%';
+                    _styles.column.flex = `${(100 / columns) * 2}%`;
+                    _styles.column.maxWidth = `${(100 / columns) * 2}%`;
                 } else {
-                    _styles = styles;
+                    _styles = styles(columns);
                 }
 
                 this.setState({ styles: _styles });
             }}>
                 <div style={this.state.styles.row}>
-                    <div style={this.state.styles.column}>
-                        <img src="http://via.placeholder.com/350x150" alt="" style={this.state.styles.img} />
-
-                        <img src="http://via.placeholder.com/150x200" alt="" style={this.state.styles.img} />
-                    </div>
-                    <div style={this.state.styles.column}>
-                        <img src="http://via.placeholder.com/80x100" alt="" style={this.state.styles.img} />
-                    </div>
-                    <div style={this.state.styles.column}>
-                        <img src="http://via.placeholder.com/150x200" alt="" style={this.state.styles.img} />
-                    </div>
-                    <div style={this.state.styles.column}>
-                        <img src="http://via.placeholder.com/350x65" alt="" style={this.state.styles.img} />
-                    </div>
+                    {images.map((x, i) => (
+                        <div key={i} style={this.state.styles.column}>
+                            {x.map((y, k) => (
+                                <img key={k} src={y} alt="" style={this.state.styles.img}
+                                    onClick={() => this.props.onImageClick(y)} />
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </Media>
         )
     }
 }
 
-const styles = {
+const styles = (columns) => ({
     row: {
         display: 'flex',
         flexWrap: 'wrap'
     },
     column: {
-        flex: '25%',
-        maxWidth: '25%',
+        flex: `${100 / columns}%`,
+        maxWidth: `${100 / columns}%`,
         padding: '0.1%'
     },
     img: {
@@ -84,7 +83,7 @@ const styles = {
         width: '100%',
         verticalAlign: 'middle'
     }
-}
+})
 
 class Media extends Component {
     updateDimensions() {
@@ -112,6 +111,15 @@ class Media extends Component {
             {this.props.children}
         </React.Fragment>)
     }
+}
+
+ResponsiveGallery.defaultProps = {
+    onImageClick: () => {}
+}
+
+ResponsiveGallery.propTypes = {
+    images: PropTypes.array.isRequired,
+    onImageClick: PropTypes.func
 }
 
 export default ResponsiveGallery;

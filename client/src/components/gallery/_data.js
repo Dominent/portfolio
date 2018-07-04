@@ -1,7 +1,7 @@
 export default [
     {
         header: 'Galiciq',
-        imgSrc: `${process.env.PUBLIC_URL}/img/galiciq-portfolio.png`,
+        src: `${process.env.PUBLIC_URL}/img/galiciq-portfolio.png`,
         description: 'Sample Website for a local barber shop',
         details: {
             header: 'Galiciq',
@@ -28,7 +28,7 @@ export default [
     },
     {
         header: 'Galiciq',
-        imgSrc: `${process.env.PUBLIC_URL}/img/base-portfolio.png`,
+        src: `${process.env.PUBLIC_URL}/img/base-portfolio.png`,
         description: 'Sample Website for a local barber shop',
         details: {
             header: 'Galiciq',
