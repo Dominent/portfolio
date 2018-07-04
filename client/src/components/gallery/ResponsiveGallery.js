@@ -71,7 +71,8 @@ class ResponsiveGallery extends Component {
 const styles = (columns) => ({
     row: {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
     column: {
         flex: `${100 / columns}%`,
