@@ -5,11 +5,18 @@ import { Motion, spring } from 'react-motion';
 class Scrollable extends Component {
     constructor(props) {
         super(props);
+        const { scrollTop } = document.scrollingElement;
+        this.save = {
+            scrollTop
+        };
+
+        window.scrollTo(0, 0);
+
         this.state = {
             top: 0,
             current: 0
         };
-
+       
         this.handleScrollEvent = this.handleScrollEvent.bind(this);
     }
 
@@ -29,6 +36,7 @@ class Scrollable extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('scroll', this.handleScrollEvent, false);
+        window.scrollTo(0, this.save.scrollTop);
     }
 
     render() {
