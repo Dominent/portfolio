@@ -205,35 +205,6 @@ const animations = {
     )
 }
 
-// class Hoverable extends Component {
-//     onMouseEnterHandler(ev) {
-//         this.props.onMouseEnter && this.props.onMouseEnter(ev);
-//     }
-
-//     onMouseLeaveHandler(ev) {
-//         this.props.onMouseLeave && this.props.onMouseLeave(ev);
-//     }
-
-//     render() {
-//         const props = exclude(this.props, [
-//             'children',
-//             'onMouseEnter',
-//             'onMouseLeave'
-//         ]);
-
-//         return (
-//             <div
-//                 {...props}
-//                 className="hoverable"
-//                 onMouseEnter={this.onMouseEnterHandler.bind(this)}
-//                 onMouseLeave={this.onMouseLeaveHandler.bind(this)}
-//             >
-//                 {this.props.children}
-//             </div>
-//         )
-//     }
-// }
-
 ResponsiveGallery.defaultProps = {
     onImageClick: () => { }
 }
