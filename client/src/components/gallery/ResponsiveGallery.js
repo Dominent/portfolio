@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Motion, spring } from 'react-motion';
+import Overlay from '../common/Overlay';
 
 function chunck(items, pieces) {
     if (!(items instanceof Array)) {
@@ -23,6 +25,14 @@ function chunck(items, pieces) {
     }
 
     return result;
+}
+
+function exclude(object, properties) {
+    let _object = Object.assign({}, object);
+
+    properties.forEach(p => delete _object[p]);
+
+    return _object;
 }
 
 class ResponsiveGallery extends Component {
@@ -55,17 +65,21 @@ class ResponsiveGallery extends Component {
             }}>
                 <div style={this.state.styles.row}>
                     {images.map((x, i) => (
-                        <div key={i} style={this.state.styles.column}>
-                            {x.map((y, k) => (
-                                <img key={k} src={y} alt="" style={this.state.styles.img}
-                                    onClick={() => this.props.onImageClick(y)} />
+                        <div key={i} style={this.state.styles.column} >
+                            {x.map((src, index) => (
+                                <Card key={index}
+                                    img={{ src, style: this.state.styles.img }}
+                                    style={{ position: 'relative' }}
+                                    onClick={(src) => { this.props.onClick && this.props.onClick(src) }} />
                             ))}
-                        </div>
+                        </div >
                     ))}
                 </div>
             </Media>
         )
     }
+
+
 }
 
 const styles = (columns) => ({
@@ -77,7 +91,8 @@ const styles = (columns) => ({
     column: {
         flex: `${100 / columns}%`,
         maxWidth: `${100 / columns}%`,
-        padding: '0.1%'
+        padding: '0.1%',
+        height: '100%'
     },
     img: {
         padding: '0.1%',
@@ -114,8 +129,113 @@ class Media extends Component {
     }
 }
 
+class Card extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isHovered: false
+        };
+    }
+
+    render() {
+        const props = exclude(this.props, [
+            'children',
+            'onMouseEnter',
+            'onMouseLeave',
+            'onClick',
+            'img'
+        ]);
+
+        const { src, style } = this.props.img;
+
+        return (
+            <div {...props}
+                onMouseEnter={() => this.setState({ isHovered: true })}
+                onMouseLeave={() => this.setState({ isHovered: false })}
+            >
+                {this.state.isHovered ? animations.hover((
+                    <React.Fragment>
+                        <h3> Some example header </h3>
+                        <span> Some example description </span>
+                    </React.Fragment>
+                ), () => { this.props.onClick && this.props.onClick(src) }) : null}
+
+                <img
+                    src={src}
+                    style={style}
+                />
+            </div>
+        )
+    }
+}
+
+const animations = {
+    hover: (content, onClick) => (
+        <Motion defaultStyle={{
+            opacity: 0,
+            x: 0
+        }} style={{
+            opacity: spring(0.5),
+            x: spring(30)
+        }}>
+            {(style) => (
+                <React.Fragment>
+                    <div
+                        style={{
+                            display: style.display,
+                            background: 'none',
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            zIndex: 1,
+                            textAlign: 'center',
+                            paddingTop: `${style.x}%`
+                        }}
+                        onClick={onClick}
+                    >
+                        {content}
+                    </div>
+
+                    <Overlay
+                        style={{ opacity: style.opacity }}
+                    />
+                </React.Fragment>
+            )}
+        </Motion>
+    )
+}
+
+// class Hoverable extends Component {
+//     onMouseEnterHandler(ev) {
+//         this.props.onMouseEnter && this.props.onMouseEnter(ev);
+//     }
+
+//     onMouseLeaveHandler(ev) {
+//         this.props.onMouseLeave && this.props.onMouseLeave(ev);
+//     }
+
+//     render() {
+//         const props = exclude(this.props, [
+//             'children',
+//             'onMouseEnter',
+//             'onMouseLeave'
+//         ]);
+
+//         return (
+//             <div
+//                 {...props}
+//                 className="hoverable"
+//                 onMouseEnter={this.onMouseEnterHandler.bind(this)}
+//                 onMouseLeave={this.onMouseLeaveHandler.bind(this)}
+//             >
+//                 {this.props.children}
+//             </div>
+//         )
+//     }
+// }
+
 ResponsiveGallery.defaultProps = {
-    onImageClick: () => {}
+    onImageClick: () => { }
 }
 
 ResponsiveGallery.propTypes = {
@@ -124,3 +244,5 @@ ResponsiveGallery.propTypes = {
 }
 
 export default ResponsiveGallery;
+
+

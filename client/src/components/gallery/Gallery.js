@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import GalleryItem from './GalleryItem';
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { setGalleryDetails } from '../../actions/galleryActions';
@@ -8,7 +7,13 @@ import data from './_data';
 import ResponsiveGallery from './ResponsiveGallery';
 
 class Gallery extends Component {
-    onGalleryItemClicked(details) {
+    onGalleryItemClicked(src) {
+        let srcToDetails = {};
+
+        data.forEach(x => srcToDetails[x.src] = x.details)
+
+        let details = srcToDetails[src];
+
         this.props.setGalleryDetails(details);
         this.props.history.push('/gallery');
     }
@@ -28,20 +33,9 @@ class Gallery extends Component {
                     <main>
                         <ResponsiveGallery
                             images={images}
-                            onImageClick={(src) => { console.log(src) }}
-                            columns={6}
+                            onClick={(src) => this.onGalleryItemClicked(src)}
+                            columns={4}
                         />
-                        {/* <div className="row mt-4">
-                                {items.map((x, index) => (
-                                    <div className="col-md-3">
-                                        <GalleryItem key={index}
-                                            header={x.header}
-                                            imgSrc={x.imgSrc}
-                                            description={x.description}
-                                            onClickHandler={(ev) => this.onGalleryItemClicked(x.details)} />
-                                    </div>
-                                ))}
-                            </div> */}
                     </main>
                 </div>
             </div >)
