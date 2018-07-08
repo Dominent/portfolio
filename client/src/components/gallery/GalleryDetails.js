@@ -16,13 +16,21 @@ class GalleryDetails extends Component {
         };
     }
 
+    onClick() {
+        this.setState({ close: true });
+
+        this.props.history.push('/');
+    }
+
     render() {
         const { header, info, description, tags, images } = this.props.details;
 
         const meta = (
             <React.Fragment >
-                <div className="row" >
-                    <div className="col-md-10 offset-md-1">
+                <div className="row">
+                    <div className="col-md-10 offset-md-1" style={{
+                        marginTop: '25%'
+                    }}>
                         <h1>{header}</h1>
                         <div className="text-muted">{info}</div>
                         <hr></hr>
@@ -40,17 +48,6 @@ class GalleryDetails extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <i
-                        className="fas fa-angle-double-left pl-2 pr-2 ml-3"
-                        style={style.arrow}
-                        onClick={() => {
-                            this.setState({ close: true });
-
-                            this.props.history.push('/');
-                        }}
-                    ></i>
-                </div>
             </React.Fragment>
         )
 
@@ -65,6 +62,7 @@ class GalleryDetails extends Component {
                     <div className="row" >
                         {animations.fadeIn((style) => (
                             <div className="col-md-6"
+                                onClick={this.onClick.bind(this)}
                                 style={{ opacity: style.opacity }}
                             >
                                 <Scrollable>

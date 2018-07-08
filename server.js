@@ -8,6 +8,7 @@ const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 
 const files = require("./routes/api/files");
+const contacts = require("./routes/api/contacts");
 
 const app = express();
 
@@ -31,12 +32,13 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // Use Routes
-app.use("/api/users", users);
-app.use("/api/profile", profile);
-app.use("/api/posts", posts);
+// app.use("/api/users", users);
+// app.use("/api/profile", profile);
+// app.use("/api/posts", posts);
+app.use("/api/contacts", contacts);
 
 // app.use("/api/projects", projects);
-app.use("/api/files", files);
+// app.use("/api/files", files);
 
 const port = process.env.PORT || 5000;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import isEmpty from '../../validation/is-empty';
 
 const InputGroup = ({
     name,
@@ -20,7 +21,7 @@ const InputGroup = ({
             </div>
             <input
                 className={classnames('form-control form-control-lg', {
-                    'is-invalid': { error }
+                    'is-invalid': error
                 })}
                 placeholder={placeholder}
                 name={name}
