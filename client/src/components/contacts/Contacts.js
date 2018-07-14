@@ -48,6 +48,7 @@ class Contacts extends Component {
                     loading: false
                 });
             })
+
     }
 
     onChange(e) {
