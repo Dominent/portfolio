@@ -23,7 +23,7 @@ class GalleryDetails extends Component {
     }
 
     render() {
-        const { header, info, description, tags, images } = this.props.details;
+        const { header, info, description, tags, images, links } = this.props.details;
 
         const meta = (
             <React.Fragment >
@@ -36,6 +36,12 @@ class GalleryDetails extends Component {
                         <hr></hr>
                         <div>{description}</div>
                         <hr></hr>
+                        {links ? (
+                            <React.Fragment>
+                                <ul> {links.map(l => (<li><a href={l.href}>{l.name}</a> </li>))} </ul>
+                                <hr></hr>
+                            </React.Fragment>)
+                            : null}
                         <div>
                             <h4>Technologies Used:</h4>
                             {tags && tags
