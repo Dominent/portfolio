@@ -54,8 +54,8 @@ class Navbar extends Component {
         return (
             // fixed-top 
             <nav className="navbar fixed-top  navbar-expand-sm mb-4 navbar-dark" style={{
-                backgroundColor: '#1abc9c',
-                borderBottom: '1px solid black'
+                borderBottom: '1px solid black',
+                background: 'linear-gradient(to right, rgb(26, 188, 156), rgb(0, 123, 255))'
             }}>
                 <div className="container">
                     <Link className="navbar-brand" to="/"> Petromil Pavlov</Link>

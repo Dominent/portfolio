@@ -66,9 +66,13 @@ class ResponsiveGallery extends Component {
                 <div style={this.state.styles.row}>
                     {images.map((x, i) => (
                         <div key={i} style={this.state.styles.column} >
-                            {x.map((src, index) => (
+                            {x.map((c, index) => (
                                 <Card key={index}
-                                    img={{ src, style: this.state.styles.img }}
+                                    hover={{
+                                        header: c.header,
+                                        description: c.description
+                                    }}
+                                    img={{ src: c.src, style: this.state.styles.img }}
                                     style={{ position: 'relative' }}
                                     onClick={(src) => { this.props.onClick && this.props.onClick(src) }} />
                             ))}
@@ -155,8 +159,8 @@ class Card extends Component {
             >
                 {this.state.isHovered ? animations.hover((
                     <React.Fragment>
-                        <h3> Some example header </h3>
-                        <span> Some example description </span>
+                        <h3> {this.props.hover.header} </h3>
+                        <span> {this.props.hover.description} </span>
                     </React.Fragment>
                 ), () => { this.props.onClick && this.props.onClick(src) }) : null}
 

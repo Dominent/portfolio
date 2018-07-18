@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { setGalleryDetails } from '../../actions/galleryActions';
 
-import data from './_data';
 import ResponsiveGallery from './ResponsiveGallery';
+
+import projects from '../../data/projects';
 
 class Gallery extends Component {
     onGalleryItemClicked(src) {
         let srcToDetails = {};
 
-        data.forEach(x => srcToDetails[x.src] = x.details)
+        projects.forEach(x => srcToDetails[x.src] = x.details)
 
         let details = srcToDetails[src];
 
@@ -19,14 +20,22 @@ class Gallery extends Component {
     }
 
     render() {
-        let images = [...data].map(x => x.src);
+        let images = [...projects].map(x => ({
+            src: x.src,
+            header: x.header,
+            description: x.description
+        }));
+
         return (
-            <div className="gallery" style={{ backgroundColor: '#1abc9c' }}>
+            <div className="gallery" 
+                // style={{ background: 'linear-gradient(to right, #1abc9c, #2f0ce8)' }}
+                style={{ background: 'linear-gradient(to right, #1abc9c, #007bff)' }}
+            >
                 <div className="jumbotron" style={{ color: '#fff' }}>
                     <div className="container text-center">
                         <header>
                             <h1 className="display-4">My Portfolio</h1>
-                            <p>A Selection of My Work</p>
+                            <h4>A Selection of My Work</h4>
                             <hr style={{ borderTop: '1px solid #fff' }} />
                         </header>
                     </div>
