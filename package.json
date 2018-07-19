@@ -4,9 +4,9 @@
   "description": "Social network for developers",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "cd client && npm install && cd ..",
 
-    "start": "npm client-install && npm prod",
+    "start": "npm run client-install && npm prod",
 
     "dev-server": "nodemon server.js",
     "dev-client": "npm start --prefix client",
