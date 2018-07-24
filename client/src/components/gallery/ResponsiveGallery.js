@@ -158,10 +158,19 @@ class Card extends Component {
                 onMouseLeave={() => this.setState({ isHovered: false })}
             >
                 {this.state.isHovered ? animations.hover((
-                    <React.Fragment>
+                    <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        width: '100%',
+                        height: '30%',
+                        margin: 'auto'
+                    }}>
                         <h3> {this.props.hover.header} </h3>
                         <span> {this.props.hover.description} </span>
-                    </React.Fragment>
+                    </div>
                 ), () => { this.props.onClick && this.props.onClick(src) }) : null}
 
                 <img
@@ -177,10 +186,10 @@ const animations = {
     hover: (content, onClick) => (
         <Motion defaultStyle={{
             opacity: 0,
-            x: 0
+            scale: 0
         }} style={{
             opacity: spring(0.5),
-            x: spring(30)
+            scale: spring(1, { stiffness: 140, damping: 10 })
         }}>
             {(style) => (
                 <React.Fragment>
@@ -193,7 +202,7 @@ const animations = {
                             height: '100%',
                             zIndex: 1,
                             textAlign: 'center',
-                            paddingTop: `${style.x}%`
+                            transform: `scale3d(${style.scale}, ${style.scale}, ${style.scale})`
                         }}
                         onClick={onClick}
                     >
