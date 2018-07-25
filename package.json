@@ -6,12 +6,13 @@
   "scripts": {
     "client-install": "cd client && npm install && cd ..",
 
-    "start": "npm run client-install && npm prod",
+    "start": "npm prod",
 
     "dev-server": "nodemon server.js",
     "dev-client": "npm start --prefix client",
     "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
 
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "prod-server": "node server.js",
     "prod": "concurrently \"npm run prod-server\" \"npm run dev-client\""
   },
