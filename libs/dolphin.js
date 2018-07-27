@@ -1,5 +1,6 @@
 const mysql = require('mysql');
-const config = require('../config/database');
+
+const config = require('../configuration/config');
 
 //TODO(PPavlov): Add execute all files in given folders
 //TODO(PPavlov): Add execute seed
@@ -8,10 +9,10 @@ const config = require('../config/database');
 
 function mysqlConnect() {
     let connection = mysql.createConnection({
-        host: config.db_host,
-        user: config.db_user,
-        password: config.db_password,
-        database: config.db_database
+        host: config.mysql.host,
+        user: config.mysql.user,
+        password: config.mysql.password,
+        database: config.mysql.database
     });
 
     return new Promise((resolve, reject) =>
