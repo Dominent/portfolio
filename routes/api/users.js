@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
-const keys = require("../../config/keys");
+const config = require('../../configuration/config');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
@@ -94,7 +94,7 @@ router.post("/login", (req, res) => {
 
         jwt.sign(
           payload,
-          keys.secretOrKey,
+          config.mongo.secret,
           {
             expiresIn: 3600
           },

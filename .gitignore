@@ -1,3 +1,6 @@
 /node_modules
 package-lock.json
 .vscode
+
+configuration/dev/*
+!configuration/dev/.gitkeep

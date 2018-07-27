@@ -1,17 +1,13 @@
 {
-  "name": "devconnector",
+  "name": "portfolio",
   "version": "1.0.0",
-  "description": "Social network for developers",
   "main": "server.js",
   "scripts": {
-    "client-install": "cd client && npm install && cd ..",
-    "start": "npm run prod-server",
+    "start": "node server.js",
     "dev-server": "nodemon server.js",
     "dev-client": "npm start --prefix client",
     "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "prod-server": "node server.js",
-    "prod": "concurrently \"npm run prod-server\" \"npm run dev-client\""
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -31,6 +27,5 @@
   "devDependencies": {
     "nodemon": "^1.17.5",
     "create-react-app": "^1.5.2"
-
   }
 }
