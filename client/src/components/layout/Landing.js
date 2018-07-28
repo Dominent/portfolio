@@ -46,7 +46,7 @@ class Landing extends Component {
             <div style={styles.landing}>
                 <div style={{...styles.landingInner, ...styles.darkOverlay}} className="text-light">
                     <div className="text-center" style={{ paddingTop: '5%' }}>
-                        <h1 className="display-4">Full Stack Developer And, A Bit More</h1>
+                        <h1 className="display-4">Full Stack Developer</h1>
                         <p className="lead p-4">
                             Programmer, eager to learn and constantly accepting new challenges, always striving to become better.
                             <br /> If you are a business seeking a web presence or an employer looking to hire, you can get in touch with

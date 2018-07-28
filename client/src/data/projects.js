@@ -16,6 +16,44 @@ export default [
         }
     },
     {
+        header: 'Portfolio',
+        src: `${process.env.PUBLIC_URL}/img/portfolio.png`,
+        description: 'Personal Portfolio',
+        details: {
+            header: 'Personal Portfolio',
+            info: 'Portfolio Website',
+            description: 'TODO(PPavlov): Fill in',
+            images: [
+                { src: `${process.env.PUBLIC_URL}/img/portfolio.png`, alt: '' }
+            ],
+            tags: [
+                'Node.js', 'HTML5', 'CSS', 'Javascript', 'Heroku', 'React.js'
+            ]
+        }
+    },
+    {
+        header: 'UT Front React',
+        src: `${process.env.PUBLIC_URL}/img/softwaregroup.png`,
+        description: 'Contributor to UT Front React framework',
+        details: {
+            header: 'Contributor to UT Front React framework',
+            info: 'Front end framework for React.js based applications',
+            description: 'Developed several components for the framework. Created JSON editor, custom dropdown with multiple themes, added a responsive grid and fixed numerous issues',
+            images: [
+                { src: `${process.env.PUBLIC_URL}/img/softwaregroup.png`, alt: '' }
+            ],
+            tags: [
+                'Javascript', 'React'
+            ],
+            links: [
+                {
+                    href: 'https://github.com/softwaregroup-bg/ut-front-react',
+                    name: 'ut-front-react',
+                }
+            ]
+        }
+    },
+    {
         header: 'Galiciq',
         src: `${process.env.PUBLIC_URL}/img/galiciq.png`,
         description: 'Website project for a local barber shop',
@@ -32,18 +70,46 @@ export default [
         }
     },
     {
-        header: 'Portfolio',
-        src: `${process.env.PUBLIC_URL}/img/portfolio.png`,
-        description: 'Personal Portfolio',
+        header: 'JustFake - NPM',
+        src: `${process.env.PUBLIC_URL}/img/npm.png`,
+        description: 'Fake data extension for swagger via spec file',
         details: {
-            header: 'Personal Portfolio',
-            info: 'Portfolio Website',
-            description: 'TODO(PPavlov): Fill in',
+            header: 'JustFake - NPM',
+            info: 'Fake data extension for swagger via spec file',
+            description: 'This library extends the swagger functionality, adding support for Faker.js attributes in the swagger spec file, by default it is the swagger.yaml file. Also adds support for generating fake values dynamically on each request',
             images: [
-                { src: `${process.env.PUBLIC_URL}/img/portfolio.png`, alt: '' }
+                { src: `${process.env.PUBLIC_URL}/img/npm.png`, alt: '' }
             ],
             tags: [
-                'Node.js', 'HTML5', 'CSS', 'Javascript', 'Heroku', 'React.js'
+                'Javascript', 'NPM', 'Swagger'
+            ],
+            links: [
+                {
+                    href: 'https://www.npmjs.com/package/justfake',
+                    name: 'npm repository',
+                }
+            ]
+        }
+    },
+    {
+        header: 'Swagger',
+        src: `${process.env.PUBLIC_URL}/img/swagger.png`,
+        description: 'Contributor to Swagger',
+        details: {
+            header: 'Swagger',
+            info: 'Contributor to Swagger',
+            description: 'Swagger is a framework for describing your API using a common language that everyone can understand. My contribution to the projects was reporting several issues and developing fixes for them.',
+            images: [
+                { src: `${process.env.PUBLIC_URL}/img/swagger.png`, alt: '' }
+            ],
+            tags: [
+                'Swagger', 'Javascript'
+            ],
+            links: [
+                {
+                    href: 'https://github.com/swagger-api',
+                    name: 'swagger-api'
+                }
             ]
         }
     },
@@ -63,27 +129,7 @@ export default [
             ]
         }
     },
-    {
-        header: 'JustFake - NPM',
-        src: `${process.env.PUBLIC_URL}/img/npm.png`,
-        description: 'Fake data extension for swagger via spec file',
-        details: {
-            header: 'JustFake - NPM',
-            info: 'Fake data extension for swagger via spec file',
-            description: 'This library extends the swagger functionality, adding support for Faker.js attributes in the swagger spec file, by default it is the swagger.yaml file. Also adds support for generating fake values dynamically on each request [https://www.npmjs.com/package/justfake]',
-            images: [
-                { src: `${process.env.PUBLIC_URL}/img/npm.png`, alt: '' }
-            ],
-            tags: [
-                'Javascript', 'NPM', 'Swagger'
-            ],
-            links: [
-                {
-                    href: 'https://www.npmjs.com/package/justfake',
-                    name: 'npm repository',
-                }
-            ]
-        }
-    },
-
+    
 ]
+
+
