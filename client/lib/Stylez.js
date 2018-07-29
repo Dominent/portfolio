@@ -1,14 +1,3 @@
-import React from 'react'
-
-export default ({ css, children }) => {
-    return (
-        <span >
-            {children}
-        </span>
-
-    )
-}
-
 import React, { Component } from 'react'
 
 class Stylez extends Component {
