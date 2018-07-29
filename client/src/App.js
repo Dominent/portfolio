@@ -22,6 +22,7 @@ import Gallery from './components/gallery/Gallery';
 import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
 import ResponsiveGallery from './components/gallery/ResponsiveGallery';
+import Wizard from './components/wizard/Wizard';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -53,7 +54,7 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
 
-            <Route exact path="/test" component={ResponsiveGallery} />
+            <Route exact path="/test" component={Wizard} />
 
             <Route exact path="/login" component={Login} />
             <Switch>
