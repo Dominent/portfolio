@@ -23,6 +23,7 @@ import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
 import ResponsiveGallery from './components/gallery/ResponsiveGallery';
 import Wizard from './components/wizard/Wizard';
+import ProgressiveWizard from './components/wizard/ProgressiveWizard';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -54,7 +55,7 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
 
-            <Route exact path="/test" component={Wizard} />
+            <Route exact path="/test" component={ProgressiveWizard} />
 
             <Route exact path="/login" component={Login} />
             <Switch>
@@ -71,7 +72,9 @@ const Spa = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Landing />
+      <div id="id_landing">
+        <Landing />
+      </div>
 
       <div id="id_projects">
         <Gallery />

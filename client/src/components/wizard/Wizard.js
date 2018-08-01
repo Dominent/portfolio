@@ -8,68 +8,40 @@ const merge = (...items) => items
         return obj;
     }, {})
 
-const data = [
-    {
-        fas: 'phone',
-        name: 'Contacts',
-        content: <div> Test </div>,
-        selected: true
-    },
-    {
-        fas: 'user',
-        name: 'About'
-    },
-    {
-        fas: 'file',
-        name: 'Content'
-    },
-    {
-        fas: 'file-image',
-        name: 'Design'
-    },
-    {
-        fas: 'chart-line',
-        name: 'Marketing'
-    },
-    {
-        fas: 'wrench',
-        name: 'Maintenance'
-    }
-]
-
-
 class Wizard extends Component {
     render() {
         return (
               <Media
                 onPhoneResize={(dimensions, style) => {
-                    return Object.assign(style, {width: '30px'})
+                    return Object.assign(style, {width: '20px', fontSize: '0.5vw'})
                 }}
                 onTabletResize={(dimensions, style) => {
-                    return Object.assign(style, {width: '40px'})
+                    return Object.assign(style, {width: '30px', fontSize: '1vw'})
                 }}
                 onLaptopResize={(dimensions, style) => {
-                    return Object.assign(style, {width: '60px'})
+                    return Object.assign(style, {width: '40px', fontSize: '1.5vw'})
                 }}
                 onDesktopResize={(dimensions, style) => {
-                    return Object.assign(style, {width: '80px'})
+                    return Object.assign(style, {width: '80px', fontSize: '2vw'})
                 }}
               >
                {(s) => (
                     <div style={style.stepwizard}>
-                        <span style={style.stepwizard_line}></span>
                         <div style={style.stepwizard_row}>
-                            {data.map(d =>
-                                <div style={style.stepwizard_step}>
-                                    <button type="button" className="btn btn-primary" style={style.btn_circle}>
-                                        <Icon fas={d.fas} style={{width: s.width, display: 'inline-block'}}/>
-                                    </button>
-                                    <p>{d.name}</p>
-                                </div>
+                            {this.props.steps.map(d =>
+                                <React.Fragment>
+                                    <div style={style.stepwizard_step}>
+                                        <button type="button" className="btn btn-primary" style={style.btn_circle(s.fontSize)}>
+                                            <Icon fas={d.fas} style={{width: s.width, display: 'inline-block'}}/>
+                                        </button>
+                                        <p className="text-dark">{d.name}</p>
+                                    </div>
+                                    <span style={style.stepwizard_line}></span>
+                                </React.Fragment>
                             )}
                         </div>
                         <div>
-                            {data.filter(x => x.selected)[0].content} 
+                            {this.props.steps.filter(x => x.selected)[0].content} 
                         </div>
                     </div >
                )}
@@ -80,28 +52,17 @@ class Wizard extends Component {
 
 const style = {
     stepwizard: {
-        display: 'table',
-        position: 'relative',
-        width: '100%'
+        width: '100%',
     },
     stepwizard_row: {
-        display: 'table-row'
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        margin: '0 auto'
     },
     stepwizard_line: {
-        top: '2.4vw',
-        bottom: '0',
-        position: 'absolute',
-        content: '" "',
-        width: '80%',
-        height: '1px',
-        backgroundColor: '#ccc',
-        zOrder: '0',
-        margin: '0 10%'
     },
     stepwizard_step: {
-        display: 'table-cell',
         textAlign: 'center',
-        position: 'relative',
     },
     stepwizard_step_button_disabled: {
         opacity: '1',
@@ -111,16 +72,14 @@ const style = {
 
         WebkitAppearance: 'initial'
     },
-    btn_circle: {
-        width: '30%',
+    btn_circle: (fs) => ({
         textAlign: 'center',
-        padding: '3% 0',
-        fontSize: '2vw',
+        fontSize: fs,
         lineHeight: '1.428571429',
         borderRadius: '50%',
 
         WebkitAppearance: 'initial'
-    }
+    })
 }
 
 export default Wizard;

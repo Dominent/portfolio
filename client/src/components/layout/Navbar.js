@@ -40,25 +40,13 @@ class Navbar extends Component {
             </ul>
         );
 
-        const guestLinks = (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link className="nav-link" to="/register">Sign Up</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                </li>
-            </ul>
-        );
-
         return (
-            // fixed-top 
             <nav className="navbar fixed-top  navbar-expand-sm mb-4 navbar-dark" style={{
                 borderBottom: '1px solid black',
                 background: 'linear-gradient(to right, rgb(26, 188, 156), rgb(0, 123, 255))'
             }}>
                 <div className="container">
-                    <Link className="navbar-brand" to="/"> Petromil Pavlov</Link>
+                    <Link className="navbar-brand" to="/">Petromil Pavlov</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -66,7 +54,7 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="mobile-nav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Scrollchor to="" className="nav-link"> Home</Scrollchor>
+                                <Scrollchor to="#id_landing" className="nav-link"> Home</Scrollchor>
                             </li>
                             <li className="nav-item">
                                 <Scrollchor to="#id_projects" className="nav-link"> Projects </Scrollchor>

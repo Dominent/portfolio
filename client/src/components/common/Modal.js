@@ -51,7 +51,7 @@ class Modal extends Component {
                                     transform: `translateY(${style.y}px)`,
                                     opacity: style.opacity
                                 }}>
-                                    <div className="modal-dialog">
+                                    <div className="modal-dialog" style={this.props.style}>
                                         <div className="modal-content">
                                             <div className="modal-header">
                                                 {this.props.header}

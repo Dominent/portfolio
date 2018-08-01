@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from '../common/Modal';
 import Scrollchor from 'react-scrollchor';
 import { spring } from 'react-motion';
 import { ReactMotionLoop } from 'react-motion-loop';
+import Wizard from '../wizard/Wizard'
 
 const Cursor = () => {
     const styles = {
@@ -57,7 +57,6 @@ class Landing extends Component {
                             <div className="row">
                                 <div className="col-md-6 offset-md-3">
                                     <button
-                                        disabled //TODO(PPavlov): Create a Wizard Component!
                                         type="button"
                                         className="btn btn-lg btn-primary mr-2"
                                         onClick={() => this.setState({ modalIsOpen: true })}
@@ -80,10 +79,40 @@ class Landing extends Component {
                                     </button>
                                 </React.Fragment>
                             )}
+                            style={{
+                                maxWidth: '1200px'
+                            }}
                             body={(
-                                <React.Fragment>
-                                    <p>Modal body text goes here.</p>
-                                </React.Fragment>
+                                <div className="container">
+                                   <Wizard steps={[
+                                        {
+                                            fas: 'phone',
+                                            name: 'Contacts',
+                                            content: <div> Test </div>,
+                                            selected: true
+                                        },
+                                        {
+                                            fas: 'user',
+                                            name: 'About'
+                                        },
+                                        {
+                                            fas: 'file',
+                                            name: 'Content'
+                                        },
+                                        {
+                                            fas: 'file-image',
+                                            name: 'Design'
+                                        },
+                                        {
+                                            fas: 'chart-line',
+                                            name: 'Marketing'
+                                        },
+                                        {
+                                            fas: 'wrench',
+                                            name: 'Maintenance'
+                                        }
+                                   ]}></Wizard>
+                                </div>
                             )}
                             footer={(
                                 <React.Fragment>
