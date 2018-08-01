@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import Overlay from '../common/Overlay';
+import Media from '../common/Media';
 
 function chunck(items, pieces) {
     if (!(items instanceof Array)) {
@@ -63,7 +64,7 @@ class ResponsiveGallery extends Component {
 
                 this.setState({ styles: _styles });
             }}>
-                <div style={this.state.styles.row}>
+               {() =>  (<div style={this.state.styles.row}>
                     {images.map((x, i) => (
                         <div key={i} style={this.state.styles.column} >
                             {x.map((c, index) => (
@@ -78,7 +79,7 @@ class ResponsiveGallery extends Component {
                             ))}
                         </div >
                     ))}
-                </div>
+                </div>)}
             </Media>
         )
     }
@@ -105,33 +106,7 @@ const styles = (columns) => ({
     }
 })
 
-class Media extends Component {
-    updateDimensions() {
-        var width = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
 
-        var height = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-
-        this.props.onResize(width, height);
-    }
-
-    componentDidMount() {
-        window.addEventListener("resize", this.updateDimensions.bind(this));
-    }
-
-    componentWillUnmount() {
-        window.addEventListener("resize", this.updateDimensions.bind(this));
-    }
-
-    render() {
-        return (<React.Fragment>
-            {this.props.children}
-        </React.Fragment>)
-    }
-}
 
 class Card extends Component {
     constructor(props) {
