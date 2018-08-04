@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Stylez extends Component {
+class Styles extends Component {
     createStyleElement = (css, component) => {
         return <style id={component ? component : null} type="text/css" ref={(style) => this._style = style}
             dangerouslySetInnerHTML={{  __html: css || ''  }} />
@@ -44,7 +44,7 @@ class Stylez extends Component {
 
 export default {
     apply: (component, css, children) => {
-        return <Stylez css={css} component={component}>{children}</Stylez> 
+        return <Styles css={css} component={component}>{children}</Styles> 
     }
 };
 
