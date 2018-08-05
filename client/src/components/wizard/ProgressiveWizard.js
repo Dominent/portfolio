@@ -26,6 +26,9 @@ class ProgresiveWizard extends Component {
     }
 
     render() {
+        const current = +(Object.keys(this.state.stepsActiveStatus)
+            .filter(x => this.state.stepsActiveStatus[x] )[0]);
+
         return Styles.apply( ProgresiveWizard.name,
             `
                 .progressive-wizard {
@@ -166,17 +169,17 @@ class ProgresiveWizard extends Component {
                 <h3 className="progressive-wizard-title">Title</h3>
                 <hr />
                 <div className="progressive-wizard-progress">
-                    <div className="progress">
-                        <div className="progress-bar bg-success" role="progressbar" style={{width: '25%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            Step 1 of 3
-                        </div>
-                    </div>
+                    {ProgressBarTemplate(current, 3)}
                 </div>
                 <ul className="progressive-wizard-inner">
                     {ProgresiveWizardItemTemplate(1, 'Details', !!this.state.stepsActiveStatus[1], this.onClickHandler.bind(this, 1))}
                     {ProgresiveWizardItemTemplate(2, 'Shipping', !!this.state.stepsActiveStatus[2], this.onClickHandler.bind(this, 2))}
                     {ProgresiveWizardItemTemplate(3, 'Payment', !!this.state.stepsActiveStatus[3], this.onClickHandler.bind(this, 3))}
                 </ul>
+                <h3>1. Details</h3>
+                <div className="card">
+                    Content
+                </div>
             </div>
         )
     }
@@ -197,5 +200,26 @@ const ProgresiveWizardItemTemplate = (id, title, isActive, onClickHandler) => (
         <div className="progressive-wizard-step-wedge"></div>                        
     </li>
 )
+
+const ProgressBarTemplate = (current, count) => {
+    const maxPercentage = 100;
+
+    const step = Math.round(maxPercentage / count);
+
+    const currentPercentage =  current * step;
+
+    return (
+        <div 
+            className="progress-bar bg-success"
+            role="progressbar"
+            style={{width: `${currentPercentage}%` }} 
+            aria-valuenow={currentPercentage} 
+            aria-valuemin="0" 
+            aria-valuemax={maxPercentage}
+        >
+            Step {current} of {count}
+        </div>
+    )
+}
 
 export default ProgresiveWizard;
