@@ -15,7 +15,11 @@ const CheckboxGroup = ({
                 <i className={icon} />
             </span>
         </div>
-        {placeholder}
+        <div   
+            className={classnames('form-control form-control-lg', {
+                'is-invalid': error
+            })}
+        > {placeholder} </div>
         {error && (<div className="invalid-feedback">
             {error}
         </div>)}
