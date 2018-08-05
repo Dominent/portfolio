@@ -47,6 +47,7 @@ class ProgresiveWizard extends Component {
                     list-style: none;
                     padding: 20px 0 0 0;
                     min-height: 50px;
+                    text-align: justify;
                 }
 
                 .progressive-wizard-step-details {

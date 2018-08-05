@@ -6,6 +6,7 @@ import Scrollchor from 'react-scrollchor';
 import { spring } from 'react-motion';
 import { ReactMotionLoop } from 'react-motion-loop';
 import Wizard from '../wizard/Wizard'
+import ProgresiveWizard from '../wizard/ProgressiveWizard';
 
 const Cursor = () => {
     const styles = {
@@ -84,34 +85,27 @@ class Landing extends Component {
                             }}
                             body={(
                                 <div className="container">
-                                   <Wizard steps={[
+                                   <ProgresiveWizard steps={[
                                         {
-                                            fas: 'phone',
-                                            name: 'Contacts',
-                                            content: <div> Test </div>,
-                                            selected: true
+                                            title: 'Contacts',
+                                            content: <div> Test </div>
                                         },
                                         {
-                                            fas: 'user',
                                             name: 'About'
                                         },
                                         {
-                                            fas: 'file',
                                             name: 'Content'
                                         },
                                         {
-                                            fas: 'file-image',
                                             name: 'Design'
                                         },
                                         {
-                                            fas: 'chart-line',
                                             name: 'Marketing'
                                         },
                                         {
-                                            fas: 'wrench',
                                             name: 'Maintenance'
                                         }
-                                   ]}></Wizard>
+                                   ]}></ProgresiveWizard>
                                 </div>
                             )}
                             footer={(
