@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import Styles from '../common/Styles';
 import classnames from 'classnames';
+import Icon from '../common/Icon';
 
 //https://www.codeply.com/go/tjC0LYqJHA/bootstrap-tab-wizard-with-progress-bar
 class ProgresiveWizard extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            stepsActiveStatus: {
-                "1" : true
-            }
-        }
+        this.steps = props.steps
+            .map((x, i) => Object.assign(x, { id: i + 1 }));
+
+        let stepsActiveStatus = { };
+
+        this.steps.map(x => x.id)
+            .forEach(x => stepsActiveStatus[x] = false)
+
+        stepsActiveStatus[1] = true;
+
+        this.state = { stepsActiveStatus };
     }
 
     onClickHandler(id) {
@@ -26,13 +33,25 @@ class ProgresiveWizard extends Component {
     }
 
     render() {
-        const current = +(Object.keys(this.state.stepsActiveStatus)
+        const currentStepId = +(Object.keys(this.state.stepsActiveStatus)
             .filter(x => this.state.stepsActiveStatus[x] )[0]);
+
+        const currentStepIndex = this.steps
+            .findIndex(x => x.id === currentStepId);
+
+        if(currentStepIndex === -1 ) {
+            throw 'Cannot find current step!';
+        }
+
+        const currentStep = this.steps[currentStepIndex];
 
         return Styles.apply( ProgresiveWizard.name,
             `
                 .progressive-wizard {
                     margin: 1%;
+                    color: #000;
+                    text-align: justify;
+                    font-size: 15px;
                 }
 
                 .progressive-wizard-step {
@@ -47,7 +66,6 @@ class ProgresiveWizard extends Component {
                     list-style: none;
                     padding: 20px 0 0 0;
                     min-height: 50px;
-                    text-align: justify;
                 }
 
                 .progressive-wizard-step-details {
@@ -55,6 +73,10 @@ class ProgresiveWizard extends Component {
                     padding: 8px;
                     background: #eee;
                     border: 1px solid #eee;
+                }
+
+                .progressive-wizard-footer {
+                    margin-top: 2%
                 }
 
                 /* --- Shapes  --- */
@@ -167,19 +189,28 @@ class ProgresiveWizard extends Component {
 
             `,
             <div className="progressive-wizard">
-                <h3 className="progressive-wizard-title">Title</h3>
-                <hr />
                 <div className="progressive-wizard-progress">
-                    {ProgressBarTemplate(current, 3)}
+                    {ProgressBarTemplate(currentStep.id, this.steps.length)}
                 </div>
                 <ul className="progressive-wizard-inner">
-                    {ProgresiveWizardItemTemplate(1, 'Details', !!this.state.stepsActiveStatus[1], this.onClickHandler.bind(this, 1))}
-                    {ProgresiveWizardItemTemplate(2, 'Shipping', !!this.state.stepsActiveStatus[2], this.onClickHandler.bind(this, 2))}
-                    {ProgresiveWizardItemTemplate(3, 'Payment', !!this.state.stepsActiveStatus[3], this.onClickHandler.bind(this, 3))}
+                    {
+                        this.steps.map(x => ProgresiveWizardItemTemplate(
+                            x.id,
+                            x.title,
+                            this.state.stepsActiveStatus[x.id],
+                            this.onClickHandler.bind(this, x.id)))
+                    }
                 </ul>
-                <h3>1. Details</h3>
-                <div className="card">
-                    Content
+                <h3>{currentStep.id}. {currentStep.title}</h3>
+                <div className="progressive-wizard-content">
+                    {currentStep.content}
+                </div>
+                <div className="progressive-wizard-footer">
+                    {
+                        ProgressiveWizardFooterTemplate(
+                            () => this.onClickHandler(currentStep.id + 1),
+                            () => this.onClickHandler(currentStep.id - 1))
+                    }
                 </div>
             </div>
         )
@@ -188,6 +219,7 @@ class ProgresiveWizard extends Component {
 
 const ProgresiveWizardItemTemplate = (id, title, isActive, onClickHandler) => (
     <li 
+        key={id}
         className={classnames("progressive-wizard-step", {
             'progressive-wizard-step--active' : isActive
         })}
@@ -210,17 +242,37 @@ const ProgressBarTemplate = (current, count) => {
     const currentPercentage =  current * step;
 
     return (
-        <div 
-            className="progress-bar bg-success"
-            role="progressbar"
-            style={{width: `${currentPercentage}%` }} 
-            aria-valuenow={currentPercentage} 
-            aria-valuemin="0" 
-            aria-valuemax={maxPercentage}
-        >
-            Step {current} of {count}
+        <div className="progress" style={{ height: '1.3rem' }}>
+            <div 
+                className="progress-bar bg-success"
+                role="progressbar"
+                style={{width: `${currentPercentage}%` }} 
+                aria-valuenow={currentPercentage} 
+                aria-valuemin="0" 
+                aria-valuemax={maxPercentage}
+            >
+                Step {current} of {count}
+            </div>
         </div>
     )
 }
+
+const ProgressiveWizardFooterTemplate = (nextClickHandler, prevClickHandler) => (
+    <React.Fragment>
+        <button className="btn btn-lg btn-primary mr-2" onClick={prevClickHandler}>
+            <Icon fas="chevron-left" style={{
+                marginRight: '10px'
+            }}/>
+            <span>Prev</span>
+        </button>
+        <button className="btn btn-lg btn-success" onClick={nextClickHandler}>
+            <span>Next</span>
+            <Icon fas="chevron-right" style={{
+                marginLeft: '10px'
+            }}/>
+        </button>
+    </React.Fragment>
+) 
+
 
 export default ProgresiveWizard;

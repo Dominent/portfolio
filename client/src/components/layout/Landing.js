@@ -7,6 +7,9 @@ import { spring } from 'react-motion';
 import { ReactMotionLoop } from 'react-motion-loop';
 import Wizard from '../wizard/Wizard'
 import ProgresiveWizard from '../wizard/ProgressiveWizard';
+import InputGroup from '../common/InputGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import CheckboxGroup from '../common/CheckboxGroup';
 
 const Cursor = () => {
     const styles = {
@@ -43,6 +46,7 @@ class Landing extends Component {
     }
 
     render() {
+        const errors = {};
         return (
             <div style={styles.landing}>
                 <div style={{...styles.landingInner, ...styles.darkOverlay}} className="text-light">
@@ -88,22 +92,81 @@ class Landing extends Component {
                                    <ProgresiveWizard steps={[
                                         {
                                             title: 'Contacts',
-                                            content: <div> Test </div>
+                                            content: (
+                                                <form>
+                                                    <InputGroup
+                                                        placeholder="Enter Your Name"
+                                                        name="firstname"
+                                                        icon="fas fa-user"
+                                                        value={this.state.firstname}
+                                                        onChange={this.onChange}
+                                                        error={errors.firstname}
+                                                    />
+                                                    <InputGroup
+                                                        placeholder="Enter Phone Number"
+                                                        name="phonenumber"
+                                                        icon="fas fa-phone"
+                                                        value={this.state.phonenumber}
+                                                        onChange={this.onChange}
+                                                        error={errors.phonenumber}
+                                                    />
+                                                    <InputGroup
+                                                        placeholder="Enter Your Email *"
+                                                        name="email"
+                                                        icon="fas fa-envelope"
+                                                        value={this.state.email}
+                                                        onChange={this.onChange}
+                                                        error={errors.email}
+                                                    /> 
+                                                </form>
+                                            )
                                         },
                                         {
-                                            name: 'About'
+                                            title: 'About',
+                                            content: (
+                                            <form>
+                                                <InputGroup
+                                                    placeholder="What is the name of your business?"
+                                                    name="firstname"
+                                                    icon="fas fa-user"
+                                                    value={this.state.firstname}
+                                                    onChange={this.onChange}
+                                                    error={errors.firstname}
+                                                />
+                                               <TextAreaFieldGroup
+                                                    placeholder="Describe your business and what products or services you offer."
+                                                    name="message"
+                                                    value={this.state.message}
+                                                    onChange={this.onChange}
+                                                    error={errors.message}
+                                                >
+                                                </TextAreaFieldGroup >
+                                                <InputGroup
+                                                    placeholder="Do you have a timeframe or deadline for your websites launch?"
+                                                    name="firstname"
+                                                    icon="fas fa-user"
+                                                    value={this.state.firstname}
+                                                    onChange={this.onChange}
+                                                    error={errors.firstname}
+                                                />
+                                                <CheckboxGroup 
+                                                    placeholder="Is this a site re-design?"
+                                                    options={[ "Yes",  "No" ]}
+                                                />
+
+                                            </form>)
                                         },
                                         {
-                                            name: 'Content'
+                                            title: 'Content'
                                         },
                                         {
-                                            name: 'Design'
+                                            title: 'Design'
                                         },
                                         {
-                                            name: 'Marketing'
+                                            title: 'Marketing'
                                         },
                                         {
-                                            name: 'Maintenance'
+                                            title: 'Maintenance'
                                         }
                                    ]}></ProgresiveWizard>
                                 </div>

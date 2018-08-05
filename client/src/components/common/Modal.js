@@ -49,7 +49,8 @@ class Modal extends Component {
                                 <div className="modal" style={{
                                     display: 'block',
                                     transform: `translateY(${style.y}px)`,
-                                    opacity: style.opacity
+                                    opacity: style.opacity,
+                                    color: '#000'
                                 }}>
                                     <div className="modal-dialog" style={this.props.style}>
                                         <div className="modal-content">
