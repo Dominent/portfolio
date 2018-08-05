@@ -24,6 +24,7 @@ import GalleryDetails from './components/gallery/GalleryDetails';
 import ResponsiveGallery from './components/gallery/ResponsiveGallery';
 import Wizard from './components/wizard/Wizard';
 import ProgressiveWizard from './components/wizard/ProgressiveWizard';
+import CheckboxGroup from './components/common/CheckboxGroup';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -55,7 +56,13 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
 
-            <Route exact path="/test" component={ProgressiveWizard} />
+            <Route exact path="/test" component={() =>  <CheckboxGroup 
+                                                    placeholder="Is this a site re-design?"
+                                                    name="firstname"
+                                                    icon="fas fa-user"
+                                                    options={[ "Yes",  "No" ]}
+                                                />
+                                              } />
 
             <Route exact path="/login" component={Login} />
             <Switch>

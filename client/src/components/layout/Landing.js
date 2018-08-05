@@ -151,6 +151,8 @@ class Landing extends Component {
                                                 />
                                                 <CheckboxGroup 
                                                     placeholder="Is this a site re-design?"
+                                                    name="firstname"
+                                                    icon="fas fa-user"
                                                     options={[ "Yes",  "No" ]}
                                                 />
 
