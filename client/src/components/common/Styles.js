@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
 
+function buildStyleIdFromComponentName (componentName) {
+    return `style-${componentName.toLowerCase()}`;
+}
+
 class Styles extends Component {
-    createStyleElement = (css, component) => {
-        return <style id={component ? component : null} type="text/css" ref={(style) => this._style = style}
+    createStyleElement = (css, id) => {
+        return <style id={id ? id: null} type="text/css" ref={(style) => this._style = style}
             dangerouslySetInnerHTML={{  __html: css || ''  }} />
     }
 
-    componentDidMount() {
-        const { component } = this.props;
+    mergeStyleElements = (id) => {
+        let allStyles =  [...document.querySelectorAll(`#style-${id}`)];
 
-        let ownStyle = [...document.querySelectorAll(`#${component}`)]
+        let ownStyle = allStyles
             .filter(x => !x.isEqualNode(this._style))[0];
 
         if(!ownStyle) {
             return;
         }
 
-        let otherStyles = [...document.querySelectorAll(`#${component}`)]
+        let otherStyles = allStyles
             .filter(x => x.isEqualNode(this._style));
 
         if(!otherStyles.length) {
@@ -32,19 +36,29 @@ class Styles extends Component {
         otherStyles.forEach(el => el.remove());
     }
 
+    componentDidMount() {
+        const { componentName } = this.props;
+
+        const id =  buildStyleIdFromComponentName(componentName)
+
+        this.mergeStyleElements(id);
+    }
+
     render() {
-        const { children, css, component } = this.props;
+        const { children, css, componentName } = this.props;
+
+        const id =  buildStyleIdFromComponentName(componentName)
 
         return (<React.Fragment >
-            {  this.createStyleElement(css, component)  }
+            {  this.createStyleElement(css, id)  }
             {children}
         </React.Fragment>)
     }
 }
 
 export default {
-    apply: (component, css, children) => {
-        return <Styles css={css} component={component}>{children}</Styles> 
+    apply: (componentName, css, children) => {
+        return <Styles {...{ css, componentName } }>{children}</Styles> 
     }
 };
 
