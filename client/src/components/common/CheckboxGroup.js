@@ -6,15 +6,25 @@ import Styles from '../common/Styles';
 const CheckboxGroup = ({
     icon,
     placeholder,
-    name,
-    onChange,
-    error
-}) => Styles.apply('CheckboxGroup', 
+    options,
+    info
+}) => Styles.apply('CheckboxGroup',
     `
         .btn-default {
             border: 1px solid #D1D3D4;
         }
 
+        .checkboxgroup-header {
+            display: inline-block;
+        }
+
+        .checkboxgroup-body {
+            margin-left: 3rem;
+        }
+
+        .checkboxgroup-info {
+            margin-bottom: 1rem;
+        }
       
         .input-group input[type="checkbox"] {
             display: none;
@@ -54,13 +64,17 @@ const CheckboxGroup = ({
                     </span>
                 </div>
                 <div className="form-control form-control-lg"> {placeholder} </div>
+
             </div>
+
         </div>
 
+        {info && <div className="checkboxgroup-info">
+            <small className="form-text text-muted">{info}</small>
+        </div>}
+
         <div className="checkboxgroup-body">
-            {checkbox('Primary Checkbox', 'primary', (ev) => { console.log(ev.target.checked) })}
-            {checkbox('Success Checkbox', 'success')}
-            {checkbox('Success Checkbox', 'success')}
+            {options.map(x => checkbox(x.title, x.type, x.handler))}
         </div>
     </ React.Fragment>
 )
@@ -69,11 +83,11 @@ const GUID_Generator = () => {
     const chr4 = () => Math.random().toString(16).slice(-4);
 
     return chr4() + chr4() +
-      '-' + chr4() +
-      '-' + chr4() +
-      '-' + chr4() +
-      '-' + chr4() + chr4() + chr4();
-  }
+        '-' + chr4() +
+        '-' + chr4() +
+        '-' + chr4() +
+        '-' + chr4() + chr4() + chr4();
+}
 
 const checkbox = (title, type, changeHandler) => {
     const types = [
@@ -88,15 +102,15 @@ const checkbox = (title, type, changeHandler) => {
         'link'
     ];
 
-    if(!types.includes(type)) {
+    if (!types.includes(type)) {
         throw `Invalid Checkbox Type - ${type}, Valid Options - ${types.join(',')}`
     }
 
     const id = GUID_Generator();
-    
+
     return (
         <div className="input-group mb-3">
-            <input type="checkbox" id={`checkbox-default-${type}-${id}`} onChange={() =>changeHandler}/>
+            <input type="checkbox" id={`checkbox-default-${type}-${id}`} onChange={() => changeHandler} />
             <div className="btn-group">
                 <label htmlFor={`checkbox-default-${type}-${id}`} className={`btn btn-${type}`}>
                     <span className="fas fa-check" />
