@@ -25,8 +25,8 @@ const CheckboxGroup = ({
             opacity: 0.6;
         }
 
-        .checkbox-editable:focus {
-            outline: 0px;
+        .checkbox-editable-input:focus {
+            outline: 0;
         }
 
         .checkboxgroup-header {

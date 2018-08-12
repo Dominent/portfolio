@@ -5,8 +5,9 @@ import React from 'react'
         position: 'absolute',
         width: '100%',
         height: '100%',
-        opacity: '0.5',
-        cursor: 'pointer'
+        opacity: '0.7',
+        cursor: 'pointer',
+        zIndex: '1050'
     }
 
   return (

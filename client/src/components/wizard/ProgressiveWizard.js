@@ -3,7 +3,6 @@ import Styles from '../common/Styles';
 import classnames from 'classnames';
 import Icon from '../common/Icon';
 
-//https://www.codeply.com/go/tjC0LYqJHA/bootstrap-tab-wizard-with-progress-bar
 class ProgresiveWizard extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +10,7 @@ class ProgresiveWizard extends Component {
         this.steps = props.steps
             .map((x, i) => Object.assign(x, { id: i + 1 }));
 
-        let stepsActiveStatus = { };
+        let stepsActiveStatus = {};
 
         this.steps.map(x => x.id)
             .forEach(x => stepsActiveStatus[x] = false)
@@ -22,30 +21,30 @@ class ProgresiveWizard extends Component {
     }
 
     onClickHandler(id) {
-       let stepsActiveStatus = JSON.parse(JSON.stringify(this.state.stepsActiveStatus));
+        let stepsActiveStatus = JSON.parse(JSON.stringify(this.state.stepsActiveStatus));
 
         Object.keys(stepsActiveStatus)
             .forEach(x => stepsActiveStatus[x] = false)
 
         stepsActiveStatus[id] = true;
 
-        this.setState({stepsActiveStatus});
+        this.setState({ stepsActiveStatus });
     }
 
     render() {
         const currentStepId = +(Object.keys(this.state.stepsActiveStatus)
-            .filter(x => this.state.stepsActiveStatus[x] )[0]);
+            .filter(x => this.state.stepsActiveStatus[x])[0]);
 
         const currentStepIndex = this.steps
             .findIndex(x => x.id === currentStepId);
 
-        if(currentStepIndex === -1 ) {
+        if (currentStepIndex === -1) {
             throw 'Cannot find current step!';
         }
 
         const currentStep = this.steps[currentStepIndex];
 
-        return Styles.apply( ProgresiveWizard.name,
+        return Styles.apply(ProgresiveWizard.name,
             `
                 .progressive-wizard {
                     margin: 1%;
@@ -209,7 +208,9 @@ class ProgresiveWizard extends Component {
                     {
                         ProgressiveWizardFooterTemplate(
                             () => this.onClickHandler(currentStep.id + 1),
-                            () => this.onClickHandler(currentStep.id - 1))
+                            () => this.onClickHandler(currentStep.id - 1),
+                            this.props.finishClickHandler,
+                            (currentStep.id + 1 === this.steps.length))
                     }
                 </div>
             </div>
@@ -218,19 +219,19 @@ class ProgresiveWizard extends Component {
 }
 
 const ProgresiveWizardItemTemplate = (id, title, isActive, onClickHandler) => (
-    <li 
+    <li
         key={id}
         className={classnames("progressive-wizard-step", {
-            'progressive-wizard-step--active' : isActive
+            'progressive-wizard-step--active': isActive
         })}
         onClick={onClickHandler}
     >
         <div className="progressive-wizard-step-details">
             <span className="progressive-wizard-step-details-id">{id}.</span>
-            <span className="progressive-wizard-step-details-title">{title}</span> 
+            <span className="progressive-wizard-step-details-title">{title}</span>
         </div>
         <div className="progressive-wizard-step-arrow"></div>
-        <div className="progressive-wizard-step-wedge"></div>                        
+        <div className="progressive-wizard-step-wedge"></div>
     </li>
 )
 
@@ -239,16 +240,16 @@ const ProgressBarTemplate = (current, count) => {
 
     const step = Math.round(maxPercentage / count);
 
-    const currentPercentage =  current * step;
+    const currentPercentage = current * step;
 
     return (
         <div className="progress" style={{ height: '1.3rem' }}>
-            <div 
+            <div
                 className="progress-bar bg-success"
                 role="progressbar"
-                style={{width: `${currentPercentage}%` }} 
-                aria-valuenow={currentPercentage} 
-                aria-valuemin="0" 
+                style={{ width: `${currentPercentage}%` }}
+                aria-valuenow={currentPercentage}
+                aria-valuemin="0"
                 aria-valuemax={maxPercentage}
             >
                 Step {current} of {count}
@@ -257,22 +258,25 @@ const ProgressBarTemplate = (current, count) => {
     )
 }
 
-const ProgressiveWizardFooterTemplate = (nextClickHandler, prevClickHandler) => (
+const ProgressiveWizardFooterTemplate = (nextClickHandler, prevClickHandler, finishClickHandler, isFinish = false) => (
     <React.Fragment>
         <button className="btn btn-lg btn-primary mr-2" onClick={prevClickHandler}>
             <Icon fas="chevron-left" style={{
                 marginRight: '10px'
-            }}/>
+            }} />
             <span>Prev</span>
         </button>
-        <button className="btn btn-lg btn-success" onClick={nextClickHandler}>
-            <span>Next</span>
+        <button className={classnames('btn btn-lg', {
+            'btn-success': !isFinish,
+            'btn-warning': isFinish
+        })} onClick={isFinish ? finishClickHandler : nextClickHandler}>
+            <span>{isFinish ? 'Finish' : 'Next'}</span>
             <Icon fas="chevron-right" style={{
                 marginLeft: '10px'
-            }}/>
+            }} />
         </button>
     </React.Fragment>
-) 
+)
 
 
 export default ProgresiveWizard;
