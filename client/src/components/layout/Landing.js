@@ -11,6 +11,9 @@ import InputGroup from '../common/InputGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import CheckboxGroup from '../common/CheckboxGroup';
 import TextFieldGroup from '../common/TextFieldGroup';
+import axios from 'axios';
+import WebsiteTemplate from '../../templates/WebsiteTemplate';
+import Spinner from '../common/Spinner';
 
 const Cursor = () => {
     const styles = {
@@ -40,13 +43,63 @@ class Landing extends Component {
         super(props);
 
         this.state = {
-            modalIsOpen: false
+            isOpen: false,
+            input: {},
+            loading: false
         }
+
+        this.checkboxHandler = this.checkboxHandler.bind(this);
+        this.inputHandler = this.inputHandler.bind(this);
+        this.finishClickHandler = this.finishClickHandler.bind(this);
     }
+
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
             this.props.history.push('/dashboard');
         }
+    }
+
+    inputHandler(ev) {
+        const { name, value } = ev.target;
+
+        this.setState({ input: Object.assign(this.state.input, { [name]: value }) });
+    }
+
+    finishClickHandler() {
+        const { input } = this.state;
+
+        const { email, firstname, phonenumber } = input;
+
+        const message = WebsiteTemplate.build(input);
+
+        const data = {
+            email,
+            firstname,
+            message,
+            phonenumber
+        };
+
+        this.setState({ loading: true })
+
+        axios.post('/api/contacts', data)
+            .then((res) => this.setState({
+                loading: false,
+                isOpen: false
+            }))
+    }
+
+    checkboxHandler(ev, title, option) {
+        const { name, checked } = ev.target;
+
+        this.setState({
+            input: Object.assign(this.state.input, {
+                [name]: {
+                    title,
+                    option,
+                    checked
+                }
+            })
+        });
     }
 
     render() {
@@ -68,7 +121,7 @@ class Landing extends Component {
                                     <button
                                         type="button"
                                         className="btn btn-lg btn-primary mr-2"
-                                        onClick={() => this.setState({ modalIsOpen: true })}
+                                        onClick={() => this.setState({ isOpen: true })}
                                     >I Need A Website</button>
                                     <Scrollchor to="#id_contacts" className="btn btn-lg btn-primary ml-2">Hire Me</Scrollchor>
                                 </div>
@@ -76,14 +129,14 @@ class Landing extends Component {
                         </div>
 
                         <Modal
-                            isOpen={this.state.modalIsOpen}
+                            isOpen={this.state.isOpen}
                             header={(
                                 <React.Fragment>
-                                    <h5 className="modal-title">Modal title</h5>
+                                    <h5 className="modal-title">Website Request</h5>
                                     <button
                                         type="button"
                                         className="close"
-                                        onClick={() => this.setState({ modalIsOpen: false })}>
+                                        onClick={() => this.setState({ isOpen: false })}>
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </React.Fragment>
@@ -93,505 +146,490 @@ class Landing extends Component {
                             }}
                             body={(
                                 <div className="container">
-                                    <ProgresiveWizard steps={[
-                                        {
-                                            title: 'Contacts',
-                                            content: (
-                                                <form>
-                                                    <InputGroup
-                                                        placeholder="Enter Your Name"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Enter Phone Number"
-                                                        name="phonenumber"
-                                                        icon="fas fa-phone"
-                                                        value={this.state.phonenumber}
-                                                        onChange={this.onChange}
-                                                        error={errors.phonenumber}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Enter Your Email *"
-                                                        name="email"
-                                                        icon="fas fa-envelope"
-                                                        value={this.state.email}
-                                                        onChange={this.onChange}
-                                                        error={errors.email}
-                                                    />
-                                                </form>
-                                            )
-                                        },
-                                        {
-                                            title: 'About',
-                                            content: (
-                                                <form>
-                                                    <InputGroup
-                                                        placeholder="What is the name of your business?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <TextAreaFieldGroup
-                                                        placeholder="Describe your business and what products or services you offer."
-                                                        name="message"
-                                                        value={this.state.message}
-                                                        onChange={this.onChange}
-                                                        error={errors.message}
-                                                    >
-                                                    </TextAreaFieldGroup >
-                                                    <InputGroup
-                                                        placeholder="Do you have a timeframe or deadline for your websites launch?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Is this a site re-design?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Yes')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                        ]}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Do you currently have hosting?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Yes')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                        ]}
-                                                        info="Please note that we offer free hosting to charities."
-                                                    />
-                                                    <TextFieldGroup
-                                                        icon="fas fa-user"
-                                                        placeholder="Do you currently have a domain? (e.g. www.yourwebsite.com)"
-                                                        name="fieldofstudy"
-                                                        info="If not, please enter your desired domain name."
-                                                        value={this.state.fieldofstudy}
-                                                        onChange={this.onChange}
-                                                        error={errors.fieldofstudy}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="What is your budget for this project?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                </form>)
-                                        },
-                                        {
-                                            title: 'Content',
-                                            content: (
-                                                <form>
-                                                    <TextFieldGroup
-                                                        icon="fas fa-user"
-                                                        placeholder="Roughly, how many pages will your site consist of?"
-                                                        name="fieldofstudy"
-                                                        info="(e.g. Home, About, Services, Contact)"
-                                                        value={this.state.fieldofstudy}
-                                                        onChange={this.onChange}
-                                                        error={errors.fieldofstudy}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="What actions should the user perform when visiting your site?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Call you',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'Sign up for your mailing list',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Purchase a product',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Fill out contact form',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Other',
-                                                                type: 'danger',
-                                                                editable: true,
-                                                                placeholder: 'Enter an other option',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                        ]}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Please check which features you are interested in."
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'E-commerce',
-                                                                type: 'success',
-                                                                handler: () => console.log('Yes')
-                                                            },
-                                                            {
-                                                                title: 'Membership',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Blog',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Gallery',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Multi-lingual support',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                        ]}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Is there any specific functionality that your site needs that wasn't mentioned?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                </form>
-                                            )
-                                        },
-                                        {
-                                            title: 'Design',
-                                            content: (
-                                                <form>
-                                                    <CheckboxGroup
-                                                        placeholder="Are you interested in a single page design?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Yes')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Not sure',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Are you interested in a responsive website? (e.g. http://finecitizens.com/defineResponsive)"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Yes')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Not sure',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                        info="This means that your website adapts to the device it is being viewed on (phone, tablet, laptop, etc)"
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Do you have any examples of website that you like? What do you like about them?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Do you have any examples of website that you dislike? What do you dislike about them?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Do you have a logo?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Other',
-                                                                type: 'danger',
-                                                                editable: true,
-                                                                placeholder: 'Enter an other option',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Do you have branding that the websites design should reflect upon? (e.g. colors, fonts, themes)"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                </form>
-                                            )
-                                        },
-                                        {
-                                            title: 'Marketing',
-                                            content: (
-                                                <form>
-                                                    <InputGroup
-                                                        placeholder="How do people find out about your business right now?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Who is your target demographic?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="If someone is searching for your product/service, which search terms might they use?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Is your business currently active on any social media platforms?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Facebook',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'Twitter',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'YouTube',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Google+',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'LinkedIn',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Pinterest',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Yelp',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'TripAdvisor',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Other',
-                                                                type: 'danger',
-                                                                editable: true,
-                                                                placeholder: 'Enter an other option',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Do you wish to incorporate any social media feeds into your site?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Please include links to any notable competitors that you have."
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Will you need printed materials produced?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Business cards',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'Flyers',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Brochures',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Other',
-                                                                type: 'danger',
-                                                                editable: true,
-                                                                placeholder: 'Enter an other option',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                    />
-                                                </form>
-                                            )
-                                        },
-                                        {
-                                            title: 'Maintenance',
-                                            content: (
-                                                <form>
-                                                    <CheckboxGroup
-                                                        placeholder="Do you think you will need routine updates on your website?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                        ]}
-                                                    />
-                                                    <CheckboxGroup
-                                                        placeholder="Would you like to be able to do most of the updating yourself?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        options={[
-                                                            {
-                                                                title: 'Yes',
-                                                                type: 'success',
-                                                                handler: () => console.log('Call you')
-                                                            },
-                                                            {
-                                                                title: 'No',
-                                                                type: 'danger',
-                                                                handler: () => console.log('No')
-                                                            },
-                                                            {
-                                                                title: 'Other',
-                                                                type: 'danger',
-                                                                editable: true,
-                                                                placeholder: 'Enter an other option',
-                                                                handler: () => console.log('No')
-                                                            }
-                                                        ]}
-                                                    />
-                                                    <InputGroup
-                                                        placeholder="Are there any features that you don't want now but may want in the future?"
-                                                        name="firstname"
-                                                        icon="fas fa-user"
-                                                        value={this.state.firstname}
-                                                        onChange={this.onChange}
-                                                        error={errors.firstname}
-                                                    />
-                                                </form>
-                                            )
-                                        }
-                                    ]}></ProgresiveWizard>
+                                    <ProgresiveWizard
+                                        finishClickHandler={this.finishClickHandler}
+                                        steps={[
+                                            {
+                                                title: 'Contacts',
+                                                content: (
+                                                    <form>
+                                                        <InputGroup
+                                                            placeholder="Enter Your Name"
+                                                            name="firstname"
+                                                            icon="fas fa-user"
+                                                            value={this.state.input.firstname}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.firstname}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Enter Phone Number"
+                                                            name="phonenumber"
+                                                            icon="fas fa-phone"
+                                                            value={this.state.input.phonenumber}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.phonenumber}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Enter Your Email *"
+                                                            name="email"
+                                                            icon="fas fa-envelope"
+                                                            value={this.state.input.email}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.email}
+                                                        />
+                                                    </form>
+                                                )
+                                            },
+                                            {
+                                                title: 'About',
+                                                content: (
+                                                    <form>
+                                                        <InputGroup
+                                                            placeholder="What is the name of your business?"
+                                                            name="businessName"
+                                                            icon="fas fa-user"
+                                                            value={this.state.input.businessName}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.businessName}
+                                                        />
+                                                        <TextAreaFieldGroup
+                                                            placeholder="Describe your business and what products or services you offer."
+                                                            name="businessDescription"
+                                                            value={this.state.input.businessDescription}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.businessDescription}
+                                                        >
+                                                        </TextAreaFieldGroup >
+                                                        <InputGroup
+                                                            placeholder="Do you have a timeframe or deadline for your websites launch?"
+                                                            name="deadline"
+                                                            icon="fas fa-user"
+                                                            value={this.state.input.deadline}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.deadline}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Is this a site re-design?"
+                                                            name="isRedesign"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success'
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger'
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Do you currently have hosting?"
+                                                            name="hosting"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                            info="Please note that we offer free hosting to charities."
+                                                        />
+                                                        <TextFieldGroup
+                                                            icon="fas fa-user"
+                                                            placeholder="Do you currently have a domain? (e.g. www.yourwebsite.com)"
+                                                            name="fieldofstudy"
+                                                            info="If not, please enter your desired domain name."
+                                                            value={this.state.fieldofstudy}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.fieldofstudy}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="What is your budget for this project?"
+                                                            name="budget"
+                                                            icon="fas fa-user"
+                                                            value={this.state.budget}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.budget}
+                                                        />
+                                                    </form>)
+                                            },
+                                            {
+                                                title: 'Content',
+                                                content: (
+                                                    <form>
+                                                        <TextFieldGroup
+                                                            icon="fas fa-user"
+                                                            placeholder="Roughly, how many pages will your site consist of?"
+                                                            name="pages"
+                                                            info="(e.g. Home, About, Services, Contact)"
+                                                            value={this.state.pages}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.pages}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="What actions should the user perform when visiting your site?"
+                                                            name="actions"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Call you',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'Sign up for your mailing list',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Purchase a product',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Fill out contact form',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Other',
+                                                                    type: 'danger',
+                                                                    editable: true,
+                                                                    placeholder: 'Enter an other option',
+                                                                },
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Please check which features you are interested in."
+                                                            name="features"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'E-commerce',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'Membership',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Blog',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Gallery',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Multi-lingual support',
+                                                                    type: 'danger',
+                                                                },
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Is there any specific functionality that your site needs that wasn't mentioned?"
+                                                            name="functionality"
+                                                            icon="fas fa-user"
+                                                            value={this.state.functionality}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.functionality}
+                                                        />
+                                                    </form>
+                                                )
+                                            },
+                                            {
+                                                title: 'Design',
+                                                content: (
+                                                    <form>
+                                                        <CheckboxGroup
+                                                            placeholder="Are you interested in a single page design?"
+                                                            name="isSinglePage"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Not sure',
+                                                                    type: 'danger',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Are you interested in a responsive Design? (e.g. http://finecitizens.com/defineResponsive)"
+                                                            name="isResponsive"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Not sure',
+                                                                    type: 'danger',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                            info="This means that your website adapts to the device it is being viewed on (phone, tablet, laptop, etc)"
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Do you have any examples of website that you like? What do you like about them?"
+                                                            name="websiteLikeEx"
+                                                            icon="fas fa-user"
+                                                            value={this.state.websiteLikeEx}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.websiteLikeEx}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Do you have any examples of website that you dislike? What do you dislike about them?"
+                                                            name="websiteDislikeEx"
+                                                            icon="fas fa-user"
+                                                            value={this.state.websiteDislikeEx}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.websiteDislikeEx}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Do you have a logo?"
+                                                            name="hasLogo"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Other',
+                                                                    type: 'danger',
+                                                                    editable: true,
+                                                                    placeholder: 'Enter an other option',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Do you have branding that the websites design should reflect upon? (e.g. colors, fonts, themes)"
+                                                            name="branding"
+                                                            icon="fas fa-user"
+                                                            value={this.state.branding}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.branding}
+                                                        />
+                                                    </form>
+                                                )
+                                            },
+                                            {
+                                                title: 'Marketing',
+                                                content: (
+                                                    <form>
+                                                        <InputGroup
+                                                            placeholder="How do people find out about your business right now?"
+                                                            name="businessDiscovery"
+                                                            icon="fas fa-user"
+                                                            value={this.state.businessDiscovery}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.businessDiscovery}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Who is your target demographic?"
+                                                            name="target"
+                                                            icon="fas fa-user"
+                                                            value={this.state.target}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.target}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="If someone is searching for your product/service, which search terms might they use?"
+                                                            name="searchTerms"
+                                                            icon="fas fa-user"
+                                                            value={this.state.searchTerms}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.searchTerms}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Is your business currently active on any social media platforms?"
+                                                            name="activeSocialMediaPlatforms"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Facebook',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'Twitter',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'YouTube',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Google+',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'LinkedIn',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Pinterest',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Yelp',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'TripAdvisor',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Other',
+                                                                    type: 'danger',
+                                                                    editable: true,
+                                                                    placeholder: 'Enter an other option',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Do you wish to incorporate any social media feeds into your site?"
+                                                            name="feed"
+                                                            icon="fas fa-user"
+                                                            value={this.state.feed}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.feed}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Please include links to any notable competitors that you have."
+                                                            name="competitors"
+                                                            icon="fas fa-user"
+                                                            value={this.state.competitors}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.competitors}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Will you need printed materials produced?"
+                                                            name="prints"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Business cards',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'Flyers',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Brochures',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Other',
+                                                                    type: 'danger',
+                                                                    editable: true,
+                                                                    placeholder: 'Enter an other option',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                    </form>
+                                                )
+                                            },
+                                            {
+                                                title: 'Maintenance',
+                                                content: (
+                                                    <form>
+                                                        <CheckboxGroup
+                                                            placeholder="Do you think you will need routine updates on your website?"
+                                                            name="hasRoutineUpdates"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <CheckboxGroup
+                                                            placeholder="Would you like to be able to do most of the updating yourself?"
+                                                            name="automaticUpdate"
+                                                            icon="fas fa-user"
+                                                            options={[
+                                                                {
+                                                                    title: 'Yes',
+                                                                    type: 'success',
+                                                                },
+                                                                {
+                                                                    title: 'No',
+                                                                    type: 'danger',
+                                                                },
+                                                                {
+                                                                    title: 'Other',
+                                                                    type: 'danger',
+                                                                    editable: true,
+                                                                    placeholder: 'Enter an other option',
+                                                                }
+                                                            ].map(x => Object.assign(x, {
+                                                                handler: this.checkboxHandler
+                                                            }))}
+                                                        />
+                                                        <InputGroup
+                                                            placeholder="Are there any features that you don't want now but may want in the future?"
+                                                            name="futureFeatures"
+                                                            icon="fas fa-user"
+                                                            value={this.state.futureFeatures}
+                                                            onChange={this.inputHandler}
+                                                            error={errors.futureFeatures}
+                                                        />
+                                                    </form>
+                                                )
+                                            }
+                                        ]}></ProgresiveWizard>
                                 </div>
                             )}
                             footer={(
                                 <React.Fragment>
-                                    <button 
-                                        type="button" 
-                                        className="btn btn-secondary" 
-                                        onClick={() => this.setState({ modalIsOpen: false })}
+                                    {this.state.loading ? <Spinner width="100px" /> : null}
+
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        onClick={() => this.setState({ isOpen: false })}
                                     >
                                         Close
                                     </button>

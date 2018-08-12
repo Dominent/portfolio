@@ -26,6 +26,7 @@ import Wizard from './components/wizard/Wizard';
 import ProgressiveWizard from './components/wizard/ProgressiveWizard';
 import CheckboxGroup from './components/common/CheckboxGroup';
 import InputGroup from './components/common/InputGroup';
+import WebsiteTemplate from './templates/WebsiteTemplate';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -57,38 +58,7 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
 
-            <Route exact path="/test" component={() =>
-              (
-                <React.Fragment>
-                  <CheckboxGroup
-                    placeholder="Is this a site re-design?"
-                    name="firstname"
-                    icon="fas fa-user"
-                    options={[
-                      {
-                        title: 'Yes',
-                        type: 'success',
-                        handler: () => console.log('Yes')
-                      },
-                      {
-                        title: 'No',
-                        type: 'danger',
-                        handler: () => console.log('No')
-                      },
-                      {
-                        title: 'Other',
-                        type: 'success',
-                        editable: true,
-                        placeholder: 'Enter option',
-                        handler: (isChecked, text) => console.log(isChecked, text)
-                      },
-                    ]}
-                  />
-
-                </React.Fragment>
-
-              )
-            } />
+            <Route exact path="/test" component={WebsiteTemplate} />
 
             <Route exact path="/login" component={Login} />
             <Switch>

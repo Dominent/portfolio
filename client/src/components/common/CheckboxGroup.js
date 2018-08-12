@@ -2,12 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import Styles from '../common/Styles';
 
-//https://bootsnipp.com/snippets/featured/funky-radio-buttons
 const CheckboxGroup = ({
     icon,
     placeholder,
     options,
-    info
+    info,
+    name
 }) => Styles.apply('CheckboxGroup',
     `
         .btn-default {
@@ -89,7 +89,7 @@ const CheckboxGroup = ({
         </div>}
 
         <div className="checkboxgroup-body">
-            {options.map(x => checkbox(x.title, x.type, x.handler, x.editable, x.placeholder))}
+            {options.map(x => checkbox(x.title, x.type, name, (ev) => x.handler(ev, x.title), x.editable, x.placeholder))}
         </div>
     </ React.Fragment>
 )
@@ -104,7 +104,7 @@ const GUID_Generator = () => {
         '-' + chr4() + chr4() + chr4();
 }
 
-const checkbox = (title, type, changeHandler, editable = false, placeholder = '') => {
+const checkbox = (title, type, name, changeHandler, editable = false, placeholder = '') => {
     const types = [
         'secondary',
         'primary',
@@ -125,7 +125,7 @@ const checkbox = (title, type, changeHandler, editable = false, placeholder = ''
 
     return (
         <div className="input-group mb-3">
-            <input type="checkbox" id={`checkbox-default-${type}-${id}`} onChange={() => changeHandler} />
+            <input type="checkbox" id={`checkbox-default-${type}-${id}`} name={name} onChange={(ev) => changeHandler(ev)} />
             <div className="btn-group">
                 <label htmlFor={`checkbox-default-${type}-${id}`} className={`btn btn-${type}`}>
                     <span className="fas fa-check" />
@@ -134,9 +134,9 @@ const checkbox = (title, type, changeHandler, editable = false, placeholder = ''
                 <label htmlFor={`checkbox-default-${type}-${id}`} className="btn btn-default">
                     {editable ? (
                         <div className="checkbox-editable">
-                            <input type="text" className="checkbox-editable-input" placeholder={placeholder}/> 
+                            <input type="text" className="checkbox-editable-input" placeholder={placeholder} />
                         </div>
-                    ): title}
+                    ) : title}
                 </label>
             </div>
         </div>
