@@ -57,25 +57,36 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
 
-            <Route exact path="/test" component={() =>  
+            <Route exact path="/test" component={() =>
               (
                 <React.Fragment>
-                  <InputGroup
-                    placeholder="Do you have a timeframe or deadline for your websites launch?"
-                    name="firstname"
-                    icon="fas fa-user"
-                    value={''}
-                    onChange={this.onChange}
-                    error={null}
-                  />
-                  <CheckboxGroup 
+                  <CheckboxGroup
                     placeholder="Is this a site re-design?"
                     name="firstname"
                     icon="fas fa-user"
-                    options={[ "Yes",  "No" ]}
+                    options={[
+                      {
+                        title: 'Yes',
+                        type: 'success',
+                        handler: () => console.log('Yes')
+                      },
+                      {
+                        title: 'No',
+                        type: 'danger',
+                        handler: () => console.log('No')
+                      },
+                      {
+                        title: 'Other',
+                        type: 'success',
+                        editable: true,
+                        placeholder: 'Enter option',
+                        handler: (isChecked, text) => console.log(isChecked, text)
+                      },
+                    ]}
                   />
+
                 </React.Fragment>
-              
+
               )
             } />
 

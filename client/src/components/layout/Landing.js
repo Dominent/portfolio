@@ -245,10 +245,11 @@ class Landing extends Component {
                                                                 type: 'danger',
                                                                 handler: () => console.log('No')
                                                             },
-                                                            //TODO(PPavlov): Add Editable Box
                                                             {
                                                                 title: 'Other',
                                                                 type: 'danger',
+                                                                editable: true,
+                                                                placeholder: 'Enter an other option',
                                                                 handler: () => console.log('No')
                                                             },
                                                         ]}
@@ -376,12 +377,13 @@ class Landing extends Component {
                                                                 type: 'danger',
                                                                 handler: () => console.log('No')
                                                             },
-                                                            //TODO(PPavlov): Add Editable Box
                                                             {
                                                                 title: 'Other',
                                                                 type: 'danger',
+                                                                editable: true,
+                                                                placeholder: 'Enter an other option',
                                                                 handler: () => console.log('No')
-                                                            },
+                                                            }
                                                         ]}
                                                     />
                                                     <InputGroup
@@ -468,12 +470,13 @@ class Landing extends Component {
                                                                 type: 'danger',
                                                                 handler: () => console.log('No')
                                                             },
-                                                            //TODO(PPavlov): Add Editable Box
                                                             {
                                                                 title: 'Other',
                                                                 type: 'danger',
+                                                                editable: true,
+                                                                placeholder: 'Enter an other option',
                                                                 handler: () => console.log('No')
-                                                            },
+                                                            }
                                                         ]}
                                                     />
                                                     <InputGroup
@@ -512,12 +515,13 @@ class Landing extends Component {
                                                                 type: 'danger',
                                                                 handler: () => console.log('No')
                                                             },
-                                                            //TODO(PPavlov): Add Editable Box
                                                             {
                                                                 title: 'Other',
                                                                 type: 'danger',
+                                                                editable: true,
+                                                                placeholder: 'Enter an other option',
                                                                 handler: () => console.log('No')
-                                                            },
+                                                            }
                                                         ]}
                                                     />
                                                 </form>
@@ -559,12 +563,13 @@ class Landing extends Component {
                                                                 type: 'danger',
                                                                 handler: () => console.log('No')
                                                             },
-                                                            //TODO(PPavlov): Add Editable Box
                                                             {
                                                                 title: 'Other',
                                                                 type: 'danger',
+                                                                editable: true,
+                                                                placeholder: 'Enter an other option',
                                                                 handler: () => console.log('No')
-                                                            },
+                                                            }
                                                         ]}
                                                     />
                                                     <InputGroup

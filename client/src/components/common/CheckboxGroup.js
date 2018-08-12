@@ -14,6 +14,21 @@ const CheckboxGroup = ({
             border: 1px solid #D1D3D4;
         }
 
+        .checkbox-editable-input {
+            border: 0px;
+            padding: 0px;
+        }
+
+        .checkbox-editable-input::placeholder {
+            color: #6c757d;
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .checkbox-editable:focus {
+            outline: 0px;
+        }
+
         .checkboxgroup-header {
             display: inline-block;
         }
@@ -74,7 +89,7 @@ const CheckboxGroup = ({
         </div>}
 
         <div className="checkboxgroup-body">
-            {options.map(x => checkbox(x.title, x.type, x.handler))}
+            {options.map(x => checkbox(x.title, x.type, x.handler, x.editable, x.placeholder))}
         </div>
     </ React.Fragment>
 )
@@ -89,7 +104,7 @@ const GUID_Generator = () => {
         '-' + chr4() + chr4() + chr4();
 }
 
-const checkbox = (title, type, changeHandler) => {
+const checkbox = (title, type, changeHandler, editable = false, placeholder = '') => {
     const types = [
         'secondary',
         'primary',
@@ -117,7 +132,11 @@ const checkbox = (title, type, changeHandler) => {
                     <span className="placeholder" />
                 </label>
                 <label htmlFor={`checkbox-default-${type}-${id}`} className="btn btn-default">
-                    {title}
+                    {editable ? (
+                        <div className="checkbox-editable">
+                            <input type="text" className="checkbox-editable-input" placeholder={placeholder}/> 
+                        </div>
+                    ): title}
                 </label>
             </div>
         </div>
