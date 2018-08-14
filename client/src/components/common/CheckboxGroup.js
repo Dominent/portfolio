@@ -124,7 +124,7 @@ const checkbox = (title, type, name, changeHandler, editable = false, placeholde
     const id = GUID_Generator();
 
     return (
-        <div className="input-group mb-3">
+        <div key={id} className="input-group mb-3">
             <input type="checkbox" id={`checkbox-default-${type}-${id}`} name={name} onChange={(ev) => changeHandler(ev)} />
             <div className="btn-group">
                 <label htmlFor={`checkbox-default-${type}-${id}`} className={`btn btn-${type}`}>

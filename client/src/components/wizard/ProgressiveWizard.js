@@ -35,17 +35,20 @@ class ProgresiveWizard extends Component {
         const currentStepId = +(Object.keys(this.state.stepsActiveStatus)
             .filter(x => this.state.stepsActiveStatus[x])[0]);
 
-        const currentStepIndex = this.steps
-            .findIndex(x => x.id === currentStepId);
+        const index = this.steps.findIndex(x => x.id === currentStepId);
 
-        if (currentStepIndex === -1) {
+        if (index === -1) {
             throw 'Cannot find current step!';
         }
 
-        const currentStep = this.steps[currentStepIndex];
+        const currentStep = this.steps[index];
 
         return Styles.apply(ProgresiveWizard.name,
             `
+                .display-none {
+                    display: none;
+                }
+
                 .progressive-wizard {
                     margin: 1%;
                     color: #000;
@@ -202,7 +205,11 @@ class ProgresiveWizard extends Component {
                 </ul>
                 <h3>{currentStep.id}. {currentStep.title}</h3>
                 <div className="progressive-wizard-content">
-                    {currentStep.content}
+                    {
+                        this.steps.map((x, i) => <div key={i} className={classnames({
+                            "display-none": i !== index
+                        })}>{x.content}</div>)
+                    }
                 </div>
                 <div className="progressive-wizard-footer">
                     {
@@ -210,7 +217,7 @@ class ProgresiveWizard extends Component {
                             () => this.onClickHandler(currentStep.id + 1),
                             () => this.onClickHandler(currentStep.id - 1),
                             this.props.finishClickHandler,
-                            (currentStep.id + 1 === this.steps.length))
+                            (currentStep.id === this.steps.length))
                     }
                 </div>
             </div>

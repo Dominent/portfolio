@@ -62,7 +62,10 @@ class Landing extends Component {
     inputHandler(ev) {
         const { name, value } = ev.target;
 
-        this.setState({ input: Object.assign(this.state.input, { [name]: value }) });
+        this.setState({ input:
+            Object.assign(this.state.input, {
+                [name]: value 
+            }) });
     }
 
     finishClickHandler() {
@@ -76,12 +79,17 @@ class Landing extends Component {
             email,
             firstname,
             message,
-            phonenumber
+            phonenumber,
+            //TODO(PPavlov): Ugly Hack
+            recaptcha: true
         };
 
         this.setState({ loading: true })
 
         axios.post('/api/contacts', data)
+            .catch((err) => {
+                console.log(err.response.data)
+            })
             .then((res) => this.setState({
                 loading: false,
                 isOpen: false
@@ -624,7 +632,7 @@ class Landing extends Component {
                             )}
                             footer={(
                                 <React.Fragment>
-                                    {this.state.loading ? <Spinner width="100px" /> : null}
+                                    {this.state.loading ? <Spinner width="50px" /> : null}
 
                                     <button
                                         type="button"

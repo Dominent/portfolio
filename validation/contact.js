@@ -5,7 +5,7 @@ module.exports = function validateContactInput(data) {
     let errors = {};
 
     const MESSAGE_MIN_LENGTH = 25;
-    const MESSAGE_MAX_LENGTH = 1025;
+    const MESSAGE_MAX_LENGTH = Number.MAX_SAFE_INTEGER;
 
     data.email = !isEmpty(data.email) ? data.email : "";
     data.firstname = !isEmpty(data.firstname) ? data.firstname : "";
@@ -31,7 +31,7 @@ module.exports = function validateContactInput(data) {
 
     if (!Validator.isLength(data.message,
         { min: MESSAGE_MIN_LENGTH, max: MESSAGE_MAX_LENGTH })) {
-        errors.message = `Message lenght is invalid, must be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH} characters long`;
+        errors.message = `Message length is invalid, must be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH} characters long`;
     }
 
     if(!data.recaptcha) {
