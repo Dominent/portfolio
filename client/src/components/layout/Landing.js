@@ -71,24 +71,15 @@ class Landing extends Component {
     finishClickHandler() {
         const { input } = this.state;
 
-        const { email, firstname, phonenumber } = input;
-
-        const message = WebsiteTemplate.build(input);
-
-        const data = {
-            email,
-            firstname,
-            message,
-            phonenumber,
-            //TODO(PPavlov): Ugly Hack
-            recaptcha: true
+        let data = {
+            message: WebsiteTemplate.build(input),
         };
 
         this.setState({ loading: true })
 
-        axios.post('/api/contacts', data)
+        axios.post('/api/proposals', data)
             .catch((err) => {
-                console.log(err.response.data)
+                console.log(err)
             })
             .then((res) => this.setState({
                 loading: false,

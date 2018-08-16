@@ -3,10 +3,16 @@ const router = express.Router();
 
 const emailService = require('../../services/emailService');
 
+const validateProposalsInput = require('../../validation/proposal');
+
 // @route   POST api/posts
 // @desc    Send website proposal email
 // @access  Public
 router.post('/', (req, res) => {
+    const { errors, isValid } = validateProposalsInput(req.body);
+
+    if (!isValid) {  res.status(400).json(errors); }
+
     const { message } = req.body;
 
     const data = {
