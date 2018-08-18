@@ -113,18 +113,16 @@ class CheckboxGroup extends Component {
 
                 <div className="checkboxgroup-body">
                     {
-                        this.props.options.map(x => checkbox(
-                            {
-                                title: x.title,
-                                type: x.type,
-                                name: this.props.name,
-                                handler: this.changeHandler,
-                                checked: this.state.value.some(y => y.title === x.title)
-                            },
-                            {
-                                editable: x.editable,
-                                placeholder: x.placeholder
-                            }))
+                        this.props.options.map(x => <Checkbox
+                            key={x.title}
+                            title={x.title}
+                            type={x.type}
+                            name={this.props.name}
+                            handler={this.changeHandler}
+                            checked={this.state.value.some(y => y.title === x.title)}
+                            editable={x.editable}
+                            placeholder={x.placeholder}
+                        />)
                     }
                 </div>
             </ React.Fragment>
@@ -142,65 +140,62 @@ const GUID_Generator = () => {
         '-' + chr4() + chr4() + chr4();
 }
 
-const checkbox = (
-    {
-        title,
-        type,
-        name,
-        handler,
-        checked
-    },
-    {
-        editable = false,
-        placeholder = ''
-    }
-) => {
-    const types = [
-        'secondary',
-        'primary',
-        'success',
-        'danger',
-        'warning',
-        'info',
-        'light',
-        'dark',
-        'link'
-    ];
+class Checkbox extends Component {
+    constructor(props) {
+        super(props);
 
-    if (!types.includes(type)) {
-        throw new Error(`Invalid Checkbox Type - ${type}, Valid Options - ${types.join(',')}`);
+        this.state = {
+            title: ''
+        }
     }
 
-    const id = GUID_Generator();
+    render() {
+        const types = [
+            'secondary',
+            'primary',
+            'success',
+            'danger',
+            'warning',
+            'info',
+            'light',
+            'dark',
+            'link'
+        ];
 
-    return (
-        <div key={id} className="input-group mb-3">
+        if (!types.includes(this.props.type)) {
+            throw new Error(`Invalid Checkbox Type - ${this.props.type}, Valid Options - ${types.join(',')}`);
+        }
+
+        const guid = GUID_Generator();
+        const id = `checkbox-default-${this.props.type}-${guid}`;
+
+        return <div className="input-group mb-3">
             <input
                 type="checkbox"
-                id={`checkbox-default-${type}-${id}`}
-                name={name}
-                onChange={(ev) => handler && handler({
-                    title: title,
-                    name: name,
+                id={id}
+                name={this.props.name}
+                onChange={(ev) => this.props.handler && this.props.handler({
+                    title: this.props.editable ? this.state.title : this.props.title,
+                    name: this.props.name,
                     checked: ev.target.checked
                 })}
-                checked={checked}
+                checked={this.props.checked}
             />
             <div className="btn-group">
-                <label htmlFor={`checkbox-default-${type}-${id}`} className={`btn btn-${type}`}>
+                <label htmlFor={id} className={`btn btn-${this.props.type}`}>
                     <span className="fas fa-check" />
                     <span className="placeholder" />
                 </label>
-                <label htmlFor={`checkbox-default-${type}-${id}`} className="btn btn-default">
-                    {editable ? (
+                <label htmlFor={id} className="btn btn-default">
+                    {this.props.editable ? (
                         <div className="checkbox-editable">
-                            <input type="text" className="checkbox-editable-input" placeholder={placeholder} />
+                            <input type="text" className="checkbox-editable-input" placeholder={this.props.placeholder} onChange={(ev) => this.setState({ other: ev.target.title })} />
                         </div>
-                    ) : title}
+                    ) : this.props.title}
                 </label>
             </div>
         </div>
-    )
+    }
 }
 
 CheckboxGroup.propTypes = {

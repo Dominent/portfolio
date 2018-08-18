@@ -61,10 +61,12 @@ class Landing extends Component {
     inputHandler(ev) {
         const { name, value } = ev.target;
 
-        this.setState({ input:
-            Object.assign(this.state.input, {
-                [name]: value 
-            }) });
+        this.setState({
+            input:
+                Object.assign(this.state.input, {
+                    [name]: value
+                })
+        });
     }
 
     finishClickHandler() {
@@ -86,14 +88,13 @@ class Landing extends Component {
             }))
     }
 
-    checkboxHandler(ev, title, option) {
-        const { name, checked } = ev.target;
+    checkboxHandler(data) {
+        const { name, checked, title } = data;
 
         this.setState({
             input: Object.assign(this.state.input, {
                 [name]: {
                     title,
-                    option,
                     checked
                 }
             })
@@ -102,6 +103,12 @@ class Landing extends Component {
 
     render() {
         const errors = {};
+
+        const buildCheckboxValue = (name) =>
+            this.state.input[name] ?
+                [{ title: this.state.input[name].title }] :
+                [];
+
         return (
             <div style={styles.landing}>
                 <div style={{ ...styles.landingInner, ...styles.darkOverlay }} className="text-light">
@@ -210,35 +217,25 @@ class Landing extends Component {
                                                             placeholder="Is this a site re-design?"
                                                             name="isRedesign"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('isRedesign')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success'
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger'
-                                                                }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' }
+                                                            ]}
                                                         />
                                                         <CheckboxGroup
                                                             placeholder="Do you currently have hosting?"
                                                             name="hosting"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('hosting')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
+                                                            ]}
                                                             info="Please note that we offer free hosting to charities."
                                                         />
                                                         <TextFieldGroup
@@ -277,61 +274,36 @@ class Landing extends Component {
                                                             placeholder="What actions should the user perform when visiting your site?"
                                                             name="actions"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('actions')}
                                                             options={[
-                                                                {
-                                                                    title: 'Call you',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'Sign up for your mailing list',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Purchase a product',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Fill out contact form',
-                                                                    type: 'danger',
-                                                                },
+                                                                { title: 'Call you', type: 'success' },
+                                                                { title: 'Sign up for your mailing list', type: 'danger' },
+                                                                { title: 'Purchase a product', type: 'danger' },
+                                                                { title: 'Fill out contact form', type: 'danger' },
                                                                 {
                                                                     title: 'Other',
                                                                     type: 'danger',
                                                                     editable: true,
                                                                     placeholder: 'Enter an other option',
                                                                 },
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                            ]}
                                                         />
                                                         <CheckboxGroup
                                                             placeholder="Please check which features you are interested in."
                                                             name="features"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('features')}
                                                             options={[
-                                                                {
-                                                                    title: 'E-commerce',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'Membership',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Blog',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Gallery',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Multi-lingual support',
-                                                                    type: 'danger',
-                                                                },
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'E-commerce', type: 'success' },
+                                                                { title: 'Membership', type: 'danger' },
+                                                                { title: 'Blog', type: 'danger' },
+                                                                { title: 'Gallery', type: 'danger' },
+                                                                { title: 'Multi-lingual support', type: 'danger' },
+                                                            ]}
                                                         />
                                                         <InputGroup
                                                             placeholder="Is there any specific functionality that your site needs that wasn't mentioned?"
@@ -352,43 +324,27 @@ class Landing extends Component {
                                                             placeholder="Are you interested in a single page design?"
                                                             name="isSinglePage"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('isSinglePage')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Not sure',
-                                                                    type: 'danger',
-                                                                }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
+                                                                { title: 'Not sure', type: 'danger' }
+                                                            ]}
                                                         />
                                                         <CheckboxGroup
                                                             placeholder="Are you interested in a responsive Design? (e.g. http://finecitizens.com/defineResponsive)"
                                                             name="isResponsive"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('isResponsive')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Not sure',
-                                                                    type: 'danger',
-                                                                }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
+                                                                { title: 'Not sure', type: 'danger' }
+                                                            ]}
                                                             info="This means that your website adapts to the device it is being viewed on (phone, tablet, laptop, etc)"
                                                         />
                                                         <InputGroup
@@ -411,24 +367,19 @@ class Landing extends Component {
                                                             placeholder="Do you have a logo?"
                                                             name="hasLogo"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('hasLogo')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
                                                                 {
                                                                     title: 'Other',
                                                                     type: 'danger',
                                                                     editable: true,
                                                                     placeholder: 'Enter an other option',
                                                                 }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                            ]}
                                                         />
                                                         <InputGroup
                                                             placeholder="Do you have branding that the websites design should reflect upon? (e.g. colors, fonts, themes)"
@@ -473,48 +424,25 @@ class Landing extends Component {
                                                             placeholder="Is your business currently active on any social media platforms?"
                                                             name="activeSocialMediaPlatforms"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('activeSocialMediaPlatforms')}
                                                             options={[
-                                                                {
-                                                                    title: 'Facebook',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'Twitter',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'YouTube',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Google+',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'LinkedIn',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Pinterest',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Yelp',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'TripAdvisor',
-                                                                    type: 'danger',
-                                                                },
+                                                                { title: 'Facebook', type: 'success' },
+                                                                { title: 'Twitter', type: 'danger' },
+                                                                { title: 'YouTube', type: 'danger' },
+                                                                { title: 'Google+', type: 'danger' },
+                                                                { title: 'LinkedIn', type: 'danger' },
+                                                                { title: 'Pinterest', type: 'danger' },
+                                                                { title: 'Yelp', type: 'danger' },
+                                                                { title: 'TripAdvisor', type: 'danger' },
                                                                 {
                                                                     title: 'Other',
                                                                     type: 'danger',
                                                                     editable: true,
                                                                     placeholder: 'Enter an other option',
                                                                 }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                            ]}
                                                         />
                                                         <InputGroup
                                                             placeholder="Do you wish to incorporate any social media feeds into your site?"
@@ -536,28 +464,20 @@ class Landing extends Component {
                                                             placeholder="Will you need printed materials produced?"
                                                             name="prints"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('prints')}
                                                             options={[
-                                                                {
-                                                                    title: 'Business cards',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'Flyers',
-                                                                    type: 'danger',
-                                                                },
-                                                                {
-                                                                    title: 'Brochures',
-                                                                    type: 'danger',
-                                                                },
+                                                                { title: 'Business cards', type: 'success' },
+                                                                { title: 'Flyers', type: 'danger' },
+                                                                { title: 'Brochures', type: 'danger' },
                                                                 {
                                                                     title: 'Other',
                                                                     type: 'danger',
                                                                     editable: true,
                                                                     placeholder: 'Enter an other option',
                                                                 }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                            ]}
                                                         />
                                                     </form>
                                                 )
@@ -570,41 +490,31 @@ class Landing extends Component {
                                                             placeholder="Do you think you will need routine updates on your website?"
                                                             name="hasRoutineUpdates"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('hasRoutineUpdates')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
+                                                            ]}
                                                         />
                                                         <CheckboxGroup
                                                             placeholder="Would you like to be able to do most of the updating yourself?"
                                                             name="automaticUpdate"
                                                             icon="fas fa-user"
+                                                            handler={this.checkboxHandler}
+                                                            single
+                                                            value={buildCheckboxValue('automaticUpdate')}
                                                             options={[
-                                                                {
-                                                                    title: 'Yes',
-                                                                    type: 'success',
-                                                                },
-                                                                {
-                                                                    title: 'No',
-                                                                    type: 'danger',
-                                                                },
+                                                                { title: 'Yes', type: 'success' },
+                                                                { title: 'No', type: 'danger' },
                                                                 {
                                                                     title: 'Other',
                                                                     type: 'danger',
                                                                     editable: true,
                                                                     placeholder: 'Enter an other option',
                                                                 }
-                                                            ].map(x => Object.assign(x, {
-                                                                handler: this.checkboxHandler
-                                                            }))}
+                                                            ]}
                                                         />
                                                         <InputGroup
                                                             placeholder="Are there any features that you don't want now but may want in the future?"
