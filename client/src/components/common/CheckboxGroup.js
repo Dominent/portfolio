@@ -145,8 +145,29 @@ class Checkbox extends Component {
         super(props);
 
         this.state = {
-            title: ''
+            option: ''
         }
+
+        this.checkboxChangeHandler = this.checkboxChangeHandler.bind(this);
+        this.inputChangeHandler = this.inputChangeHandler.bind(this);
+    }
+
+    checkboxChangeHandler(ev) {
+        let data = {
+            title: this.props.title,
+            name: this.props.name,
+            checked: ev.target.checked
+        };
+
+        if (this.props.editable) {
+            data = Object.assign(data, { option: this.state.option });
+        }
+
+        this.props.handler(data);
+    }
+
+    inputChangeHandler(ev) {
+        this.setState({ option: ev.target.value })
     }
 
     render() {
@@ -174,11 +195,7 @@ class Checkbox extends Component {
                 type="checkbox"
                 id={id}
                 name={this.props.name}
-                onChange={(ev) => this.props.handler && this.props.handler({
-                    title: this.props.editable ? this.state.title : this.props.title,
-                    name: this.props.name,
-                    checked: ev.target.checked
-                })}
+                onChange={this.checkboxChangeHandler}
                 checked={this.props.checked}
             />
             <div className="btn-group">
@@ -189,7 +206,11 @@ class Checkbox extends Component {
                 <label htmlFor={id} className="btn btn-default">
                     {this.props.editable ? (
                         <div className="checkbox-editable">
-                            <input type="text" className="checkbox-editable-input" placeholder={this.props.placeholder} onChange={(ev) => this.setState({ other: ev.target.title })} />
+                            <input
+                                type="text"
+                                className="checkbox-editable-input"
+                                placeholder={this.props.placeholder}
+                                onChange={this.inputChangeHandler} />
                         </div>
                     ) : this.props.title}
                 </label>
@@ -215,7 +236,7 @@ CheckboxGroup.propTypes = {
     info: PropTypes.string,
     placeholder: PropTypes.string,
     icon: PropTypes.string,
-    single: PropTypes.bool //TODO(PPavlov): Make single checkbox select work, add state
+    single: PropTypes.bool
 }
 
 CheckboxGroup.defaultProps = {
