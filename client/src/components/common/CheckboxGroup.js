@@ -102,9 +102,7 @@ class CheckboxGroup extends Component {
                             </span>
                         </div>
                         <div className="form-control form-control-lg"> {this.props.placeholder} </div>
-
                     </div>
-
                 </div>
 
                 {this.props.info && <div className="checkboxgroup-info">
@@ -152,11 +150,11 @@ class Checkbox extends Component {
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
     }
 
-    checkboxChangeHandler(ev) {
+    checkboxChangeHandler(checked) {
         let data = {
             title: this.props.title,
             name: this.props.name,
-            checked: ev.target.checked
+            checked: checked
         };
 
         if (this.props.editable) {
@@ -167,7 +165,8 @@ class Checkbox extends Component {
     }
 
     inputChangeHandler(ev) {
-        this.setState({ option: ev.target.value })
+        this.setState({ option: ev.target.value },
+            () => this.checkboxChangeHandler(true))
     }
 
     render() {
@@ -195,7 +194,7 @@ class Checkbox extends Component {
                 type="checkbox"
                 id={id}
                 name={this.props.name}
-                onChange={this.checkboxChangeHandler}
+                onChange={(ev) => this.checkboxChangeHandler(ev.target.checked)}
                 checked={this.props.checked}
             />
             <div className="btn-group">

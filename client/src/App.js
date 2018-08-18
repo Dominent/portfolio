@@ -49,18 +49,6 @@ class App extends Component {
           <div className="App">
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
-            <Route exact path="/test" component={() => <CheckboxGroup
-              placeholder="Is this a site re-design?"
-              name="isRedesign"
-              icon="fas fa-user"
-              handler={(data) => { console.log(data) }}
-              value={[{ title: 'Yes' }]}
-              single
-              options={[
-                { title: 'Yes', type: 'success' },
-                { title: 'No', type: 'danger' }
-              ]}
-            />} />
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
