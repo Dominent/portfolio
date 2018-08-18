@@ -21,7 +21,6 @@ import './App.css';
 import Gallery from './components/gallery/Gallery';
 import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
-import CheckboxGroup from './components/common/CheckboxGroup';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
