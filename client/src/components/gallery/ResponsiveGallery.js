@@ -186,6 +186,7 @@ const animations = {
                     </div>
 
                     <Overlay
+                        onClick={onClick}
                         style={{ opacity: style.opacity }}
                     />
                 </React.Fragment>

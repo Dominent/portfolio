@@ -27,8 +27,7 @@ class Gallery extends Component {
         }));
 
         return (
-            <div className="gallery" 
-                // style={{ background: 'linear-gradient(to right, #1abc9c, #2f0ce8)' }}
+            <div className="gallery"
                 style={{ background: 'linear-gradient(to right, #1abc9c, #007bff)' }}
             >
                 <div className="jumbotron" style={{ color: '#fff' }}>
