@@ -38,7 +38,7 @@ class ProgresiveWizard extends Component {
         const index = this.steps.findIndex(x => x.id === currentStepId);
 
         if (index === -1) {
-            throw 'Cannot find current step!';
+            throw new Error('Cannot find current step!');
         }
 
         const currentStep = this.steps[index];

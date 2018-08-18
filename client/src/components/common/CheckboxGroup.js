@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import Styles from '../common/Styles';
 
 const CheckboxGroup = ({
@@ -7,7 +6,10 @@ const CheckboxGroup = ({
     placeholder,
     options,
     info,
-    name
+    name,
+    handler,
+    value,
+    single //TODO(PPavlov): Make single checkbox select work, add state
 }) => Styles.apply('CheckboxGroup',
     `
         .btn-default {
@@ -89,7 +91,20 @@ const CheckboxGroup = ({
         </div>}
 
         <div className="checkboxgroup-body">
-            {options.map(x => checkbox(x.title, x.type, name, (ev) => x.handler(ev, x.title), x.editable, x.placeholder))}
+            {
+                options.map(x => checkbox(
+                    {
+                        title: x.title,
+                        type: x.type,
+                        name,
+                        handler
+                    },
+                    {
+                        editable :  x.editable,
+                        placeholder: x.placeholder,
+                        defaultChecked: x.title === value
+                    }))
+           }
         </div>
     </ React.Fragment>
 )
@@ -104,7 +119,19 @@ const GUID_Generator = () => {
         '-' + chr4() + chr4() + chr4();
 }
 
-const checkbox = (title, type, name, changeHandler, editable = false, placeholder = '') => {
+const checkbox = (
+    {
+        title,
+        type,
+        name,
+        handler
+    },
+    {
+        editable = false,
+        placeholder = '',
+        defaultChecked = false
+    }
+) => {
     const types = [
         'secondary',
         'primary',
@@ -118,14 +145,24 @@ const checkbox = (title, type, name, changeHandler, editable = false, placeholde
     ];
 
     if (!types.includes(type)) {
-        throw `Invalid Checkbox Type - ${type}, Valid Options - ${types.join(',')}`
+        throw new Error(`Invalid Checkbox Type - ${type}, Valid Options - ${types.join(',')}`);
     }
 
     const id = GUID_Generator();
 
     return (
         <div key={id} className="input-group mb-3">
-            <input type="checkbox" id={`checkbox-default-${type}-${id}`} name={name} onChange={(ev) => changeHandler(ev)} />
+            <input
+                type="checkbox"
+                id={`checkbox-default-${type}-${id}`}
+                name={name} 
+                onChange={(ev) => handler && handler({
+                    title: title,
+                    name: name,
+                    checked: ev.target.checked
+                })}
+                defaultChecked={defaultChecked}
+            />
             <div className="btn-group">
                 <label htmlFor={`checkbox-default-${type}-${id}`} className={`btn btn-${type}`}>
                     <span className="fas fa-check" />

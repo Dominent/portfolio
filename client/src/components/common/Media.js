@@ -10,10 +10,6 @@ class Media extends Component {
         }
     }
 
-    componentDidMount() {
-        this.updateDimensions();
-    }
-
     updateDimensions() {
         const { width, height } = this.getDimensions();
 
@@ -46,6 +42,7 @@ class Media extends Component {
     }
 
     componentDidMount() {
+        this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
 

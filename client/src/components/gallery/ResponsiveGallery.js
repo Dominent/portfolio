@@ -151,6 +151,7 @@ class Card extends Component {
                 <img
                     src={src}
                     style={style}
+                    alt="Responsive gallery"
                 />
             </div>
         )

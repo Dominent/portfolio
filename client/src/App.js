@@ -21,12 +21,7 @@ import './App.css';
 import Gallery from './components/gallery/Gallery';
 import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
-import ResponsiveGallery from './components/gallery/ResponsiveGallery';
-import Wizard from './components/wizard/Wizard';
-import ProgressiveWizard from './components/wizard/ProgressiveWizard';
 import CheckboxGroup from './components/common/CheckboxGroup';
-import InputGroup from './components/common/InputGroup';
-import WebsiteTemplate from './templates/WebsiteTemplate';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -47,9 +42,6 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Provider store={store}>
@@ -57,7 +49,25 @@ class App extends Component {
           <div className="App">
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
-
+            <Route exact path="/test" component={() => <CheckboxGroup
+              placeholder="Is this a site re-design?"
+              name="isRedesign"
+              icon="fas fa-user"
+              handler={(data) => { console.log(data) }}
+              value="Yes"
+              options={[
+                {
+                  title: 'Yes',
+                  type: 'success',
+                  handler: null
+                },
+                {
+                  title: 'No',
+                  type: 'danger',
+                  handler: null
+                }
+              ]}
+            />} />
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />

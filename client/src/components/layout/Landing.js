@@ -5,7 +5,6 @@ import Modal from '../common/Modal';
 import Scrollchor from 'react-scrollchor';
 import { spring } from 'react-motion';
 import { ReactMotionLoop } from 'react-motion-loop';
-import Wizard from '../wizard/Wizard'
 import ProgresiveWizard from '../wizard/ProgressiveWizard';
 import InputGroup from '../common/InputGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
