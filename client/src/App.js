@@ -54,18 +54,11 @@ class App extends Component {
               name="isRedesign"
               icon="fas fa-user"
               handler={(data) => { console.log(data) }}
-              value="Yes"
+              value={[{ title: 'Yes' }]}
+              single
               options={[
-                {
-                  title: 'Yes',
-                  type: 'success',
-                  handler: null
-                },
-                {
-                  title: 'No',
-                  type: 'danger',
-                  handler: null
-                }
+                { title: 'Yes', type: 'success' },
+                { title: 'No', type: 'danger' }
               ]}
             />} />
             <Route exact path="/login" component={Login} />
