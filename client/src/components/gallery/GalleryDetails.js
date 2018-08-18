@@ -85,6 +85,7 @@ class GalleryDetails extends Component {
                                 {(images && images.length) ? (<img style={{
                                     boxShadow: '-10px 0px 10px 1px #aaaaaa',
                                 }} src={images[this.state.selected].src}
+                                alt="Gallery Details"
                                 ></img>) : null}
                             </div>
                         ))}

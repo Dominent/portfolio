@@ -30,6 +30,14 @@ class Modal extends Component {
             bottom: 0,
         }
 
+        if(isOpen) {
+            document.body.classList
+                .add('disable-scroll');
+        } else {
+            document.body.classList
+                .remove('disable-scroll');
+        }
+
         return (
             <React.Fragment>
                 {isOpen ? (
@@ -49,9 +57,10 @@ class Modal extends Component {
                                 <div className="modal" style={{
                                     display: 'block',
                                     transform: `translateY(${style.y}px)`,
-                                    opacity: style.opacity
+                                    opacity: style.opacity,
+                                    color: '#000'
                                 }}>
-                                    <div className="modal-dialog">
+                                    <div className="modal-dialog" style={this.props.style}>
                                         <div className="modal-content">
                                             <div className="modal-header">
                                                 {this.props.header}

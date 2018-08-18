@@ -8,7 +8,9 @@ const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 const files = require("./routes/api/files");
+
 const contacts = require("./routes/api/contacts");
+const proposals = require("./routes/api/proposals");
 
 const config = require('./configuration/config');
 
@@ -35,6 +37,7 @@ require('./configuration/passport')(passport);
 
 // Use Routes
 app.use("/api/contacts", contacts);
+app.use("/api/proposals", proposals);
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('./client/build'));

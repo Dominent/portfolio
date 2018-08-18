@@ -21,7 +21,7 @@ import './App.css';
 import Gallery from './components/gallery/Gallery';
 import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
-import ResponsiveGallery from './components/gallery/ResponsiveGallery';
+import CheckboxGroup from './components/common/CheckboxGroup';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -42,9 +42,6 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Provider store={store}>
@@ -52,9 +49,6 @@ class App extends Component {
           <div className="App">
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
-
-            <Route exact path="/test" component={ResponsiveGallery} />
-
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -70,7 +64,9 @@ const Spa = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Landing />
+      <div id="id_landing">
+        <Landing />
+      </div>
 
       <div id="id_projects">
         <Gallery />

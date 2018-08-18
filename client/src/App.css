@@ -37,3 +37,21 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+/*TODO(PPavlov): Move to modal component*/
+.modal-dialog,
+.modal-content {
+    /* 80% of window height */
+    height: 85%;
+}
+
+.modal-body {
+  /* 100% = dialog height, 120px = header + footer */
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
+}
+
+.disable-scroll {
+  overflow: hidden;
+  height: 100%;
+}

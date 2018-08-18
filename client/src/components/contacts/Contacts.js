@@ -76,7 +76,7 @@ class Contacts extends Component {
                             {this.state.loading ? (<Spinner />) : (
                                 <form>
                                     <InputGroup
-                                        placeholder="Enter Your Name *"
+                                        placeholder="Enter Your Name"
                                         name="firstname"
                                         icon="fas fa-user"
                                         value={this.state.firstname}
