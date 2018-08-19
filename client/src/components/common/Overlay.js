@@ -7,14 +7,17 @@ const Overlay = (props) => {
     height: '100%',
     opacity: '0.7',
     cursor: 'pointer',
-    zIndex: '1050'
+
   }
 
   return (
     <div className="overlay" >
-      <div className="bg-dark" style={Object.assign(style, props.style)}
+      <div className="bg-dark" style={
+        Object.assign(style,
+          props.style,
+          !!props.onTop ? { zIndex: '1050' } : {})}
         onClick={(ev) => {
-          return props.onClick(ev);
+          return props.onClick ? props.onClick(ev) : null;
         }}>
       </div>
     </div>

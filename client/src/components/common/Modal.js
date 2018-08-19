@@ -42,7 +42,7 @@ class Modal extends Component {
             <React.Fragment>
                 {isOpen ? (
                     <React.Fragment>
-                        <Overlay style={overlay} />
+                        <Overlay style={overlay} onTop />
                         <Motion
                             defaultStyle={{
                                 y: isOpen ? 0 : 100,
