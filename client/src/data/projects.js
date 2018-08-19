@@ -22,12 +22,18 @@ export default [
         details: {
             header: 'Personal Portfolio',
             info: 'Portfolio Website',
-            description: 'TODO(PPavlov): Fill in',
+            description: 'Portfolio project build from scratch to showcase my work. front-end was build with React.js and the back-end is running Express.js. Hosted on Heroku, developed on GitHub',
             images: [
                 { src: `${process.env.PUBLIC_URL}/img/portfolio.png`, alt: '' }
             ],
             tags: [
                 'Node.js', 'HTML5', 'CSS', 'Javascript', 'Heroku', 'React.js'
+            ],
+            links: [
+                {
+                    href: 'https://github.com/Dominent/portfolio',
+                    name: 'repository',
+                }
             ]
         }
     },
