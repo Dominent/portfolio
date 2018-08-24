@@ -5,7 +5,7 @@ const emailService = require('../../services/emailService');
 
 const validateContactInput = require('../../validation/contact');
 
-// @route   POST api/posts
+// @route   POST api/contacts
 // @desc    Send contact me email
 // @access  Public
 router.post('/', (req, res) => {
@@ -21,8 +21,12 @@ router.post('/', (req, res) => {
   }
 
   emailService.sendTextAsync(data)
-    .then(() => res.status(200).json({ message: 'success' }))
-    .catch((err) => res.status(400).json({ error: err }));
+    .then(() => {
+      res.status(200).json({ message: 'success' })
+    })
+    .catch((err) => {
+      res.status(400).json({ error: err })
+    });
 })
 
 module.exports = router;
