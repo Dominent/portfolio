@@ -112,7 +112,7 @@ class Landing extends Component {
         return (
             <div style={styles.landing}>
                 <div style={{ ...styles.landingInner, ...styles.darkOverlay }} className="text-light">
-                    <div className="text-center" style={{ paddingTop: '5%' }}>
+                    <div className="text-center" style={{ padding: '10% 0px' }}>
                         <h1 className="display-4">Full Stack Developer</h1>
                         <p className="lead p-4">
                             Programmer, eager to learn and constantly accepting new challenges, always striving to become better.
@@ -125,10 +125,10 @@ class Landing extends Component {
                                 <div className="col-md-6 offset-md-3">
                                     <button
                                         type="button"
-                                        className="btn btn-lg btn-primary mr-2"
+                                        className="btn btn-lg btn-primary m-2"
                                         onClick={() => this.setState({ isOpen: true })}
                                     >I Need A Website</button>
-                                    <Scrollchor to="#id_contacts" className="btn btn-lg btn-primary ml-2">Hire Me</Scrollchor>
+                                    <Scrollchor to="#id_contacts" className="btn btn-lg btn-primary m-2">Hire Me</Scrollchor>
                                 </div>
                             </div>
                         </div>
@@ -553,20 +553,17 @@ class Landing extends Component {
 
 const styles = {
     landing: {
-        position: 'relative',
         background: `url('./img/showcase.jpg') no-repeat`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',
-        marginTop: '-24px',
-        marginBottom: '-50px'
+        // height: '100vh',
+        marginTop: '55px',
     },
     landingInner: {
-        paddingTop: '80px'
+        // paddingTop: '80px'
     },
     darkOverlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        position: 'absolute',
         top: '0',
         left: '0',
         width: '100%',
