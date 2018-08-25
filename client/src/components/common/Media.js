@@ -6,7 +6,8 @@ class Media extends Component {
         super(props);
 
         this.state = {
-            style: {}
+            style: {},
+            mode: 'Desktop'
         }
     }
 
@@ -18,13 +19,13 @@ class Media extends Component {
         const MAX_LAPTOP_WIDTH = 1200;
 
         if (width <= MAX_PHONE_WIDTH) {
-            this.setState({ style: this.props.onPhoneResize( { width, height }, this.state.style) })
+            this.setState({ style: this.props.onPhoneResize( { width, height }, this.state.style), mode: 'Phone' })
         } else if (width <= MAX_TABLET_WIDTH) {
-            this.setState({ style: this.props.onTabletResize( { width, height }, this.state.style) });
+            this.setState({ style: this.props.onTabletResize( { width, height }, this.state.style), mode: 'Tablet' });
         } else if (width <= MAX_LAPTOP_WIDTH) {
-            this.setState({ style: this.props.onLaptopResize( { width, height }, this.state.style) });
+            this.setState({ style: this.props.onLaptopResize( { width, height }, this.state.style), mode: 'Laptop' });
         } else {
-            this.setState({ style: this.props.onDesktopResize( { width, height }, this.state.style) });
+            this.setState({ style: this.props.onDesktopResize( { width, height }, this.state.style), mode: 'Desktop' });
         }
 
         this.props.onResize(width, height);
@@ -52,7 +53,7 @@ class Media extends Component {
 
     render() {
         return (<React.Fragment>
-            {this.props.children(this.state.style)}
+            {this.props.children(this.state.style, this.state.mode)}
         </React.Fragment>)
     }
 }

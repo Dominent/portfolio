@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import isEmpty from '../../validation/is-empty';
 import Redirect from 'react-router-dom/Redirect';
 import { Motion, spring } from 'react-motion';
+import Media from '../common/Media';
 
 class GalleryDetails extends Component {
     constructor(props) {
@@ -25,12 +26,11 @@ class GalleryDetails extends Component {
     render() {
         const { header, info, description, tags, images, links } = this.props.details;
 
-        const meta = (
+
+        const meta = (_style) => (
             <React.Fragment >
                 <div className="row">
-                    <div className="col-md-10 offset-md-1" style={{
-                        marginTop: '25%'
-                    }}>
+                    <div className="col-md-10 offset-md-1" style={_style}>
                         <h1>{header}</h1>
                         <div className="text-muted">{info}</div>
                         <hr></hr>
@@ -64,40 +64,46 @@ class GalleryDetails extends Component {
         )
 
         return (
-            <React.Fragment>
-                {isEmpty(this.props.details) ? <Redirect to="/" /> : null}
 
-                <div
-                    className="gallery-details"
-                    style={{ ...style.main, ...this.props.style }}
-                >
-                    <div className="row" >
-                        {animations.fadeIn((style) => (
-                            <div className="col-md-6"
-                                onClick={this.onClick.bind(this)}
-                                style={{ opacity: style.opacity }}
-                            >
-                                <Scrollable>
-                                    {meta}
-                                </Scrollable>
-                            </div>
-                        ))}
+            <Media
+            >
+                {(_style, _mode) =>
+                    <React.Fragment>
+                        {isEmpty(this.props.details) ? <Redirect to="/" /> : null}
 
-                        {animations.swipeLeft((style) => (
-                            <div className="col-md-6"
-                                style={{
-                                    transform: `translateX(${style.x}px)`
-                                }}>
-                                {(images && images.length) ? (<img style={{
-                                    boxShadow: '-10px 0px 10px 1px #aaaaaa',
-                                }} src={images[this.state.selected].src}
-                                    alt="Gallery Details"
-                                ></img>) : null}
+                        <div
+                            className="gallery-details"
+                            style={{ ...style.main, ...this.props.style }}
+                        >
+                            <div className="row" >
+                                {animations.fadeIn((style) => (
+                                    <div className="col-md-6"
+                                        onClick={this.onClick.bind(this)}
+                                        style={{ opacity: style.opacity }}
+                                    >
+                                        {_mode !== 'Phone' && _mode !== 'Tablet' ? <Scrollable>
+                                            {meta({ marginTop: '25%' })}
+                                        </Scrollable> : meta({ margin: '10%' })}
+                                    </div>
+                                ))}
+
+                                {animations.swipeLeft((style) => (
+                                    <div className="col-md-6"
+                                        style={{
+                                            transform: `translateX(${style.x}px)`
+                                        }}>
+                                        {(images && images.length) ? (<img style={{
+                                            boxShadow: '-10px 0px 10px 1px #aaaaaa',
+                                        }} src={images[this.state.selected].src}
+                                            alt="Gallery Details"
+                                        ></img>) : null}
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </React.Fragment>
+                        </div>
+                    </React.Fragment>
+                }
+            </Media>
         )
     }
 }
