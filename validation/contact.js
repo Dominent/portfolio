@@ -5,7 +5,7 @@ module.exports = function validateContactInput(data) {
     let errors = {};
 
     const MESSAGE_MIN_LENGTH = 25;
-    const MESSAGE_MAX_LENGTH = Number.MAX_SAFE_INTEGER;
+    const MESSAGE_MAX_LENGTH = 512;
 
     data.email = !isEmpty(data.email) ? data.email : "";
     data.firstname = !isEmpty(data.firstname) ? data.firstname : "";
@@ -34,9 +34,9 @@ module.exports = function validateContactInput(data) {
         errors.message = `Message length is invalid, must be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH} characters long`;
     }
 
-    if(!data.recaptcha) {
-        errors.recaptcha = 'The reCAPTCHA code you entered was incorrect';
-    }
+    // if(!data.recaptcha) {
+    //     errors.recaptcha = 'The reCAPTCHA code you entered was incorrect';
+    // }
 
     // if (Validator.isEmpty(data.phonenumber)) {
     //     errors.phonenumber = 'Phone number is required, cannot be empty';
