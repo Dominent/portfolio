@@ -64,9 +64,7 @@ class GalleryDetails extends Component {
         )
 
         return (
-
-            <Media
-            >
+            <Media>
                 {(_style, _mode) =>
                     <React.Fragment>
                         {isEmpty(this.props.details) ? <Redirect to="/" /> : null}
