@@ -25,14 +25,14 @@ class Contacts extends Component {
     onSubmit(ev) {
         ev.preventDefault();
 
-        const { email, firstname, message, phonenumber, recaptcha } = this.state;
+        const { email, firstname, message, phonenumber, grecaptcha } = this.state;
 
         const contactData = {
             email,
             firstname,
             message,
             phonenumber,
-            recaptcha
+            grecaptcha
         };
 
         this.setState({ loading: true })
@@ -44,7 +44,6 @@ class Contacts extends Component {
             .catch((err) => {
                 this.setState({
                     errors: err.response.data,
-                    recaptcha: false,
                     loading: false
                 });
             })
@@ -60,7 +59,7 @@ class Contacts extends Component {
     render() {
         const { errors } = this.state;
 
-        const sitekey = '6LfSK2AUAAAAAKdP36BTVJpvSA1tQXhfSMGHYwqC';
+        const SITEKEY = '6LfSK2AUAAAAAKdP36BTVJpvSA1tQXhfSMGHYwqC';
 
         return (
             <div className="flat-section">
@@ -112,10 +111,8 @@ class Contacts extends Component {
                                     <div className="row">
                                         <div className="col">
                                             <Recaptcha
-                                                sitekey={sitekey}
-                                                callback={(ev) => {
-                                                    this.setState({ recaptcha: true });
-                                                }}
+                                                sitekey={SITEKEY}
+                                                callback={this.onChange}
                                                 error={errors.recaptcha}
                                             />
                                         </div>

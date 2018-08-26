@@ -7,9 +7,21 @@ class Recaptcha extends Component {
 
         this.callback = '__recaptcha_callback';
         this.id = '__recaptcha';
+
+        this.verifyRecaptchaCallback = this.verifyRecaptchaCallback.bind(this);
     }
+
+    verifyRecaptchaCallback(responce) {
+        this.props.callback({
+            target: {
+                value: responce,
+                name: this.props.name
+            }
+        })
+    }
+
     componentDidMount() {
-        window[this.callback] = (ev) => this.props.callback(ev);
+        window[this.callback] = this.verifyRecaptchaCallback;
 
         const { grecaptcha } = window;
 
@@ -40,7 +52,12 @@ class Recaptcha extends Component {
 
 Recaptcha.propTypes = {
     sitekey: PropTypes.string.isRequired,
-    callback: PropTypes.func.isRequired
+    name: PropTypes.string,
+    callback: PropTypes.func
+}
+
+Recaptcha.defaultProps = {
+    name: 'grecaptcha'
 }
 
 export default Recaptcha;

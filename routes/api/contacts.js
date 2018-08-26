@@ -2,16 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const emailService = require('../../services/emailService');
-
 const validateContactInput = require('../../validation/contact');
+const reCaptcha = require('../../libs/reCaptcha');
 
-// @route   POST api/posts
+// @route   POST api/contacts
 // @desc    Send contact me email
 // @access  Public
-router.post('/', (req, res) => {
+router.post('/', reCaptcha.verify, (req, res) => {
   const { errors, isValid } = validateContactInput(req.body);
 
-  if (!isValid) {  res.status(400).json(errors); }
+  if (!isValid) { return res.status(400).json(errors); }
 
   const { email, firstname, message, phonenumber } = req.body;
 
