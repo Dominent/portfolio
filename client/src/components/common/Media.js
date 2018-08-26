@@ -6,8 +6,8 @@ class Media extends Component {
         super(props);
 
         this.state = {
-            style: {},
-            mode: 'Desktop'
+            style: props.default || {},
+            mode: ''
         }
     }
 
