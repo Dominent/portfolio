@@ -11,15 +11,10 @@ import PrivateRoute from './components/common/PrivateRoute';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
-
-import Gallery from './components/gallery/Gallery';
-import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';
+import Spa from 'Spa';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -56,27 +51,6 @@ class App extends Component {
       </Provider>
     );
   }
-}
-
-const Spa = () => {
-  return (
-    <React.Fragment>
-      <Navbar />
-      <div id="id_landing">
-        <Landing />
-      </div>
-
-      <div id="id_projects">
-        <Gallery />
-      </div>
-
-      <div id="id_contacts">
-        <Contacts />
-      </div>
-
-      <Footer />
-    </React.Fragment>
-  )
 }
 
 export default App;

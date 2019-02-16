@@ -3,8 +3,7 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser'
 import passport from 'passport';
-import path from 'path';
-import AppRouter from '@client/AppRouter';
+import App from '@client/App';
 import '@env';
 
 const contacts = require("./routes/api/contacts");
@@ -37,7 +36,7 @@ app.get('*', (req, res) => {
   const content = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
-        <AppRouter />
+        <App />
       </StaticRouter>
     </Provider>
   )

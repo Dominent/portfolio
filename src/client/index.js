@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './AppRouter';
-
 import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
 
 import '/styles/index.scss';
 
@@ -14,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render((<Provider store={store}>
         <Router>
-            <AppRouter />
+            <App />
         </Router>
     </Provider>), document.getElementById('root'));
 })
