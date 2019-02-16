@@ -15,6 +15,18 @@ module.exports = (env, options) => {
             }
         },
         devtool: options.mode === 'development' ? 'source-map' : false,
+        module: {
+            rules: [
+                { test: /\.json$/i, loader: 'json-loader' },
+                {
+                    test: /\.(jpe?g|png|gif|svg)$/i,
+                    use: [
+                        'url-loader?limit=10000',
+                        'img-loader'
+                    ]
+                }
+            ]
+        },
     })
 
     return [

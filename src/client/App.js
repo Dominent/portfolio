@@ -17,7 +17,6 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 
-import './App.css';
 import Gallery from './components/gallery/Gallery';
 import Contacts from './components/contacts/Contacts';
 import GalleryDetails from './components/gallery/GalleryDetails';

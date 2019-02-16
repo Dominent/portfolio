@@ -4,10 +4,7 @@ import AppRouter from './AppRouter';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import './index.css';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+import '/styles/index.scss';
 
 window.addEventListener('DOMContentLoaded', () => {
     const preloadedState = JSON.parse(window.__STATE__ || '');

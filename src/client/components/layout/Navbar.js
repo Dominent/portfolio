@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../../actions/authActions';
-import { clearCurrentProfile } from '../../actions/profileActions';
+import { logoutUser } from '@client/store/actions/authActions';
+import { clearCurrentProfile } from '@client/store/actions/profileActions';
 import Scrollchor from 'react-scrollchor';
 
 class Navbar extends Component {

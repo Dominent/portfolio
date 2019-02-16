@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { setGalleryDetails } from '../../actions/galleryActions';
+import { setGalleryDetails } from '@client/store/actions/galleryActions';
 
 import ResponsiveGallery from './ResponsiveGallery';
 
