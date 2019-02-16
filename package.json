@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
-    "dev:build": "webpack --mode=development"
+    "dev:build-client": "webpack --mode=development --watch",
+    "dev:build-server": "nodemon --watch build --exec node build/server.bundle.js",
+    "dev": "npm-run-all --parallel dev:*"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -18,9 +27,13 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
     "css-loader": "^2.1.0",
+    "dotenv": "^6.2.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
+    "nodemon": "^1.18.10",
+    "npm-run-all": "^4.1.5",
     "sass-loader": "^7.1.0",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.2.3",

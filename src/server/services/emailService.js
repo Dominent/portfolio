@@ -1,27 +1,25 @@
 const axios = require("axios");
 
-const config = require('../configuration/config');
-
 const {
-    url,
-    username, 
-    password, 
-    receiver
-} = config.email;
+    EMAIL_SERVICE_URL,
+    EMAIL_SERVICE_RECEIVER,
+    EMAIL_SERVICE_PASSWORD,
+    EMAIL_SERVICE_USERNAME,
+} = process.env;
 
 module.exports = {
     sendTextAsync: (emailInfo) => {
-        return axios.post(`${url}/api/email/text?username=${username}&password=${password}`, 
+        return axios.post(`${EMAIL_SERVICE_URL}/api/email/text?username=${EMAIL_SERVICE_USERNAME}&password=${EMAIL_SERVICE_PASSWORD}`, 
             Object.assign(emailInfo, {
-                sender: username,
-                receiver: receiver
+                sender: EMAIL_SERVICE_USERNAME,
+                receiver: EMAIL_SERVICE_RECEIVER
             }));
     },
     sentHtmlAsync: (emailInfo) => {
-        return axios.post(`${url}/api/email/html?username=${username}&password=${password}`, 
+        return axios.post(`${EMAIL_SERVICE_URL}/api/email/html?username=${EMAIL_SERVICE_USERNAME}&password=${EMAIL_SERVICE_PASSWORD}`, 
             Object.assign(emailInfo, {
-                sender: username,
-                receiver: receiver
+                sender: EMAIL_SERVICE_USERNAME,
+                receiver: EMAIL_SERVICE_RECEIVER
             }));
     }
 }

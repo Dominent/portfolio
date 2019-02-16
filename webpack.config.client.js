@@ -1,5 +1,11 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const env = require('./src/env');
+const envKeys = Object.keys(env || {}).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+}, {});
 
 module.exports = ({
     target: 'node',
@@ -36,6 +42,7 @@ module.exports = ({
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
-        })
+        }),
+        new webpack.DefinePlugin(envKeys)
     ]
 })

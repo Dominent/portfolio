@@ -1,7 +1,5 @@
 const axios = require('axios');
 
-const config = require('../configuration/config');
-
 const reCAPTCHA = {
     verify: (req, res, next) => {
         const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
@@ -9,7 +7,7 @@ const reCAPTCHA = {
         let buildUrl = (secret, response, remoteip) => `${RECAPTCHA_URL}?secret=${secret}&response=${response}&remoteip=${remoteip}`;
 
         const data = {
-            secret: config.recaptcha.secret,
+            secret: process.env.RECAPTCHA_URL,
             response: req.body.grecaptcha,
         }
 

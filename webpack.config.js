@@ -10,7 +10,8 @@ module.exports = (env, options) => {
         resolve: {
             alias: {
                 '@client': path.resolve(__dirname, 'src/client'),
-                '@server': path.resolve(__dirname, 'src/server')
+                '@server': path.resolve(__dirname, 'src/server'),
+                '@env': path.resolve(__dirname, 'src/env')
             }
         },
         devtool: options.mode === 'development' ? 'source-map' : false,
