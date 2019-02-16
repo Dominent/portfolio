@@ -1,15 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = (env, options) => ({
+module.exports = ({
     target: 'node',
-    entry: './src/client/index.js',
+    entry: path.resolve(__dirname, 'src/client/index.js'),
     output: {
         filename: 'client.bundle.js',
         path: path.resolve(__dirname, 'build/public'),
         publicPath: '/build/public'
     },
-    devtool: options.mode === 'development' ? 'source-map' : null,
     module: {
         rules: [
             {
