@@ -110,8 +110,8 @@ class Landing extends Component {
                 [];
 
         return (
-            <div style={styles.landing}>
-                <div style={{ ...styles.landingInner, ...styles.darkOverlay }} className="text-light">
+            <div class="landing">
+                <div className="dark-overlay text-light">
                     <div className="text-center" style={{ padding: '10% 0px' }}>
                         <h1 className="display-4">Full Stack Developer</h1>
                         <p className="lead p-4">
@@ -548,26 +548,6 @@ class Landing extends Component {
                 </div>
             </div>
         )
-    }
-}
-
-const styles = {
-    landing: {
-        background: `url('../img/showcase.jpg') no-repeat`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        // height: '100vh',
-        marginTop: '55px',
-    },
-    landingInner: {
-        // paddingTop: '80px'
-    },
-    darkOverlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%'
     }
 }
 

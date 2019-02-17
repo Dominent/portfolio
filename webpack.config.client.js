@@ -29,11 +29,29 @@ module.exports = ({
                 }
             },
             {
-                test: /\.s?css$/,
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                exclude: [
+                    path.resolve(__dirname, './node_modules'),
+                ],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: '/images',
+                    },
+                },
+            },
+            {
+                test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+                    { loader: 'css-loader' },
+                    { loader: 'resolve-url-loader' },
+                    {
+                        loader: 'sass-loader', options: {
+                            sourceMap: true,
+                            sourceMapContents: false
+                        }
+                    }
                 ]
             },
 
@@ -41,8 +59,7 @@ module.exports = ({
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: 'css/[name].css'
         }),
         new webpack.DefinePlugin(envKeys)
     ]

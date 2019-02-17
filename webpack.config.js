@@ -12,20 +12,23 @@ module.exports = (env, options) => {
                 '@client': path.resolve(__dirname, 'src/client'),
                 '@server': path.resolve(__dirname, 'src/server'),
                 '@env': path.resolve(__dirname, 'src/env'),
-                '@store': path.resolve(__dirname, 'src/client/store')
+                '@store': path.resolve(__dirname, 'src/client/store'),
+                '@components': path.resolve(__dirname, 'src/client/components'),
             }
         },
         devtool: options.mode === 'development' ? 'source-map' : false,
         module: {
             rules: [
                 { test: /\.json$/i, loader: 'json-loader' },
-                {
-                    test: /\.(jpe?g|jpg|png|gif|svg)$/i,
-                    use: [
-                        'url-loader?limit=10000',
-                        'img-loader'
-                    ]
-                }
+               
+                // {
+                //     test: /\.(jpe?g|png|gif|svg)$/i,
+                //     use: [
+                //         'url-loader?limit=10000',
+                //         'img-loader'
+                //     ]
+                // }
+                // { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file-loader' }
             ]
         },
     })
