@@ -553,7 +553,7 @@ class Landing extends Component {
 
 const styles = {
     landing: {
-        background: `url('./img/showcase.jpg') no-repeat`,
+        background: `url('../img/showcase.jpg') no-repeat`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         // height: '100vh',

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { setCurrentUser, logoutUser } from './actions/authActions';
-
-import { clearCurrentProfile } from './actions/profileActions';
+import { setCurrentUser, logoutUser } from '@store/actions/authActions';
+import { clearCurrentProfile } from '@store/actions/profileActions';
 
 import store from './store';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -12,9 +11,8 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 
 import Login from './components/auth/Login';
-import Dashboard from './components/dashboard/Dashboard';
 import GalleryDetails from './components/gallery/GalleryDetails';
-import Spa from 'Spa';
+import Spa from './Spa';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -43,9 +41,9 @@ class App extends Component {
             <Route exact path="/gallery" component={GalleryDetails} />
             <Route exact path="/" component={Spa} />
             <Route exact path="/login" component={Login} />
-            <Switch>
+            {/* <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
+            </Switch> */}
           </div>
         </Router>
       </Provider>

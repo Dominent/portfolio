@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 
-import '/styles/index.scss';
+import './styles/index.scss';
 
 window.addEventListener('DOMContentLoaded', () => {
     const preloadedState = JSON.parse(window.__STATE__ || '');

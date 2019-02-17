@@ -11,7 +11,8 @@ module.exports = (env, options) => {
             alias: {
                 '@client': path.resolve(__dirname, 'src/client'),
                 '@server': path.resolve(__dirname, 'src/server'),
-                '@env': path.resolve(__dirname, 'src/env')
+                '@env': path.resolve(__dirname, 'src/env'),
+                '@store': path.resolve(__dirname, 'src/client/store')
             }
         },
         devtool: options.mode === 'development' ? 'source-map' : false,
@@ -19,7 +20,7 @@ module.exports = (env, options) => {
             rules: [
                 { test: /\.json$/i, loader: 'json-loader' },
                 {
-                    test: /\.(jpe?g|png|gif|svg)$/i,
+                    test: /\.(jpe?g|jpg|png|gif|svg)$/i,
                     use: [
                         'url-loader?limit=10000',
                         'img-loader'

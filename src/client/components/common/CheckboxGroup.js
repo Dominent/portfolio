@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../common/Styles';
 import PropTypes from 'prop-types';
 
 class CheckboxGroup extends Component {
@@ -31,100 +30,37 @@ class CheckboxGroup extends Component {
     }
 
     render() {
-        return Styles.apply(CheckboxGroup.name,
-            `
-            .btn-default {
-                border: 1px solid #D1D3D4;
-            }
-
-            .checkbox-editable-input {
-                border: 0px;
-                padding: 0px;
-            }
-
-            .checkbox-editable-input::placeholder {
-                color: #6c757d;
-                font-size: 20px;
-                opacity: 0.6;
-            }
-
-            .checkbox-editable-input:focus {
-                outline: 0;
-            }
-
-            .checkboxgroup-header {
-                display: inline-block;
-            }
-
-            .checkboxgroup-body {
-                margin-left: 3rem;
-            }
-
-            .checkboxgroup-info {
-                margin-bottom: 1rem;
-            }
-        
-            .input-group input[type="checkbox"] {
-                display: none;
-            }
-
-            .input-group input[type="checkbox"] + .btn-group > label span {
-                width: 15px;
-            }
-
-            .input-group input[type="checkbox"] + .btn-group > label span:first-child {
-                display: none;
-            }
-
-            .input-group input[type="checkbox"] + .btn-group > label span:last-child {
-                display: inline-block;   
-            }
-
-            .input-group input[type="checkbox"]:not(:checked) + .btn-group > label:first-child {
-                background-color: #D1D3D4;
-                border-color: #D1D3D4
-            }
-
-            .input-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
-                display: inline-block;
-            }
-
-            .input-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-                display: none;   
-            }
-        `,
-            <React.Fragment>
-                <div className="checkboxgroup-header">
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">
-                                <i className={this.props.icon} />
-                            </span>
-                        </div>
-                        <div className="form-control form-control-lg"> {this.props.placeholder} </div>
+        return (<React.Fragment>
+            <div className="checkboxgroup-header">
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">
+                            <i className={this.props.icon} />
+                        </span>
                     </div>
+                    <div className="form-control form-control-lg"> {this.props.placeholder} </div>
                 </div>
+            </div>
 
-                {this.props.info && <div className="checkboxgroup-info">
-                    <small className="form-text text-muted">{this.props.info}</small>
-                </div>}
+            {this.props.info && <div className="checkboxgroup-info">
+                <small className="form-text text-muted">{this.props.info}</small>
+            </div>}
 
-                <div className="checkboxgroup-body">
-                    {
-                        this.props.options.map(x => <Checkbox
-                            key={x.title}
-                            title={x.title}
-                            type={x.type}
-                            name={this.props.name}
-                            handler={this.changeHandler}
-                            checked={this.state.value.some(y => y.title === x.title)}
-                            editable={x.editable}
-                            placeholder={x.placeholder}
-                        />)
-                    }
-                </div>
-            </ React.Fragment>
-        )
+            <div className="checkboxgroup-body">
+                {
+                    this.props.options.map(x => <Checkbox
+                        key={x.title}
+                        title={x.title}
+                        type={x.type}
+                        name={this.props.name}
+                        handler={this.changeHandler}
+                        checked={this.state.value.some(y => y.title === x.title)}
+                        editable={x.editable}
+                        placeholder={x.placeholder}
+                    />)
+                }
+            </div>
+        </ React.Fragment>)
     }
 }
 
