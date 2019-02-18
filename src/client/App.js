@@ -34,9 +34,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/gallery" component={GalleryDetails} />
-        <Route exact path="/" component={Spa} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/gallery" component={() => <GalleryDetails />} />
+        <Route exact path="/" component={() => <Spa />} />
+        <Route exact path="/login" component={() => <Login />} />
         {/* <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch> */}

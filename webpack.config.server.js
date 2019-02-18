@@ -9,20 +9,5 @@ module.exports = ({
         path: path.resolve(__dirname, 'build'),
         publicPath: '/build'
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: '/node_modules',
-                options: {
-                    presets: [
-                        "@babel/preset-env",
-                        "@babel/preset-react"
-                    ]
-                },
-            }
-        ]
-    },
     externals: [webpackNodeExternals()]
 })

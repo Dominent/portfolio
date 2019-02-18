@@ -110,7 +110,7 @@ class Landing extends Component {
                 [];
 
         return (
-            <div class="landing">
+            <div className="landing">
                 <div className="dark-overlay text-light">
                     <div className="text-center" style={{ padding: '10% 0px' }}>
                         <h1 className="display-4">Full Stack Developer</h1>

@@ -4,9 +4,12 @@ import '@env';
 import { configure } from '@store';
 import express from 'express';
 import bodyParser from 'body-parser'
-import passport from 'passport';
 import App from '@client/App';
 import template from './template';
+import ReactDOMServer from 'react-dom/server';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { StaticRouter } from "react-router";
 
 const contacts = require("./routes/api/contacts");
 const proposals = require("./routes/api/proposals");
@@ -16,12 +19,6 @@ const app = express();
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Passport middleware
-app.use(passport.initialize());
-
-// Pasport Config
-require('./passport')(passport);
 
 // Use Routes
 app.use("/api/contacts", contacts);

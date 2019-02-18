@@ -30,13 +30,13 @@ class Modal extends Component {
             bottom: 0,
         }
 
-        if(isOpen) {
-            document.body.classList
-                .add('disable-scroll');
-        } else {
-            document.body.classList
-                .remove('disable-scroll');
-        }
+        // if(isOpen) {
+        //     document.body.classList
+        //         .add('disable-scroll');
+        // } else {
+        //     document.body.classList
+        //         .remove('disable-scroll');
+        // }
 
         return (
             <React.Fragment>
