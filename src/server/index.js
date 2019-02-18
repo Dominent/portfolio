@@ -1,10 +1,12 @@
 import 'babel-polyfill';
+import '@env';
 
+import { configure } from '@store';
 import express from 'express';
 import bodyParser from 'body-parser'
 import passport from 'passport';
 import App from '@client/App';
-import '@env';
+import template from './template';
 
 const contacts = require("./routes/api/contacts");
 const proposals = require("./routes/api/proposals");
