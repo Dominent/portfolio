@@ -1,21 +1,16 @@
 img {
-    width: 100%;
-  }
+  width: 100%;
+}
   
-  .landing {
-    position: relative;
-    background: url('../../img/showcase.jpg') no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    margin-top: -24px;
-    margin-bottom: -50px;
-  }
-  
-  .landing-inner {
-    padding-top: 80px;
-  }
-  
+.landing {
+  position: relative;
+  background: url(../../img/showcase.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+
   .dark-overlay {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
@@ -24,35 +19,39 @@ img {
     width: 100%;
     height: 100%;
   }
+}
+
+.landing-inner {
+  padding-top: 80px;
+}
   
-  .card-form {
-    opacity: 0.9;
-  }
+.card-form {
+  opacity: 0.9;
+}
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
   
-  .latest-profiles-img {
-    width: 40px;
-    height: 40px;
-  }
+.form-control::placeholder {
+  color: #bbb !important;
+}
   
-  .form-control::placeholder {
-    color: #bbb !important;
-  }
+/*TODO(PPavlov): Move to modal component*/
+.modal-dialog,
+.modal-content {
+    /* 80% of window height */
+    height: 85%;
+}
+
+.modal-body {
+  /* 100% = dialog height, 120px = header + footer */
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
+}
   
-  /*TODO(PPavlov): Move to modal component*/
-  .modal-dialog,
-  .modal-content {
-      /* 80% of window height */
-      height: 85%;
-  }
-  
-  .modal-body {
-    /* 100% = dialog height, 120px = header + footer */
-    max-height: calc(100% - 120px);
-    overflow-y: scroll;
-  }
-  
-  .disable-scroll {
-    overflow: hidden;
-    height: 100%;
-  }
-  
+.disable-scroll {
+  overflow: hidden;
+  height: 100%;
+}

@@ -11,18 +11,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { StaticRouter } from "react-router";
 
-const contacts = require("./routes/api/contacts");
-const proposals = require("./routes/api/proposals");
-
 const app = express();
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Use Routes
-app.use("/api/contacts", contacts);
-app.use("/api/proposals", proposals);
 
 app.use(express.static('build/public'));
 

@@ -8,7 +8,6 @@ const envKeys = Object.keys(env || {}).reduce((prev, next) => {
 }, {});
 
 module.exports = ({
-    target: 'node',
     entry: path.resolve(__dirname, 'src/client/index.js'),
     output: {
         filename: 'client.bundle.js',

@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const reCAPTCHA = {
+export default {
     verify: (req, res, next) => {
         const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
@@ -26,5 +26,3 @@ const reCAPTCHA = {
             })
     }
 }
-
-module.exports = reCAPTCHA;

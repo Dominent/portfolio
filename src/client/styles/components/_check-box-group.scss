@@ -29,31 +29,31 @@
     margin-bottom: 1rem;
 }
 
-.input-group input[type="checkbox"] {
+.input-group input[type=checkbox] {
     display: none;
 }
 
-.input-group input[type="checkbox"] + .btn-group > label span {
+.input-group input[type=checkbox] + .btn-group > label span {
     width: 15px;
 }
 
-.input-group input[type="checkbox"] + .btn-group > label span:first-child {
+.input-group input[type=checkbox] + .btn-group > label span:first-child {
     display: none;
 }
 
-.input-group input[type="checkbox"] + .btn-group > label span:last-child {
+.input-group input[type=checkbox] + .btn-group > label span:last-child {
     display: inline-block;   
 }
 
-.input-group input[type="checkbox"]:not(:checked) + .btn-group > label:first-child {
+.input-group input[type=checkbox]:not(:checked) + .btn-group > label:first-child {
     background-color: #D1D3D4;
     border-color: #D1D3D4
 }
 
-.input-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+.input-group input[type=checkbox]:checked + .btn-group > label span:first-child {
     display: inline-block;
 }
 
-.input-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+.input-group input[type=checkbox]:checked + .btn-group > label span:last-child {
     display: none;   
 }

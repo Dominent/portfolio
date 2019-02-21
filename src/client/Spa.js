@@ -8,9 +8,15 @@ import Footer from './components/layout/Footer';
 export default () => (
     <React.Fragment>
         <Navbar />
-        <Landing />
-        <Gallery />
-        <Contacts />
+        <div id="id_landing">
+            <Landing />
+        </div>
+        <div id="id_projects">
+            <Gallery />
+        </div>
+        <div id="id_contacts">
+            <Contacts />
+        </div>
         <Footer />
     </React.Fragment>
 )

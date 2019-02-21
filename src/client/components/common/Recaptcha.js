@@ -25,6 +25,10 @@ class Recaptcha extends Component {
 
         const { grecaptcha } = window;
 
+        if (grecaptcha == null) {
+            return;
+        }
+
         if (!!grecaptcha.render) {
             let id = grecaptcha.render(this.id);
             grecaptcha.reset(id);

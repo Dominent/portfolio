@@ -38,20 +38,23 @@ module.exports = (env, options) => {
                         path.resolve(__dirname, './node_modules'),
                     ],
                     use: {
-                        loader: 'file-loader',
+                        loader: 'url-loader',
                         options: {
-                            outputPath: '/images',
-                        },
-                    },
+                            limit: 5000,
+                            name: '[name].[ext]',
+                            publicPath: './'
+                        }
+                    }
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.(scss|sass)$/,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        { loader: 'css-loader' },
-                        { loader: 'resolve-url-loader' },
+                        'css-loader',
+                        'resolve-url-loader',
                         {
-                            loader: 'sass-loader', options: {
+                            loader: 'sass-loader',
+                            options: {
                                 sourceMap: true,
                                 sourceMapContents: false
                             }
@@ -63,15 +66,13 @@ module.exports = (env, options) => {
                     exclude: [
                         path.resolve(__dirname, './node_modules'),
                     ],
-                    use: [
-                        { loader: 'json-loader' }
-                    ]
+                    loader: 'json-loader'
                 }
             ]
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: 'css/[name].css'
+                filename: '[name].css'
             }),
         ]
     })

@@ -27,15 +27,13 @@ class Gallery extends Component {
         }));
 
         return (
-            <div className="gallery"
-                style={{ background: 'linear-gradient(to right, #1abc9c, #007bff)' }}
-            >
-                <div className="jumbotron" style={{ color: '#fff' }}>
+            <div className="gallery">
+                <div className="jumbotron">
                     <div className="container text-center">
                         <header>
                             <h1 className="display-4">My Portfolio</h1>
                             <h4>A Selection of My Work</h4>
-                            <hr style={{ borderTop: '1px solid #fff' }} />
+                            <hr className="jumbotron-header" />
                         </header>
                     </div>
                     <main>
