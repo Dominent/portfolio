@@ -7,7 +7,9 @@ if (process.env.NODE_ENV === 'test') {
         path: path.resolve(__dirname, '.env.test')
     }).parsed;
 } else if (process.env.NODE_ENV === 'production') {
-    env = dotenv.config({ path: path.resolve(__dirname, '.env.production') }).parsed;
+    env = dotenv.config({ 
+        path: path.resolve(__dirname, '.env.production') 
+    }).parsed;
 } else {
     env = dotenv.config({
         path: path.resolve(__dirname, '.env.development')

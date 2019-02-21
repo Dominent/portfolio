@@ -1,3 +1,5 @@
+// import boroinvest from '../img/boroinvest.png';
+
 export default [
     {
         header: 'Boroinvest',
