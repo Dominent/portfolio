@@ -9,9 +9,10 @@ import template from './template';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { StaticRouter } from "react-router";
+import { StaticRouter, matchPath } from "react-router-dom"
 
 import UsersRoute from './routes/api/users';
+import routes from '../client/routes';
 
 const app = express();
 
@@ -24,18 +25,28 @@ app.use(express.static('build/public'));
 const initialState = {}
 const store = configure(initialState);
 
-app.get('*', (req, res) => {
-  const content = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  )
+app.get('*', (req, res, next) => {
+  const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
 
-  const preloadedState = store.getState();
+  const promise = activeRoute.fetchInitialData
+    ? activeRoute.fetchInitialData(req.path)
+    : Promise.resolve()
 
-  res.status(200).send(template({ content, state: preloadedState }))
+  promise.then((data) => {
+    const context = { data }
+
+    const content = ReactDOMServer.renderToString(
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>
+    )
+
+    const preloadedState = store.getState();
+
+    res.status(200).send(template({ content, state: preloadedState }))
+  }).catch(next);
 })
 
 const port = process.env.PORT || 5000;

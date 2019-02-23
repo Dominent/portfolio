@@ -27,8 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (decoded.exp < currentTime) {
             store.dispatch(logoutUser());
-
-            window.location.href = '/login';
         }
     }
 
