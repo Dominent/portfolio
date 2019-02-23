@@ -5,14 +5,14 @@ CREATE PROCEDURE [dbo].[prc_CreateUserAccount]
 	@Error NVARCHAR(Max) OUTPUT
 AS
 BEGIN
-	IF EXISTS (SELECT *
+IF EXISTS (SELECT *
 		FROM tbl_Users
-		WHERE Username = @Username) 
+		WHERE Email = @Email) 
 	BEGIN
 		DECLARE @ErrorsTVP tvp_Errors;
 
 		INSERT INTO @ErrorsTVP (Name)
-		VALUES ('invalid.username')
+		VALUES ('user.email.exists')
 
 		SET @Error = (SELECT * FROM @ErrorsTVP FOR JSON AUTO)
 	END

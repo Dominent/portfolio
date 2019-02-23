@@ -11,11 +11,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { StaticRouter } from "react-router";
 
+import UsersRoute from './routes/api/users';
+
 const app = express();
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use('/api/users', UsersRoute)
 
 app.use(express.static('build/public'));
 

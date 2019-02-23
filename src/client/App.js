@@ -9,26 +9,30 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 
 import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import GalleryDetails from './components/gallery/GalleryDetails';
 import Spa from './Spa';
+import Dashboard from './components/admin/dashboard';
 
-// if (localStorage.jwtToken) {
-//   setAuthToken(localStorage.jwtToken);
+if (typeof window !== 'undefined') {
+  if (localStorage.jwtToken) {
+    setAuthToken(localStorage.jwtToken);
 
-//   const decoded = jwt_decode(localStorage.jwtToken);
+    const decoded = jwt_decode(localStorage.jwtToken);
 
-//   store.dispatch(setCurrentUser(decoded));
+    store.dispatch(setCurrentUser(decoded));
 
-//   const currentTime = Date.now() / 1000;
+    const currentTime = Date.now() / 1000;
 
-//   if (decoded.exp < currentTime) {
-//     store.dispatch(logoutUser());
+    if (decoded.exp < currentTime) {
+      store.dispatch(logoutUser());
 
-//     store.dispatch(clearCurrentProfile());
+      store.dispatch(clearCurrentProfile());
 
-//     window.location.href = '/login';
-//   }
-// }
+      window.location.href = '/login';
+    }
+  }
+}
 
 class App extends Component {
   render() {
@@ -37,9 +41,10 @@ class App extends Component {
         <Route exact path="/gallery" component={() => <GalleryDetails />} />
         <Route exact path="/" component={() => <Spa />} />
         <Route exact path="/login" component={() => <Login />} />
-        {/* <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch> */}
+        <Route exact path="/register" component={() => <Register />} />
+        <Switch>
+          <PrivateRoute exact path="/admin/dashboard" component={() => <Dashboard />} />
+        </Switch>
       </div>
     );
   }

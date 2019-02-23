@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../actions/authActions';
+import { registerUser } from '@store/actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup.js';
 
 class Register extends Component {
@@ -74,7 +74,6 @@ class Register extends Component {
                                     value={this.state.email}
                                     onChange={this.onChange}
                                     error={errors.email}
-                                    info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
                                 />
                                 <TextFieldGroup
                                     placeholder="Password"
