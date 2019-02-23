@@ -15,6 +15,9 @@ module.exports = ({
         publicPath: '/build/public'
     },
     plugins: [
-        new webpack.DefinePlugin(envKeys)
+        new webpack.DefinePlugin(envKeys),
+        new webpack.DefinePlugin({
+            __isBrowser__: "true"
+        })
     ]
 })

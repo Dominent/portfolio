@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '@store/actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
     constructor() {
@@ -18,18 +19,18 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        if(this.props.auth.isAuthenticated){
+        if (this.props.auth.isAuthenticated) {
             this.props.history.push('/dashboard');
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.auth.isAuthenticated){
+        if (nextProps.auth.isAuthenticated) {
             this.props.history.push('/dashboard');
         }
 
-        if(nextProps.errors) {
-            this.setState({errors: nextProps.errors})
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors })
         }
     }
 
@@ -45,7 +46,7 @@ class Login extends Component {
             password: this.state.password,
         }
 
-      this.props.loginUser(userData);
+        this.props.loginUser(userData);
     }
 
     render() {
@@ -96,4 +97,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));

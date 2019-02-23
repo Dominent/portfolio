@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals');
 
 module.exports = ({
@@ -9,5 +10,10 @@ module.exports = ({
         path: path.resolve(__dirname, 'build'),
         publicPath: '/build'
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            __isBrowser__: "false"
+        })
+    ],
     externals: [webpackNodeExternals()]
 })
