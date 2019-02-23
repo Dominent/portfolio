@@ -15,23 +15,19 @@ import UsersRoute from './routes/api/users';
 
 const app = express();
 
-// Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/api/users', UsersRoute)
-
+app.use('/api/users', UsersRoute);
 app.use(express.static('build/public'));
 
 const initialState = {}
 const store = configure(initialState);
 
 app.get('*', (req, res) => {
-  const context = {};
-
   const content = ReactDOMServer.renderToString(
     <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
+      <StaticRouter location={req.url}>
         <App />
       </StaticRouter>
     </Provider>

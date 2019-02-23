@@ -52,11 +52,6 @@ class Landing extends Component {
         this.finishClickHandler = this.finishClickHandler.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
-        }
-    }
 
     inputHandler(ev) {
         const { name, value } = ev.target;
