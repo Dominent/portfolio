@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '@client/store/actions/authActions';
-import { clearCurrentProfile } from '@client/store/actions/profileActions';
 import Scrollchor from 'react-scrollchor';
 
 class Navbar extends Component {
@@ -11,7 +10,6 @@ class Navbar extends Component {
         e.preventDefault();
 
         this.props.logoutUser();
-        this.props.clearCurrentProfile();
     }
 
     render() {
@@ -55,7 +53,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    logoutUser,
-    clearCurrentProfile
+    logoutUser
 })(Navbar);
 
