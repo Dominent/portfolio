@@ -27,6 +27,13 @@ const store = configure(initialState);
 
 app.get('*', (req, res, next) => {
   const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
+  const state = store.getState();
+
+  if (activeRoute.authorize) {
+    if (!state.auth.isAuthenticated) {
+      res.redirect('/login');
+    }
+  }
 
   const promise = activeRoute.fetchInitialData
     ? activeRoute.fetchInitialData(req.path)

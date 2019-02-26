@@ -30,7 +30,7 @@ const routes = [
         path: '/admin/dashboard',
         exact: true,
         component: Dashboard,
-        authenticated: true
+        authorize: true
     }
 ]
 
