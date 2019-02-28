@@ -1,7 +1,7 @@
-const Validator = require("validator");
-const isEmpty = require("./is-empty");
+import validator from 'validator';
+import isEmpty from './is-empty';
 
-module.exports = function validateContactInput(data) {
+export default function validateContactInput(data) {
     let errors = {};
 
     const MESSAGE_MIN_LENGTH = 25;
@@ -13,23 +13,23 @@ module.exports = function validateContactInput(data) {
     data.phonenumber = !isEmpty(data.phonenumber) ? data.phonenumber : "";
     data.recaptcha = !isEmpty(data.recaptcha) ? data.recaptcha : false;
 
-    if (Validator.isEmpty(data.email)) {
+    if (validator.isEmpty(data.email)) {
         errors.email = 'Email is required, cannot be empty';
     }
 
-    if (!Validator.isEmail(data.email)) {
+    if (!validator.isEmail(data.email)) {
         errors.email = 'Email does not match required format';
     }
 
-    if (Validator.isEmpty(data.firstname)) {
+    if (validator.isEmpty(data.firstname)) {
         errors.firstname = 'Name is required, cannot be empty';
     }
 
-    if (Validator.isEmpty(data.message)) {
+    if (validator.isEmpty(data.message)) {
         errors.message = 'Message is required, cannot be empty';
     }
 
-    if (!Validator.isLength(data.message,
+    if (!validator.isLength(data.message,
         { min: MESSAGE_MIN_LENGTH, max: MESSAGE_MAX_LENGTH })) {
         errors.message = `Message length is invalid, must be between ${MESSAGE_MIN_LENGTH} and ${MESSAGE_MAX_LENGTH} characters long`;
     }

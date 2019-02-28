@@ -1,9 +1,8 @@
-const express = require("express");
+import express from 'express';
+import emailService from '../../services/emailService';
+import validateProposalsInput from '../../validation/proposal';
+
 const router = express.Router();
-
-const emailService = require('../../services/emailService');
-
-const validateProposalsInput = require('../../validation/proposal');
 
 // @route   POST api/posts
 // @desc    Send website proposal email
@@ -25,4 +24,4 @@ router.post('/', (req, res) => {
         .catch((err) => res.status(400).json({ error: err }));
 })
 
-module.exports = router;
+export default router;

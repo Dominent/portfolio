@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from 'axios';
 
 const {
     EMAIL_SERVICE_URL,
@@ -7,7 +7,7 @@ const {
     EMAIL_SERVICE_USERNAME,
 } = process.env;
 
-module.exports = {
+export default {
     sendTextAsync: (emailInfo) => {
         return axios.post(`${EMAIL_SERVICE_URL}/api/email/text?username=${EMAIL_SERVICE_USERNAME}&password=${EMAIL_SERVICE_PASSWORD}`, 
             Object.assign(emailInfo, {

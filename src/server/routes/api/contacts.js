@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import express from 'express';
+import emailService from '../../services/emailService';
+import validateContactInput  from '../../validation/contact';
+import reCaptcha from '../../libs/reCaptcha';
 
-const emailService = require('../../services/emailService');
-const validateContactInput = require('../../validation/contact');
-const reCaptcha = require('../../libs/reCaptcha');
+const router = express.Router();
 
 // @route   POST api/contacts
 // @desc    Send contact me email
@@ -25,4 +25,4 @@ router.post('/', reCaptcha.verify, (req, res) => {
     .catch((err) => res.status(400).json({ error: err }));
 })
 
-module.exports = router;
+export default router;

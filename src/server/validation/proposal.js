@@ -1,12 +1,12 @@
-const Validator = require("validator");
-const isEmpty = require("./is-empty");
+import validator from 'validator';
+import isEmpty from './is-empty';
 
-module.exports = function validatePropolsalInput(data) {
+export default function validatePropolsalInput(data) {
     let errors = {};
 
     data.message = !isEmpty(data.message) ? data.message : "";
 
-    if (Validator.isEmpty(data.message)) {
+    if (validator.isEmpty(data.message)) {
         errors.email = 'Message is required, cannot be empty';
     }
 

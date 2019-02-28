@@ -12,6 +12,10 @@ import { Provider } from 'react-redux';
 import { StaticRouter, matchPath } from "react-router-dom"
 
 import UsersRoute from './routes/api/users';
+import ProjectsRoute from './routes/api/projects';
+import ProposalsRoute from './routes/api/proposals';
+import ContactsRoute from './routes/api/contacts';
+
 import routes from '../client/routes';
 
 const app = express();
@@ -20,6 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/users', UsersRoute);
+app.use('/api/projects', ProjectsRoute);
+app.use('/api/proposals', ProposalsRoute);
+app.use('/api/contacts', ContactsRoute);
+
 app.use(express.static('build/public'));
 
 const initialState = {}
