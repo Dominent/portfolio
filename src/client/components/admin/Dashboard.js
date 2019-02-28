@@ -6,14 +6,11 @@ export default class Dashboard extends Component {
             <div className="d-flex" id="wrapper">
 
                 <div className="bg-light border-right" id="sidebar-wrapper">
-                    <div className="sidebar-heading">Start Bootstrap </div>
+                    <div className="sidebar-heading">Admin</div>
                     <div className="list-group list-group-flush">
                         <a href="#" className="list-group-item list-group-item-action bg-light">Dashboard</a>
-                        <a href="#" className="list-group-item list-group-item-action bg-light">Shortcuts</a>
-                        <a href="#" className="list-group-item list-group-item-action bg-light">Overview</a>
-                        <a href="#" className="list-group-item list-group-item-action bg-light">Events</a>
-                        <a href="#" className="list-group-item list-group-item-action bg-light">Profile</a>
-                        <a href="#" className="list-group-item list-group-item-action bg-light">Status</a>
+                        <a href="#" className="list-group-item list-group-item-action bg-light">Accounts</a>
+                        <a href="#" className="list-group-item list-group-item-action bg-light">Projects</a>
                     </div>
                 </div>
 
@@ -37,7 +34,7 @@ export default class Dashboard extends Component {
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Dropdown
-              </a>
+                                    </a>
                                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a className="dropdown-item" href="#">Action</a>
                                         <a className="dropdown-item" href="#">Another action</a>
