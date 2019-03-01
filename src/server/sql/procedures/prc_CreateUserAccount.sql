@@ -1,3 +1,7 @@
+-- CREATE TYPE [dbo].[tvp_Errors] AS TABLE(
+-- 	[Name] [nvarchar](50) NULL
+-- )
+
 CREATE PROCEDURE [dbo].[prc_CreateUserAccount]
 	@Username NVARCHAR(100),
 	@Password NVARCHAR(300),

@@ -1,3 +1,5 @@
+-- GRANT EXECUTE TO [user]
+
 SET IDENTITY_INSERT tbl_Projects ON
 INSERT INTO tbl_Projects (
 	Id,

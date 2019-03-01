@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
-    "dev:build-client": "webpack --mode=development --watch",
+    "dev:build-client": "webpack --mode development --watch",
     "dev:build-server": "nodemon --watch build --exec node build/server.bundle.js",
     "dev": "npm-run-all --parallel dev:*",
-    "prod:build": "webpack --mode=production",
-    "prod:tree-shaking": "webpack"
+    "prod:build": "webpack --mode production"
   },
   "dependencies": {
     "axios": "^0.18.0",
