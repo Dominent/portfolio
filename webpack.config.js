@@ -4,6 +4,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpackConfigClient = require('./webpack.config.client.js');
 const webpackConfigServer = require('./webpack.config.server.js');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env, options) => {
     const sharedConfig = () => ({
@@ -21,15 +22,11 @@ module.exports = (env, options) => {
             rules: [
                 {
                     test: /\.js$/,
-                    loader: 'babel-loader',
                     exclude: [
-                        path.resolve(__dirname, './node_modules'),
+                        path.resolve(__dirname, './node_modules')
                     ],
-                    options: {
-                        presets: [
-                            "@babel/preset-env",
-                            "@babel/preset-react"
-                        ],
+                    use: {
+                        loader: "babel-loader"
                     }
                 },
                 {
@@ -74,6 +71,7 @@ module.exports = (env, options) => {
             new MiniCssExtractPlugin({
                 filename: '[name].css'
             }),
+            new Dotenv()
         ]
     })
 

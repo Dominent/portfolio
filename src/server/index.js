@@ -1,6 +1,3 @@
-import 'babel-polyfill';
-import '@env';
-
 import { configure } from '@store';
 import express from 'express';
 import bodyParser from 'body-parser'
