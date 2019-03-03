@@ -7,9 +7,20 @@ import ResponsiveGallery from './ResponsiveGallery';
 
 class Gallery extends Component {
     onGalleryItemClicked(src) {
-        let srcToDetails = {};
+        let project = this.props.projects.projects
+            .find((p) => p.ImageSrc = src);
 
-        let details = srcToDetails[src];
+        let details = project ? {
+            description: project.ProjectDetailsDescription,
+            header: project.ProjectDetailsHeader,
+            images: project.images.map(i => ({
+                src: i.Src,
+                alt: i.Alt
+            })),
+            info: project.ProjectDetailsInfo,
+            tags: project.tags.map(t => t.Name),
+            links: []
+        } : null;
 
         this.props.setGalleryDetails(details);
         this.props.history.push('/gallery');
