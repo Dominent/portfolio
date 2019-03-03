@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = ({
     target: 'node',
@@ -13,7 +14,10 @@ module.exports = ({
     plugins: [
         new webpack.DefinePlugin({
             __isBrowser__: "false"
-        })
+        }),
+        new CleanWebpackPlugin([
+            'build/*.*'
+        ])
     ],
     externals: [webpackNodeExternals()]
 })
