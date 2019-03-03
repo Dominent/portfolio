@@ -6,9 +6,10 @@ import Contacts from './components/contacts/Contacts';
 import Footer from './components/layout/Footer';
 import { connect } from 'react-redux';
 import { getProjects } from '@store/actions/projectActions';
+import Count from './components/Count';
 
 class Spa extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.getProjects();
     }
 
@@ -17,6 +18,9 @@ class Spa extends Component {
             <Navbar />
             <div id="id_landing">
                 <Landing />
+            </div>
+            <div id="id_count">
+                <Count />
             </div>
             <div id="id_projects">
                 <Gallery />
