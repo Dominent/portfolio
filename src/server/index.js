@@ -12,6 +12,7 @@ import UsersRoute from './routes/api/users';
 import ProjectsRoute from './routes/api/projects';
 import ProposalsRoute from './routes/api/proposals';
 import ContactsRoute from './routes/api/contacts';
+import { resolve } from 'path'
 
 import routes from '../client/routes';
 
@@ -25,7 +26,7 @@ app.use('/api/projects', ProjectsRoute);
 app.use('/api/proposals', ProposalsRoute);
 app.use('/api/contacts', ContactsRoute);
 
-app.use(express.static('build/public'));
+app.use(express.static(resolve(process.cwd(), 'public')));
 
 const initialState = {}
 const store = configure(initialState);
