@@ -92,4 +92,3 @@ INSERT INTO tbl_ProjectDetailsImages (
 	(5, 5),
 	(6, 6),
 	(7, 7)
-

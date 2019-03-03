@@ -8,7 +8,7 @@ import ResponsiveGallery from './ResponsiveGallery';
 class Gallery extends Component {
     onGalleryItemClicked(src) {
         let project = this.props.projects.projects
-            .find((p) => p.ImageSrc = src);
+            .find((p) => p.ImageSrc === src);
 
         let details = project ? {
             description: project.ProjectDetailsDescription,
