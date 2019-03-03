@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { setGalleryDetails } from '@client/store/actions/galleryActions';
 
 import ResponsiveGallery from './ResponsiveGallery';
 
-import projects from '../../data/projects';
-
 class Gallery extends Component {
     onGalleryItemClicked(src) {
         let srcToDetails = {};
-
-        projects.forEach(x => srcToDetails[x.src] = x.details)
 
         let details = srcToDetails[src];
 
@@ -20,11 +16,7 @@ class Gallery extends Component {
     }
 
     render() {
-        let images = [...projects].map(x => ({
-            src: x.src,
-            header: x.header,
-            description: x.description
-        }));
+        let images = [];
 
         return (
             <div className="gallery">
@@ -48,6 +40,4 @@ class Gallery extends Component {
     }
 }
 
-export default connect(null, {
-    setGalleryDetails
-})(withRouter(Gallery));
+export default connect(null, { setGalleryDetails })(withRouter(Gallery));

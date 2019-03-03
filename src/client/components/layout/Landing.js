@@ -74,13 +74,13 @@ class Landing extends Component {
         this.setState({ loading: true })
 
         axios.post('/api/proposals', data)
-            .catch((err) => {
-                console.log(err)
-            })
             .then(() => this.setState({
                 loading: false,
                 isOpen: false
             }))
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     checkboxHandler(data) {

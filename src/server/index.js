@@ -41,7 +41,7 @@ app.get('*', (req, res, next) => {
   }
 
   const promise = activeRoute.fetchInitialData
-    ? activeRoute.fetchInitialData(req.path)
+    ? activeRoute.fetchInitialData({ context: req.path, store: store })
     : Promise.resolve()
 
   promise.then((data) => {

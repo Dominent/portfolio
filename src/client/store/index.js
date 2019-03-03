@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import authReducer from './reducers/authReducer';
 import errorReducer from './reducers/errorReducer';
 import galleryReducer from './reducers/galleryReducer';
+import projectReducer from './reducers/projectReducer';
 
 export const configure = (preloadedState = {}) => {
     const middleware = [thunk];
@@ -11,7 +12,8 @@ export const configure = (preloadedState = {}) => {
     const rootReducer = combineReducers({
         auth: authReducer,
         errors: errorReducer,
-        gallery: galleryReducer
+        gallery: galleryReducer,
+        projects: projectReducer
     });
 
     return createStore(
