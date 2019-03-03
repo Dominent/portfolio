@@ -1,0 +1,6 @@
+CREATE TABLE tbl_ProjectDetailsTags
+(
+	Id INT IDENTITY PRIMARY KEY NOT NULL,
+	ProjectDetailId INT NOT NULL FOREIGN KEY REFERENCES tbl_ProjectDetails(Id),
+	ProjectTagId INT NOT NULL FOREIGN KEY REFERENCES tbl_ProjectsTags(Id)
+)

@@ -1,0 +1,46 @@
+@import '../shared/colors';
+
+.count__container {
+    padding-top: 70px;
+    padding-bottom: 100px;
+    text-align: center;
+
+    .count__header {
+        color: #848484;
+        max-width: 50%;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .count__section__container {
+        .count__section {
+            margin-top: 50px;
+            display: inline-block;
+            width: 33%;
+    
+            .count__number {
+                font-family: Lato,sans-serif;
+                font-size: 58.5px;
+
+                &--green {
+                    color: $green;
+                }
+
+                &--orange {
+                    color: $orange;
+                }
+
+                &--pink {
+                    color: $pink;
+                }
+            }
+    
+            .count__info {
+                color: #848484;
+                font-family: Lato, sans-serif;
+                font-size: 18px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
