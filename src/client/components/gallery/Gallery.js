@@ -16,7 +16,11 @@ class Gallery extends Component {
     }
 
     render() {
-        let images = [];
+        let images = this.props.projects.projects.map(x => ({
+            src: x.ImageSrc,
+            header: x.Header,
+            description: x.Description
+        }));
 
         return (
             <div className="gallery">
@@ -40,4 +44,7 @@ class Gallery extends Component {
     }
 }
 
-export default connect(null, { setGalleryDetails })(withRouter(Gallery));
+const mapStateToProps = (state) => ({
+    projects: state.projects,
+})
+export default connect(mapStateToProps, { setGalleryDetails })(withRouter(Gallery));

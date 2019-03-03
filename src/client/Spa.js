@@ -29,10 +29,7 @@ class Spa extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    projects: state.project,
-})
 const mapDispatchToProps = (dispatch) => ({
     getProjects: () => getProjects(dispatch)
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Spa)
+export default connect(null, mapDispatchToProps)(Spa)
