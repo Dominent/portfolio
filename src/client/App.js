@@ -19,9 +19,11 @@ class App extends Component {
   }
 }
 
-if (typeof window !== 'undefined') {
-  ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
-  ReactGA.pageview(window.location.pathname + window.location.search);
+if(process.env.ENVIRONMENT_MODE === 'production') {
+  if (typeof window !== 'undefined') {
+    ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
 }
 
 export default App;
