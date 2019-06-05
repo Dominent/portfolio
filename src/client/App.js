@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import NoMatch from './components/NoMatch';
+import ReactGA from 'react-ga';
 
 class App extends Component {
   render() {
@@ -17,5 +18,8 @@ class App extends Component {
     );
   }
 }
+
+ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 export default App;

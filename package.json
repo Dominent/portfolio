@@ -23,6 +23,7 @@
     "react": "^16.8.2",
     "react-countup": "^4.1.1",
     "react-dom": "^16.8.2",
+    "react-ga": "^2.5.7",
     "react-motion": "^0.5.2",
     "react-motion-loop": "^2.0.0",
     "react-redux": "^6.0.0",
