@@ -19,7 +19,9 @@ class App extends Component {
   }
 }
 
-ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
-ReactGA.pageview(window.location.pathname + window.location.search);
+if (typeof window !== 'undefined') {
+  ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 export default App;
