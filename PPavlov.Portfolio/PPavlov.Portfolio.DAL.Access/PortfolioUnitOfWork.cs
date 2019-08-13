@@ -7,9 +7,9 @@ namespace PPavlov.Portfolio.DAL.Access
 {
     public class PortfolioUnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _dbContext;
+        private readonly PortfolioDBContext _dbContext;
 
-        public PortfolioUnitOfWork(DbContext dbContext)
+        public PortfolioUnitOfWork(PortfolioDBContext dbContext)
         {
             _dbContext = dbContext;
 

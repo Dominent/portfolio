@@ -16,4 +16,8 @@
     <ProjectReference Include="..\PPavlov.Portfolio.DAL.Access\PPavlov.Portfolio.DAL.Access.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
