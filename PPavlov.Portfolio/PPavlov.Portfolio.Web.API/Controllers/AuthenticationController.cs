@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PPavlov.Portfolio.DAL.Entities;
 using PPavlov.Portfolio.Web.API.Models;
+using PPavlov.Portfolio.Web.API.Models.Input;
 
 namespace PPavlov.Portfolio.Web.API.Controllers
 {

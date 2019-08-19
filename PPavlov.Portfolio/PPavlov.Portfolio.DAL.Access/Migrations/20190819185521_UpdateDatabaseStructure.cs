@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class UpdateDatabaseStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,20 +45,6 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Info = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectDetails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,40 +205,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ProjectImageId });
                     table.ForeignKey(
-                        name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
-                        column: x => x.ProjectDetailId,
-                        principalTable: "ProjectDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ProjectDetailImages_ProjectImages_ProjectImageId",
-                        column: x => x.ProjectImageId,
-                        principalTable: "ProjectImages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectImageId = table.Column<int>(nullable: false),
-                    Header = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Projects_ProjectDetails_ProjectDetailId",
-                        column: x => x.ProjectDetailId,
-                        principalTable: "ProjectDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Projects_ProjectImages_ProjectImageId",
                         column: x => x.ProjectImageId,
                         principalTable: "ProjectImages",
                         principalColumn: "Id",
@@ -269,12 +222,6 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectDetailLinks", x => new { x.ProjectDetailId, x.ProjectLinkId });
-                    table.ForeignKey(
-                        name: "FK_ProjectDetailLinks_ProjectDetails_ProjectDetailId",
-                        column: x => x.ProjectDetailId,
-                        principalTable: "ProjectDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProjectDetailLinks_ProjectLinks_ProjectLinkId",
                         column: x => x.ProjectLinkId,
@@ -294,15 +241,55 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     table.PrimaryKey("PK_ProjectDetailTags", x => new { x.ProjectDetailId, x.ProjectTagId });
                     table.ForeignKey(
-                        name: "FK_ProjectDetailTags_ProjectDetails_ProjectDetailId",
-                        column: x => x.ProjectDetailId,
-                        principalTable: "ProjectDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ProjectDetailTags_ProjectTags_ProjectTagId",
                         column: x => x.ProjectTagId,
                         principalTable: "ProjectTags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: true),
+                    Ongoing = table.Column<bool>(nullable: false),
+                    ProjectDetailId = table.Column<int>(nullable: true),
+                    ProjectImageId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Projects_ProjectImages_ProjectImageId",
+                        column: x => x.ProjectImageId,
+                        principalTable: "ProjectImages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProjectId = table.Column<int>(nullable: false),
+                    Info = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetails_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -357,6 +344,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 column: "ProjectLinkId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectDetails_ProjectId",
+                table: "ProjectDetails",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetailTags_ProjectTagId",
                 table: "ProjectDetailTags",
                 column: "ProjectTagId");
@@ -370,10 +362,46 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "IX_Projects_ProjectImageId",
                 table: "Projects",
                 column: "ProjectImageId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
+                table: "ProjectDetailImages",
+                column: "ProjectDetailId",
+                principalTable: "ProjectDetails",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ProjectDetailLinks_ProjectDetails_ProjectDetailId",
+                table: "ProjectDetailLinks",
+                column: "ProjectDetailId",
+                principalTable: "ProjectDetails",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ProjectDetailTags_ProjectDetails_ProjectDetailId",
+                table: "ProjectDetailTags",
+                column: "ProjectDetailId",
+                principalTable: "ProjectDetails",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Projects_ProjectDetails_ProjectDetailId",
+                table: "Projects",
+                column: "ProjectDetailId",
+                principalTable: "ProjectDetails",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Projects_ProjectDetails_ProjectDetailId",
+                table: "Projects");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -399,9 +427,6 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "ProjectDetailTags");
 
             migrationBuilder.DropTable(
-                name: "Projects");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -415,6 +440,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProjectDetails");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "ProjectImages");

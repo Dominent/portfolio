@@ -1,6 +1,7 @@
 ﻿using PPavlov.Portfolio.DAL.Contracts;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PPavlov.Portfolio.DAL.Entities
 {
@@ -9,9 +10,14 @@ namespace PPavlov.Portfolio.DAL.Entities
         [Key]
         public int Id { get; set; }
 
+        public int ProjectId { get; set; }
+
         public string Info { get; set; }
 
         public string Description { get; set; }
+
+        [ForeignKey(nameof(ProjectId))]
+        public virtual Project Project { get; set; }
 
         public virtual IEnumerable<ProjectDetailImage> ProjectDetailImages { get; set; }
 

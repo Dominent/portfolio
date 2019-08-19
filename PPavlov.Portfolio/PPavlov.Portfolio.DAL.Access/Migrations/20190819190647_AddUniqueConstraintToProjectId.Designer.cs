@@ -10,8 +10,8 @@ using PPavlov.Portfolio.DAL.Access;
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
     [DbContext(typeof(PortfolioDBContext))]
-    [Migration("20190813145313_UpdateDatabaseStructure")]
-    partial class UpdateDatabaseStructure
+    [Migration("20190819190647_AddUniqueConstraintToProjectId")]
+    partial class AddUniqueConstraintToProjectId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,13 +137,15 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime?>("EndDate");
 
                     b.Property<string>("Location");
 
-                    b.Property<int>("ProjectDetailId");
+                    b.Property<bool>("Ongoing");
 
-                    b.Property<int>("ProjectImageId");
+                    b.Property<int?>("ProjectDetailId");
+
+                    b.Property<int?>("ProjectImageId");
 
                     b.Property<DateTime>("StartDate");
 
@@ -168,7 +170,12 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<string>("Info");
 
+                    b.Property<int>("ProjectId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId")
+                        .IsUnique();
 
                     b.ToTable("ProjectDetails");
                 });
@@ -355,12 +362,18 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectDetail", "ProjectDetail")
                         .WithMany()
-                        .HasForeignKey("ProjectDetailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectDetailId");
 
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectImage", "ProjectImage")
                         .WithMany()
-                        .HasForeignKey("ProjectImageId")
+                        .HasForeignKey("ProjectImageId");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectDetail", b =>
+                {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

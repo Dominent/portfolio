@@ -16,11 +16,13 @@ namespace PPavlov.Portfolio.DAL.Entities
 
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public int ProjectDetailId { get; set; }
+        public bool Ongoing { get; set; }
 
-        public int ProjectImageId { get; set; }
+        public int? ProjectDetailId { get; set; }
+
+        public int? ProjectImageId { get; set; }
 
         [ForeignKey(nameof(ProjectDetailId))]
         public virtual ProjectDetail ProjectDetail { get; set; }

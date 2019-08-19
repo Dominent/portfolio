@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PPavlov.Portfolio.DAL.Access;
 using PPavlov.Portfolio.DAL.Entities;
+using PPavlov.Portfolio.Web.API.Controllers;
 
 namespace PPavlov.Portfolio.Web.API
 {
@@ -76,6 +77,7 @@ namespace PPavlov.Portfolio.Web.API
 
             services.AddTransient<IUnitOfWork, PortfolioUnitOfWork>();
             services.AddTransient<IJwtTokenService, JwtTokenService>();
+            services.AddTransient<IDocumentSerializer, Base64DocumentSerializer>();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -93,6 +95,8 @@ namespace PPavlov.Portfolio.Web.API
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowAnyHeader());
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 

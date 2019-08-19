@@ -10,14 +10,14 @@ using PPavlov.Portfolio.DAL.Access;
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
     [DbContext(typeof(PortfolioDBContext))]
-    [Migration("20190626173521_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20190819185521_UpdateDatabaseStructure")]
+    partial class UpdateDatabaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -137,11 +137,19 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Header");
+                    b.Property<DateTime?>("EndDate");
 
-                    b.Property<int>("ProjectDetailId");
+                    b.Property<string>("Location");
 
-                    b.Property<int>("ProjectImageId");
+                    b.Property<bool>("Ongoing");
+
+                    b.Property<int?>("ProjectDetailId");
+
+                    b.Property<int?>("ProjectImageId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
@@ -162,7 +170,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<string>("Info");
 
+                    b.Property<int>("ProjectId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectDetails");
                 });
@@ -349,12 +361,18 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectDetail", "ProjectDetail")
                         .WithMany()
-                        .HasForeignKey("ProjectDetailId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectDetailId");
 
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectImage", "ProjectImage")
                         .WithMany()
-                        .HasForeignKey("ProjectImageId")
+                        .HasForeignKey("ProjectImageId");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectDetail", b =>
+                {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

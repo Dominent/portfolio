@@ -28,6 +28,10 @@ namespace PPavlov.Portfolio.DAL.Access
             builder.ApplyConfiguration(new ProjectDetailLinkConfiguration());
             builder.ApplyConfiguration(new ProjectDetailTagConfiguration());
 
+            builder.Entity<ProjectDetail>()
+                .HasIndex(x => x.ProjectId)
+                .IsUnique();
+
             base.OnModelCreating(builder);
         }
     }
