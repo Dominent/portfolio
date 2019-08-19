@@ -33,12 +33,12 @@ namespace PPavlov.Portfolio.Web.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PortfolioDBContext>(
+            services.AddDbContext<PortfolioDbContext>(
                 options => options.UseSqlServer(_configuration
                     .GetValue<string>("ConnectionStrings:SQLServer")));
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<PortfolioDBContext>()
+                .AddEntityFrameworkStores<PortfolioDbContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<AuthenticationConfiguration>(_configuration.GetSection("Authentication"));

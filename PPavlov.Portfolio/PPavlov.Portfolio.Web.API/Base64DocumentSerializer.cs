@@ -7,12 +7,12 @@ namespace PPavlov.Portfolio.Web.API.Controllers
 {
     public class Base64DocumentSerializer : IDocumentSerializer
     {
-        private const string BASE64_FORMAT_PATTERN = @"(?!data:)([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);(\w+),";
-        private const string BASE64_ENCODING = "base64";
+        private const string Base64FormatPattern = @"(?!data:)([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);(\w+),";
+        private const string Base64Encoding = "base64";
 
         public Document Deserialize([Base64]string document)
         {
-            var matches = Regex.Matches(document, BASE64_FORMAT_PATTERN);
+            var matches = Regex.Matches(document, Base64FormatPattern);
 
             var mimeType = matches.First().Groups[1].ToString();
             var encoding = matches.First().Groups[2].ToString();
@@ -35,7 +35,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
             var mimeType = MimeTypeMap.GetMimeType(document.Extension);
             var base64Document = Convert.ToBase64String(document.Buffer);
 
-            return $"data:{mimeType};{BASE64_ENCODING},{base64Document}";
+            return $"data:{mimeType};{Base64Encoding},{base64Document}";
         }
     }
 }

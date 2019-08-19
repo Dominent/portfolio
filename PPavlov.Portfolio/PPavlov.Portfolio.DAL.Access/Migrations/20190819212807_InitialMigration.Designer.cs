@@ -9,7 +9,7 @@ using PPavlov.Portfolio.DAL.Access;
 
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
-    [DbContext(typeof(PortfolioDBContext))]
+    [DbContext(typeof(PortfolioDbContext))]
     [Migration("20190819212807_InitialMigration")]
     partial class InitialMigration
     {

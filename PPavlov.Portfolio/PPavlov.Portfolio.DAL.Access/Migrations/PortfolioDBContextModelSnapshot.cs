@@ -8,7 +8,7 @@ using PPavlov.Portfolio.DAL.Access;
 
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
-    [DbContext(typeof(PortfolioDBContext))]
+    [DbContext(typeof(PortfolioDbContext))]
     partial class PortfolioDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

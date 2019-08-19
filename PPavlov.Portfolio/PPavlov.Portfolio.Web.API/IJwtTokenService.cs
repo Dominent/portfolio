@@ -4,6 +4,6 @@ namespace PPavlov.Portfolio.Web.API
 {
     public interface IJwtTokenService
     {
-        JWTAuthToken Generate(User user);
+        JwtAuthToken Generate(User user);
     }
 }

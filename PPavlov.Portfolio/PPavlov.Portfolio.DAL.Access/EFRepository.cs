@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace PPavlov.Portfolio.DAL.Access
 {
-    public class EFRepository<TEntity, TKey> : IRepository<TEntity, TKey>
+    public class EfRepository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
         private readonly DbContext _context;
 
-        public EFRepository(DbContext context)
+        public EfRepository(DbContext context)
         {
             _context = context;
         }

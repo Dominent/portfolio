@@ -5,9 +5,9 @@ using PPavlov.Portfolio.DAL.Entities;
 
 namespace PPavlov.Portfolio.DAL.Access
 {
-    public class PortfolioDBContext : IdentityDbContext<User>
+    public class PortfolioDbContext : IdentityDbContext<User>
     {
-        public PortfolioDBContext(DbContextOptions<PortfolioDBContext> options)
+        public PortfolioDbContext(DbContextOptions options)
               : base(options)
         {
         }
