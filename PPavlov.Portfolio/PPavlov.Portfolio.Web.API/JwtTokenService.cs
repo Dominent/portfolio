@@ -8,7 +8,7 @@ using PPavlov.Portfolio.DAL.Entities;
 
 namespace PPavlov.Portfolio.Web.API
 {
-    public class JWTAuthToken
+    public class JwtAuthToken
     {
         public string Value { get; set; }
 
@@ -25,7 +25,7 @@ namespace PPavlov.Portfolio.Web.API
         {
             _authenticationConfiguration = authenticationConfiguration.Value;
         }
-        public JWTAuthToken Generate(User user)
+        public JwtAuthToken Generate(User user)
         {
             var claims = new[]
             {
@@ -53,7 +53,7 @@ namespace PPavlov.Portfolio.Web.API
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = jwtSecurityTokenHandler.WriteToken(token);
 
-            return new JWTAuthToken()
+            return new JwtAuthToken()
             {
                 Value = jwtToken,
                 ExpiresIn = token.ValidTo.Subtract(token.ValidFrom),

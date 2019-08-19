@@ -7,22 +7,22 @@ namespace PPavlov.Portfolio.DAL.Access
 {
     public class PortfolioUnitOfWork : IUnitOfWork
     {
-        private readonly PortfolioDBContext _dbContext;
+        private readonly PortfolioDbContext _dbContext;
 
-        public PortfolioUnitOfWork(PortfolioDBContext dbContext)
+        public PortfolioUnitOfWork(PortfolioDbContext dbContext)
         {
             _dbContext = dbContext;
 
-            this.UsersRepository = new EFRepository<User, string>(_dbContext);
-            this.ProjectsRepository = new EFRepository<Project, int>(_dbContext);
-            this.ProjectDetailsRepository = new EFRepository<ProjectDetail, int>(_dbContext);
-            this.ImagesRepository = new EFRepository<Image, int>(_dbContext);
-            this.LinksRepository = new EFRepository<Link, int>(_dbContext);
-            this.TagsRepository = new EFRepository<Tag, int>(_dbContext);
+            this.UsersRepository = new EfRepository<User, string>(_dbContext);
+            this.ProjectsRepository = new EfRepository<Project, int>(_dbContext);
+            this.ProjectDetailsRepository = new EfRepository<ProjectDetail, int>(_dbContext);
+            this.ImagesRepository = new EfRepository<Image, int>(_dbContext);
+            this.LinksRepository = new EfRepository<Link, int>(_dbContext);
+            this.TagsRepository = new EfRepository<Tag, int>(_dbContext);
             
-            this.ProjectDetailImageRepository = new EFRepository<ProjectDetailImage, int>(_dbContext);
-            this.ProjectDetailTagRepository = new EFRepository<ProjectDetailTag, int>(_dbContext);
-            this.ProjectDetailLinkRepository = new EFRepository<ProjectDetailLink, int>(_dbContext);
+            this.ProjectDetailImageRepository = new EfRepository<ProjectDetailImage, int>(_dbContext);
+            this.ProjectDetailTagRepository = new EfRepository<ProjectDetailTag, int>(_dbContext);
+            this.ProjectDetailLinkRepository = new EfRepository<ProjectDetailLink, int>(_dbContext);
         }
 
         public IRepository<User, string> UsersRepository { get; }
