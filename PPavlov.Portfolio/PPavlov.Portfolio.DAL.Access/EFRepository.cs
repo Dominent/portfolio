@@ -11,7 +11,7 @@ namespace PPavlov.Portfolio.DAL.Access
     public class EFRepository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
-        private DbContext _context;
+        private readonly DbContext _context;
 
         public EFRepository(DbContext context)
         {

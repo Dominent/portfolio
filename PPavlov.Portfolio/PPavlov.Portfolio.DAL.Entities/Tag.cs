@@ -3,13 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PPavlov.Portfolio.DAL.Entities
 {
-    public class ProjectLink : IEntity<int>
+    public class Tag : IEntity<int>
     {
         [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public string Href { get; set; }
     }
 }

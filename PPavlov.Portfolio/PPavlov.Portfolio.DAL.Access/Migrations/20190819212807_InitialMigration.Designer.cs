@@ -10,8 +10,8 @@ using PPavlov.Portfolio.DAL.Access;
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
     [DbContext(typeof(PortfolioDBContext))]
-    [Migration("20190819185521_UpdateDatabaseStructure")]
-    partial class UpdateDatabaseStructure
+    [Migration("20190819212807_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,36 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageAlt");
+
+                    b.Property<string>("ImagePath");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Link", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Href");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Links");
+                });
+
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -174,7 +204,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectId")
+                        .IsUnique();
 
                     b.ToTable("ProjectDetails");
                 });
@@ -185,7 +216,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("ProjectImageId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("ProjectDetailId", "ProjectImageId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("ProjectImageId");
 
@@ -198,7 +233,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("ProjectLinkId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("ProjectDetailId", "ProjectLinkId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("ProjectLinkId");
 
@@ -211,44 +250,18 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("ProjectTagId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("ProjectDetailId", "ProjectTagId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("ProjectTagId");
 
                     b.ToTable("ProjectDetailTags");
                 });
 
-            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImageAlt");
-
-                    b.Property<string>("ImagePath");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectImages");
-                });
-
-            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectLink", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Href");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectLinks");
-                });
-
-            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectTag", b =>
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -258,7 +271,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectTags");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.User", b =>
@@ -363,7 +376,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .WithMany()
                         .HasForeignKey("ProjectDetailId");
 
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectImage", "ProjectImage")
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ProjectImageId");
                 });
@@ -383,7 +396,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .HasForeignKey("ProjectDetailId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectImage", "ProjectImage")
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ProjectImageId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -396,7 +409,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .HasForeignKey("ProjectDetailId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectLink", "ProjectLink")
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Link", "Link")
                         .WithMany()
                         .HasForeignKey("ProjectLinkId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -409,7 +422,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .HasForeignKey("ProjectDetailId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectTag", "ProjectTag")
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("ProjectTagId")
                         .OnDelete(DeleteBehavior.Cascade);

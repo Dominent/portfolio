@@ -17,7 +17,7 @@ namespace PPavlov.Portfolio.DAL.Access.Configurations
                 .HasForeignKey(x => x.ProjectDetailId);
 
             builder
-               .HasOne(x => x.ProjectTag)
+               .HasOne(x => x.Tag)
                .WithMany()
                .HasForeignKey(x => x.ProjectTagId);
         }

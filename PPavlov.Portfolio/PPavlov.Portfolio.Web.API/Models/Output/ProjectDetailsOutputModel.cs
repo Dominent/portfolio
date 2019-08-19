@@ -31,19 +31,19 @@ namespace PPavlov.Portfolio.Web.API.Models.Output
                 Images = projectDetails.ProjectDetailImages.Select(x => new ImageOutputModel()
                 {
                     Id = x.ProjectImageId,
-                    Path = x.ProjectImage.ImagePath,
-                    Alt = x.ProjectImage.ImageAlt
+                    Path = x.Image.ImagePath,
+                    Alt = x.Image.ImageAlt
                 }).ToList(),
                 Links = projectDetails.ProjectDetailLinks.Select(x => new LinkOutputModel()
                 {
                     Id = x.ProjectLinkId,
-                    Name = x.ProjectLink.Name,
-                    Href = x.ProjectLink.Href
+                    Name = x.Link.Name,
+                    Href = x.Link.Href
                 }).ToList(),
                 Tags = projectDetails.ProjectDetailTags.Select(x => new TagOutputModel()
                 {
                     Id = x.ProjectTagId,
-                    Name = x.ProjectTag.Name
+                    Name = x.Tag.Name
                 }).ToList()
             };
         }

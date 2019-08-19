@@ -55,17 +55,6 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 return this.BadRequest(ModelState);
             }
 
-            ProjectImage image = null;
-
-            if (!string.IsNullOrEmpty(inputModel.Image))
-            {
-                image = await UploadImage(inputModel.Image);
-
-                _unitOfWork.ProjectImagesRepository.Add(image);
-
-                await _unitOfWork.CompleteAsync();
-            }
-
             var project = new Project()
             {
                 Title = inputModel.Title,
@@ -75,11 +64,13 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 Ongoing = inputModel.Ongoing
             };
 
-            if (image != null)
+            if (!string.IsNullOrEmpty(inputModel.Image))
             {
-                project.ProjectImageId = image.Id;
-            }
+                var image = await UploadImage(inputModel.Image);
 
+                project.Image = image;
+            }
+           
             _unitOfWork.ProjectsRepository.Add(project);
 
             await _unitOfWork.CompleteAsync();
@@ -100,33 +91,47 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 .ToList()))
                 .ToList();
 
-            images.ForEach(x => _unitOfWork.ProjectImagesRepository.Add(x));
-
             var tags = inputModelModel.Tags
-                .Select(x => new ProjectTag() { Name = x.Name })
+                .Select(x => new Tag() { Name = x.Name })
                 .ToList();
-
-            tags.ForEach(x => _unitOfWork.ProjectTagsRepository.Add(x));
 
             var links = inputModelModel.Links
-                .Select(x => new ProjectLink() { Href = x.Href, Name = x.Name })
+                .Select(x => new Link() { Href = x.Href, Name = x.Name })
                 .ToList();
-
-            links.ForEach(x => _unitOfWork.ProjectLinksRepository.Add(x));
-
-            await _unitOfWork.CompleteAsync();
 
             var projectDetails = new ProjectDetail()
             {
                 ProjectId = projectId,
                 Description = inputModelModel.Description,
-                Info = inputModelModel.Info,
-                ProjectDetailImages = images.Select(x => new ProjectDetailImage() { ProjectImageId = x.Id }).ToList(),
-                ProjectDetailTags = tags.Select(x => new ProjectDetailTag() { ProjectTagId = x.Id }).ToList(),
-                ProjectDetailLinks = links.Select(x => new ProjectDetailLink() { ProjectLinkId = x.Id }).ToList(),
+                Info = inputModelModel.Info
             };
 
-            _unitOfWork.ProjectDetailsRepository.Add(projectDetails);
+            images
+                .Select(x => new ProjectDetailImage()
+                {
+                    Image = x,
+                    ProjectDetail = projectDetails
+                })
+                .ToList()
+                .ForEach(x => _unitOfWork.ProjectDetailImageRepository.Add(x));
+
+            tags
+                .Select(x => new ProjectDetailTag()
+                {
+                    Tag = x,
+                    ProjectDetail = projectDetails
+                })
+                .ToList()
+                .ForEach(x => _unitOfWork.ProjectDetailTagRepository.Add(x));
+
+            links
+                .Select(x => new ProjectDetailLink()
+                {
+                    Link = x,
+                    ProjectDetail = projectDetails
+                })
+                .ToList()
+                .ForEach(x => _unitOfWork.ProjectDetailLinkRepository.Add(x));
 
             await _unitOfWork.CompleteAsync();
 
@@ -148,7 +153,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
             return this.Ok(ProjectDetailsOutputModel.FromEntity(projectDetails));
         }
 
-        private async Task<ProjectImage> UploadImage([Base64]string image)
+        private async Task<Image> UploadImage([Base64]string image)
         {
             var document = _documentSerializer.Deserialize(image);
 
@@ -164,7 +169,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
 
             var authority = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
 
-            return new ProjectImage()
+            return new Image()
             {
                 ImagePath = $"{authority}/storage/{name}"
             };
@@ -176,9 +181,9 @@ namespace PPavlov.Portfolio.Web.API.Controllers
         public ProjectDetailsByProjectIdSpecification(int projectId)
             : base(x => x.ProjectId == projectId)
         {
-            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailImages), nameof(ProjectDetailImage.ProjectImage));
-            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailLinks), nameof(ProjectDetailLink.ProjectLink));
-            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailTags), nameof(ProjectDetailTag.ProjectTag));
+            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailImages), nameof(ProjectDetailImage.Image));
+            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailLinks), nameof(ProjectDetailLink.Link));
+            this.AddIncludeString(nameof(ProjectDetail.ProjectDetailTags), nameof(ProjectDetailTag.Tag));
         }
     }
 }

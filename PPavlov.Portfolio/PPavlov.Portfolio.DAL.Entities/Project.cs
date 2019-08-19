@@ -28,6 +28,6 @@ namespace PPavlov.Portfolio.DAL.Entities
         public virtual ProjectDetail ProjectDetail { get; set; }
 
         [ForeignKey(nameof(ProjectImageId))]
-        public virtual ProjectImage ProjectImage { get; set; }
+        public virtual Image Image { get; set; }
     }
 }

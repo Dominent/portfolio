@@ -1,6 +1,6 @@
 ﻿namespace PPavlov.Portfolio.DAL.Contracts
 {
-    public interface IWriteOnlyRepository<TEntity, TKey>
+    public interface IWriteOnlyRepository<in TEntity, TKey>
         where TEntity : IEntity<TKey>
     {
         void Add(TEntity entity);

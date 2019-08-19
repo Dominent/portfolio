@@ -14,9 +14,9 @@ namespace PPavlov.Portfolio.DAL.Access
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectDetail> ProjectDetails { get; set; }
-        public DbSet<ProjectImage> ProjectImages { get; set; }
-        public DbSet<ProjectLink> ProjectLinks { get; set; }
-        public DbSet<ProjectTag> ProjectTags { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Link> Links { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         public DbSet<ProjectDetailImage> ProjectDetailImages { get; set; }
         public DbSet<ProjectDetailTag> ProjectDetailTags { get; set; }

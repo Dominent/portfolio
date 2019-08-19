@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PPavlov.Portfolio.DAL.Entities
 {
-    public class ProjectImage : IEntity<int>
+    public class Image : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

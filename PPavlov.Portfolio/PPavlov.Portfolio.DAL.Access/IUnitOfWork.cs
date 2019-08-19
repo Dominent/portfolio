@@ -10,9 +10,13 @@ namespace PPavlov.Portfolio.DAL.Access
         IRepository<User, string> UsersRepository { get; }
         IRepository<Project, int> ProjectsRepository { get; }
         IRepository<ProjectDetail, int> ProjectDetailsRepository { get; }
-        IRepository<ProjectImage, int> ProjectImagesRepository { get; }
-        IRepository<ProjectLink, int> ProjectLinksRepository { get; }
-        IRepository<ProjectTag, int> ProjectTagsRepository { get; }
+        IRepository<Image, int> ImagesRepository { get; }
+        IRepository<Link, int> LinksRepository { get; }
+        IRepository<Tag, int> TagsRepository { get; }
+
+        IRepository<ProjectDetailImage, int> ProjectDetailImageRepository { get; }
+        IRepository<ProjectDetailTag, int> ProjectDetailTagRepository { get; }
+        IRepository<ProjectDetailLink, int> ProjectDetailLinkRepository { get; }
 
         Task CompleteAsync();
     }

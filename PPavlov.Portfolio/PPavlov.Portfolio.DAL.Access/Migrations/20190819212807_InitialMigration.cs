@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
-    public partial class UpdateDatabaseStructure : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectImages",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -58,11 +58,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectImages", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectLinks",
+                name: "Links",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -72,11 +72,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectLinks", x => x.Id);
+                    table.PrimaryKey("PK_Links", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectTags",
+                name: "Tags",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -85,7 +85,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectTags", x => x.Id);
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,51 +199,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 columns: table => new
                 {
                     ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectImageId = table.Column<int>(nullable: false)
+                    ProjectImageId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ProjectImageId });
+                    table.UniqueConstraint("AK_ProjectDetailImages_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectDetailImages_ProjectImages_ProjectImageId",
+                        name: "FK_ProjectDetailImages_Images_ProjectImageId",
                         column: x => x.ProjectImageId,
-                        principalTable: "ProjectImages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectDetailLinks",
-                columns: table => new
-                {
-                    ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectLinkId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectDetailLinks", x => new { x.ProjectDetailId, x.ProjectLinkId });
-                    table.ForeignKey(
-                        name: "FK_ProjectDetailLinks_ProjectLinks_ProjectLinkId",
-                        column: x => x.ProjectLinkId,
-                        principalTable: "ProjectLinks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectDetailTags",
-                columns: table => new
-                {
-                    ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectTagId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectDetailTags", x => new { x.ProjectDetailId, x.ProjectTagId });
-                    table.ForeignKey(
-                        name: "FK_ProjectDetailTags_ProjectTags_ProjectTagId",
-                        column: x => x.ProjectTagId,
-                        principalTable: "ProjectTags",
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -266,9 +232,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_ProjectImages_ProjectImageId",
+                        name: "FK_Projects_Images_ProjectImageId",
                         column: x => x.ProjectImageId,
-                        principalTable: "ProjectImages",
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -290,6 +256,58 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         name: "FK_ProjectDetails_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectDetailLinks",
+                columns: table => new
+                {
+                    ProjectDetailId = table.Column<int>(nullable: false),
+                    ProjectLinkId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDetailLinks", x => new { x.ProjectDetailId, x.ProjectLinkId });
+                    table.UniqueConstraint("AK_ProjectDetailLinks_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailLinks_ProjectDetails_ProjectDetailId",
+                        column: x => x.ProjectDetailId,
+                        principalTable: "ProjectDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailLinks_Links_ProjectLinkId",
+                        column: x => x.ProjectLinkId,
+                        principalTable: "Links",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectDetailTags",
+                columns: table => new
+                {
+                    ProjectDetailId = table.Column<int>(nullable: false),
+                    ProjectTagId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDetailTags", x => new { x.ProjectDetailId, x.ProjectTagId });
+                    table.UniqueConstraint("AK_ProjectDetailTags_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailTags_ProjectDetails_ProjectDetailId",
+                        column: x => x.ProjectDetailId,
+                        principalTable: "ProjectDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailTags_Tags_ProjectTagId",
+                        column: x => x.ProjectTagId,
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -346,7 +364,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetails_ProjectId",
                 table: "ProjectDetails",
-                column: "ProjectId");
+                column: "ProjectId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetailTags_ProjectTagId",
@@ -366,22 +385,6 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
                 table: "ProjectDetailImages",
-                column: "ProjectDetailId",
-                principalTable: "ProjectDetails",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProjectDetailLinks_ProjectDetails_ProjectDetailId",
-                table: "ProjectDetailLinks",
-                column: "ProjectDetailId",
-                principalTable: "ProjectDetails",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProjectDetailTags_ProjectDetails_ProjectDetailId",
-                table: "ProjectDetailTags",
                 column: "ProjectDetailId",
                 principalTable: "ProjectDetails",
                 principalColumn: "Id",
@@ -433,10 +436,10 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "ProjectLinks");
+                name: "Links");
 
             migrationBuilder.DropTable(
-                name: "ProjectTags");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "ProjectDetails");
@@ -445,7 +448,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "ProjectImages");
+                name: "Images");
         }
     }
 }
