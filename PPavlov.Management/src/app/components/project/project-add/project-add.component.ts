@@ -34,6 +34,7 @@ export class ProjectAddDialogComponent {
     }
 
     submitHandler(project: ProjectInput) {
+        debugger
         if (this.image) {
             project.image = this.image.value;
         }

@@ -23,12 +23,7 @@ namespace PPavlov.Portfolio.DAL.Entities
 
         public bool Ongoing { get; set; }
 
-        public int? ProjectDetailId { get; set; }
-
         public int? ImageId { get; set; }
-
-        [ForeignKey(nameof(ProjectDetailId))]
-        public virtual ProjectDetail ProjectDetail { get; set; }
 
         [ForeignKey(nameof(ImageId))]
         public virtual Image Image { get; set; }
