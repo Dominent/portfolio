@@ -28,9 +28,9 @@ class Gallery extends Component {
 
     render() {
         let images = this.props.projects.projects.map(x => ({
-            src: x.ImageSrc,
-            header: x.Header,
-            description: x.Description
+            src: x.image.path,
+            header: x.title,
+            description: x.summary
         }));
 
         return (

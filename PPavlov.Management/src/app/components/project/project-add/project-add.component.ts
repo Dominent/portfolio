@@ -24,7 +24,8 @@ export class ProjectAddDialogComponent {
             location: new FormControl(),
             startDate: new FormControl(),
             endDate: new FormControl(),
-            ongoing: new FormControl()
+            ongoing: new FormControl(false),
+            summary: new FormControl()
         });
     }
 

@@ -2,7 +2,7 @@ import { SET_PROJECTS, GET_ERRORS } from "./types";
 import axios from 'axios';
 
 export const getProjects = dispatch => {
-    axios.get('/api/projects')
+    axios.get(`${process.env.API_URL}/projects`)
         .then(res => dispatch({
             type: SET_PROJECTS,
             payload: res.data

@@ -8,5 +8,8 @@ namespace PPavlov.Portfolio.Web.API.Models.Output
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+
+        [JsonProperty("image")]
+        public ImageOutputModel Image { get; set; }
     }
 }

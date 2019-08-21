@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
         public async Task<IActionResult> GetProjectsAsync()
         {
             var projects = await _unitOfWork.ProjectsRepository
-                .GetAllAsync((p) => true);
+                .ApplyAsync(new ProjectsWithImages());
 
             return this.Ok(projects.Select(x => new ProjectOutputModel
             {
@@ -43,7 +44,9 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 Location = x.Location,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                Ongoing = x.Ongoing
+                Ongoing = x.Ongoing,
+                Image = ImageOutputModel.FromEntity(x.Image),
+                Summary = x.Summary
             }).ToList());
         }
 
@@ -61,7 +64,8 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 Location = inputModel.Location,
                 StartDate = inputModel.StartDate,
                 EndDate = inputModel.EndDate,
-                Ongoing = inputModel.Ongoing
+                Ongoing = inputModel.Ongoing,
+                Summary = inputModel.Summary
             };
 
             if (!string.IsNullOrEmpty(inputModel.Image))
@@ -184,6 +188,15 @@ namespace PPavlov.Portfolio.Web.API.Controllers
             this.AddIncludeString(nameof(ProjectDetail.ProjectDetailImages), nameof(ProjectDetailImage.Image));
             this.AddIncludeString(nameof(ProjectDetail.ProjectDetailLinks), nameof(ProjectDetailLink.Link));
             this.AddIncludeString(nameof(ProjectDetail.ProjectDetailTags), nameof(ProjectDetailTag.Tag));
+        }
+    }
+
+    public class ProjectsWithImages : BaseSpecification<Project, int>
+    {
+        public ProjectsWithImages() 
+            : base(x => true)
+        {
+            AddInclude(x => x.Image);
         }
     }
 }

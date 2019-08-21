@@ -16,6 +16,13 @@
 
         <div class="form-control">
             <mat-form-field>
+                <textarea matInput placeholder="Summary" name="summary" formControlName="summary">
+                </textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="form-control">
+            <mat-form-field>
                 <input matInput [matDatepicker]="pickerStartDate" placeholder="Start Date" name="startDate"
                     formControlName="startDate">
                 <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>

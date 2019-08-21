@@ -9,7 +9,7 @@ using PPavlov.Portfolio.DAL.Access;
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    partial class PortfolioDBContextModelSnapshot : ModelSnapshot
+    partial class PortfolioDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -167,23 +167,25 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<DateTime?>("EndDate");
 
+                    b.Property<int?>("ImageId");
+
                     b.Property<string>("Location");
 
                     b.Property<bool>("Ongoing");
 
                     b.Property<int?>("ProjectDetailId");
 
-                    b.Property<int?>("ProjectImageId");
-
                     b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Summary");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectDetailId");
+                    b.HasIndex("ImageId");
 
-                    b.HasIndex("ProjectImageId");
+                    b.HasIndex("ProjectDetailId");
 
                     b.ToTable("Projects");
                 });
@@ -212,15 +214,15 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     b.Property<int>("ProjectDetailId");
 
-                    b.Property<int>("ProjectImageId");
+                    b.Property<int>("ImageId");
 
                     b.Property<int>("Id");
 
-                    b.HasKey("ProjectDetailId", "ProjectImageId");
+                    b.HasKey("ProjectDetailId", "ImageId");
 
                     b.HasAlternateKey("Id");
 
-                    b.HasIndex("ProjectImageId");
+                    b.HasIndex("ImageId");
 
                     b.ToTable("ProjectDetailImages");
                 });
@@ -370,13 +372,13 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Project", b =>
                 {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectDetail", "ProjectDetail")
                         .WithMany()
                         .HasForeignKey("ProjectDetailId");
-
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ProjectImageId");
                 });
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectDetail", b =>
@@ -389,14 +391,14 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectDetailImage", b =>
                 {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectDetail", "ProjectDetail")
                         .WithMany("ProjectDetailImages")
                         .HasForeignKey("ProjectDetailId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ProjectImageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

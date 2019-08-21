@@ -199,16 +199,16 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 columns: table => new
                 {
                     ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectImageId = table.Column<int>(nullable: false),
+                    ImageId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ProjectImageId });
+                    table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ImageId });
                     table.UniqueConstraint("AK_ProjectDetailImages_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectDetailImages_Images_ProjectImageId",
-                        column: x => x.ProjectImageId,
+                        name: "FK_ProjectDetailImages_Images_ImageId",
+                        column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -222,18 +222,19 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),
+                    Summary = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: true),
                     Ongoing = table.Column<bool>(nullable: false),
                     ProjectDetailId = table.Column<int>(nullable: true),
-                    ProjectImageId = table.Column<int>(nullable: true)
+                    ImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Images_ProjectImageId",
-                        column: x => x.ProjectImageId,
+                        name: "FK_Projects_Images_ImageId",
+                        column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -352,9 +353,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectDetailImages_ProjectImageId",
+                name: "IX_ProjectDetailImages_ImageId",
                 table: "ProjectDetailImages",
-                column: "ProjectImageId");
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetailLinks_ProjectLinkId",
@@ -373,14 +374,14 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 column: "ProjectTagId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Projects_ImageId",
+                table: "Projects",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_ProjectDetailId",
                 table: "Projects",
                 column: "ProjectDetailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectImageId",
-                table: "Projects",
-                column: "ProjectImageId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
@@ -401,6 +402,10 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Projects_Images_ImageId",
+                table: "Projects");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Projects_ProjectDetails_ProjectDetailId",
                 table: "Projects");
@@ -442,13 +447,13 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
                 name: "ProjectDetails");
 
             migrationBuilder.DropTable(
                 name: "Projects");
-
-            migrationBuilder.DropTable(
-                name: "Images");
         }
     }
 }

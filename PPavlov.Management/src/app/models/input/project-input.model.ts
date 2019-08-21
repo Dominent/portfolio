@@ -5,4 +5,5 @@ export interface ProjectInput {
     startDate: Date;
     endDate: Date;
     ongoing: boolean;
+    summary: string;
 }

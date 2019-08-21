@@ -26,5 +26,8 @@ namespace PPavlov.Portfolio.Web.API.Models.Input
 
         [JsonProperty("ongoing")]
         public bool Ongoing { get; set; }
+
+        [JsonProperty("summary")]
+        public string Summary { get; set; }
     }
 }

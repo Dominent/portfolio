@@ -30,7 +30,7 @@ namespace PPavlov.Portfolio.Web.API.Models.Output
                 Description = projectDetails.Description,
                 Images = projectDetails.ProjectDetailImages.Select(x => new ImageOutputModel()
                 {
-                    Id = x.ProjectImageId,
+                    Id = x.ImageId,
                     Path = x.Image.ImagePath,
                     Alt = x.Image.ImageAlt
                 }).ToList(),

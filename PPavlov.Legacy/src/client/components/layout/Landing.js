@@ -37,7 +37,7 @@ const Cursor = () => {
 }
 
 
-class Landing extends Component {
+export default class Landing extends Component {
     constructor(props) {
         super(props);
 
@@ -545,13 +545,3 @@ class Landing extends Component {
         )
     }
 }
-
-Landing.propTypes = {
-    auth: PropTypes.object.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    auth: state.auth
-})
-
-export default connect(mapStateToProps)(Landing);
