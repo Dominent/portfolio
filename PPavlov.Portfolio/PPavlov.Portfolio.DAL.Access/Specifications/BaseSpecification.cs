@@ -1,9 +1,9 @@
-﻿using PPavlov.Portfolio.DAL.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using PPavlov.Portfolio.DAL.Contracts;
 
-namespace PPavlov.Portfolio.DAL.Access
+namespace PPavlov.Portfolio.DAL.Access.Specifications
 {
     public abstract class BaseSpecification<TEntity, TKey> : ISpecification<TEntity, TKey>
           where TEntity : class, IEntity<TKey>

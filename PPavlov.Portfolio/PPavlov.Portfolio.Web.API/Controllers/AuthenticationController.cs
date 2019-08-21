@@ -76,6 +76,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
             public string TokenType { get; set; }
         }
 
+        [NonAction]
         [HttpPost(nameof(AuthenticationController.Register))]
         public async Task<IActionResult> Register([FromBody]RegisterInputModel registerInputModel)
         {

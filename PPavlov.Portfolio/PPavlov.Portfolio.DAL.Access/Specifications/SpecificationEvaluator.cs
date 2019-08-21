@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PPavlov.Portfolio.DAL.Contracts;
-using System.Linq;
 
-namespace PPavlov.Portfolio.DAL.Access
+namespace PPavlov.Portfolio.DAL.Access.Specifications
 {
     public class SpecificationEvaluator<TEntity, TKey> 
         where TEntity : class, IEntity<TKey>
