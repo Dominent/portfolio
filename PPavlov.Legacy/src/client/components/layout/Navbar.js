@@ -2,14 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '@client/store/actions/authActions';
 import Scrollchor from 'react-scrollchor';
 
-class Navbar extends Component {
+export default class Navbar extends Component {
     onLogoutClick(e) {
         e.preventDefault();
-
-        this.props.logoutUser();
     }
 
     render() {
@@ -42,17 +39,4 @@ class Navbar extends Component {
         )
     }
 }
-
-Navbar.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    auth: state.auth
-})
-
-export default connect(mapStateToProps, {
-    logoutUser
-})(Navbar);
 
