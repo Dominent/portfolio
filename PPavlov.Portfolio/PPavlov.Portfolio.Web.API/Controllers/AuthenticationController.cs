@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using PPavlov.Portfolio.DAL.Entities;
 using PPavlov.Portfolio.Web.API.Models;
 using PPavlov.Portfolio.Web.API.Models.Input;
+using PPavlov.Portfolio.Web.API.Services;
 
 namespace PPavlov.Portfolio.Web.API.Controllers
 {

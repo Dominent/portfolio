@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PPavlov.Portfolio.DAL.Entities;
 
-namespace PPavlov.Portfolio.Web.API
+namespace PPavlov.Portfolio.Web.API.Services
 {
     public class JwtAuthToken
     {

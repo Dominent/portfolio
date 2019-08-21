@@ -16,13 +16,17 @@ router.post('/', reCaptcha.verify, (req, res) => {
   const { email, firstname, message, phonenumber } = req.body;
 
   const data = {
-    title: `Send from portfolio website, by: ${firstname}`,
-    message: `${message}\nContacts: \n\tEmail: ${email}\n\tPhone: ${phonenumber}`,
+    subject: `Send from portfolio website, by: ${firstname}`,
+    body: `${message}\nContacts: \n\tEmail: ${email}\n\tPhone: ${phonenumber}`,
   }
 
-  emailService.sendTextAsync(data)
-    .then(() => res.status(200).json({ message: 'success' }))
-    .catch((err) => res.status(400).json({ error: err }));
+  emailService.sendAsync(data)
+  .then(() => { 
+    res.status(200).json({ message: 'success' })
+  })
+  .catch((err) => {
+    res.status(400).json({ error: err })
+  });
 })
 
 export default router;

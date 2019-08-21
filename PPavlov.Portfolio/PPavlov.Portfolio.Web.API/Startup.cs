@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PPavlov.Portfolio.DAL.Access;
 using PPavlov.Portfolio.DAL.Entities;
+using PPavlov.Portfolio.Web.API.Configuration;
 using PPavlov.Portfolio.Web.API.Controllers;
+using PPavlov.Portfolio.Web.API.Services;
 
 namespace PPavlov.Portfolio.Web.API
 {
@@ -42,6 +37,7 @@ namespace PPavlov.Portfolio.Web.API
                 .AddDefaultTokenProviders();
 
             services.Configure<AuthenticationConfiguration>(_configuration.GetSection("Authentication"));
+            services.Configure<EmailConfiguration>(_configuration.GetSection("Email"));
 
             services.AddMvc();
 
@@ -78,10 +74,13 @@ namespace PPavlov.Portfolio.Web.API
             services.AddTransient<IUnitOfWork, PortfolioUnitOfWork>();
             services.AddTransient<IJwtTokenService, JwtTokenService>();
             services.AddTransient<IDocumentSerializer, Base64DocumentSerializer>();
+            services.AddTransient<IEmailService, GmailEmailService>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            SeedDatabase(app);
+
             if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -103,6 +102,14 @@ namespace PPavlov.Portfolio.Web.API
             app.UseAuthentication();
 
             app.UseMvc();
+        }
+
+        private void SeedDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<PortfolioDbContext>();
+            }
         }
     }
 }

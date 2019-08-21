@@ -15,13 +15,17 @@ router.post('/', (req, res) => {
     const { message } = req.body;
 
     const data = {
-        title: `Send from portfolio website, Website proposal!`,
-        message: message,
+        subject: `Send from portfolio website, Website proposal!`,
+        body: message,
       }
     
-    emailService.sentHtmlAsync(data)
-        .then(() => res.status(200).json({ message: 'success' }))
-        .catch((err) => res.status(400).json({ error: err }));
+    emailService.sendAsync(data)
+        .then(() => { 
+          res.status(200).json({ message: 'success' })
+        })
+        .catch((err) => {
+          res.status(400).json({ error: err })
+        });
 })
 
 export default router;

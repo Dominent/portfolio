@@ -4,7 +4,7 @@ import isEmpty from './is-empty';
 export default function validateContactInput(data) {
     let errors = {};
 
-    const MESSAGE_MIN_LENGTH = 25;
+    const MESSAGE_MIN_LENGTH = 0;
     const MESSAGE_MAX_LENGTH = 512;
 
     data.email = !isEmpty(data.email) ? data.email : "";

@@ -14,6 +14,9 @@ import { resolve } from 'path'
 
 import routes from '../client/routes';
 
+//TODO(PPavlov): Https Issue HackFix
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));

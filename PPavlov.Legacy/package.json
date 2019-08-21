@@ -4,7 +4,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev:build": "webpack --mode development --watch",
-    "dev:run": "cd build && node server.bundle.js",
+    "dev:run": "cd build && node --inspect server.bundle.js",
     "dev": "npm-run-all --parallel dev:*",
     "prod:build": "webpack --mode production"
   },

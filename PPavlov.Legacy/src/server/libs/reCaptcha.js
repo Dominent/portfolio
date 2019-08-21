@@ -1,13 +1,16 @@
 import axios from 'axios';
 
+const {
+    RECAPTCHA_SECRET,
+    RECAPTCHA_URL
+} = process.env;
+
 export default {
     verify: (req, res, next) => {
-        const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
-
         let buildUrl = (secret, response, remoteip) => `${RECAPTCHA_URL}?secret=${secret}&response=${response}&remoteip=${remoteip}`;
 
         const data = {
-            secret: process.env.RECAPTCHA_URL,
+            secret: RECAPTCHA_SECRET,
             response: req.body.grecaptcha,
         }
 
