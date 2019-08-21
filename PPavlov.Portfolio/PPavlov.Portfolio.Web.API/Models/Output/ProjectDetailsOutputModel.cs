@@ -36,13 +36,13 @@ namespace PPavlov.Portfolio.Web.API.Models.Output
                 }).ToList(),
                 Links = projectDetails.ProjectDetailLinks.Select(x => new LinkOutputModel()
                 {
-                    Id = x.ProjectLinkId,
+                    Id = x.LinkId,
                     Name = x.Link.Name,
                     Href = x.Link.Href
                 }).ToList(),
                 Tags = projectDetails.ProjectDetailTags.Select(x => new TagOutputModel()
                 {
-                    Id = x.ProjectTagId,
+                    Id = x.TagId,
                     Name = x.Tag.Name
                 }).ToList()
             };

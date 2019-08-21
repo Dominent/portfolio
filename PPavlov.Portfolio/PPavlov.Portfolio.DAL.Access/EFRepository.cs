@@ -36,7 +36,7 @@ namespace PPavlov.Portfolio.DAL.Access
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>()
-               .Attach(entity)
+               .Add(entity)
                .State = EntityState.Added;
         }
 

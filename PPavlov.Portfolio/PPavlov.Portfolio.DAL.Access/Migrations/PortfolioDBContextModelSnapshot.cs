@@ -216,7 +216,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("ImageId");
 
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("ProjectDetailId", "ImageId");
 
@@ -231,15 +233,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     b.Property<int>("ProjectDetailId");
 
-                    b.Property<int>("ProjectLinkId");
+                    b.Property<int>("LinkId");
 
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("ProjectDetailId", "ProjectLinkId");
+                    b.HasKey("ProjectDetailId", "LinkId");
 
                     b.HasAlternateKey("Id");
 
-                    b.HasIndex("ProjectLinkId");
+                    b.HasIndex("LinkId");
 
                     b.ToTable("ProjectDetailLinks");
                 });
@@ -248,15 +252,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     b.Property<int>("ProjectDetailId");
 
-                    b.Property<int>("ProjectTagId");
+                    b.Property<int>("TagId");
 
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("ProjectDetailId", "ProjectTagId");
+                    b.HasKey("ProjectDetailId", "TagId");
 
                     b.HasAlternateKey("Id");
 
-                    b.HasIndex("ProjectTagId");
+                    b.HasIndex("TagId");
 
                     b.ToTable("ProjectDetailTags");
                 });
@@ -404,14 +410,14 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.ProjectDetailLink", b =>
                 {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Link", "Link")
+                        .WithMany()
+                        .HasForeignKey("LinkId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.ProjectDetail", "ProjectDetail")
                         .WithMany("ProjectDetailLinks")
                         .HasForeignKey("ProjectDetailId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Link", "Link")
-                        .WithMany()
-                        .HasForeignKey("ProjectLinkId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -424,7 +430,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.Tag", "Tag")
                         .WithMany()
-                        .HasForeignKey("ProjectTagId")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

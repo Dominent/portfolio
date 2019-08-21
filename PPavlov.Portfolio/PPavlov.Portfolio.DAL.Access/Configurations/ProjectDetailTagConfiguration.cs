@@ -9,7 +9,7 @@ namespace PPavlov.Portfolio.DAL.Access.Configurations
         public void Configure(EntityTypeBuilder<ProjectDetailTag> builder)
         {
             builder
-                .HasKey(d => new { d.ProjectDetailId, d.ProjectTagId });
+                .HasKey(d => new { d.ProjectDetailId, ProjectTagId = d.TagId });
 
             builder
                 .HasOne(x => x.ProjectDetail)
@@ -19,7 +19,7 @@ namespace PPavlov.Portfolio.DAL.Access.Configurations
             builder
                .HasOne(x => x.Tag)
                .WithMany()
-               .HasForeignKey(x => x.ProjectTagId);
+               .HasForeignKey(x => x.TagId);
         }
     }
 }

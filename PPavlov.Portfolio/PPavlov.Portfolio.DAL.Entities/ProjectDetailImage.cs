@@ -8,6 +8,7 @@ namespace PPavlov.Portfolio.DAL.Entities
     public class ProjectDetailImage: IEntity<int>
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int ProjectDetailId { get; set; }

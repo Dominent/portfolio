@@ -201,6 +201,7 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     ProjectDetailId = table.Column<int>(nullable: false),
                     ImageId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
@@ -266,23 +267,24 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 columns: table => new
                 {
                     ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectLinkId = table.Column<int>(nullable: false),
+                    LinkId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectDetailLinks", x => new { x.ProjectDetailId, x.ProjectLinkId });
+                    table.PrimaryKey("PK_ProjectDetailLinks", x => new { x.ProjectDetailId, x.LinkId });
                     table.UniqueConstraint("AK_ProjectDetailLinks_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailLinks_Links_LinkId",
+                        column: x => x.LinkId,
+                        principalTable: "Links",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProjectDetailLinks_ProjectDetails_ProjectDetailId",
                         column: x => x.ProjectDetailId,
                         principalTable: "ProjectDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectDetailLinks_Links_ProjectLinkId",
-                        column: x => x.ProjectLinkId,
-                        principalTable: "Links",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -292,12 +294,13 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 columns: table => new
                 {
                     ProjectDetailId = table.Column<int>(nullable: false),
-                    ProjectTagId = table.Column<int>(nullable: false),
+                    TagId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectDetailTags", x => new { x.ProjectDetailId, x.ProjectTagId });
+                    table.PrimaryKey("PK_ProjectDetailTags", x => new { x.ProjectDetailId, x.TagId });
                     table.UniqueConstraint("AK_ProjectDetailTags_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProjectDetailTags_ProjectDetails_ProjectDetailId",
@@ -306,8 +309,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectDetailTags_Tags_ProjectTagId",
-                        column: x => x.ProjectTagId,
+                        name: "FK_ProjectDetailTags_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -358,9 +361,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectDetailLinks_ProjectLinkId",
+                name: "IX_ProjectDetailLinks_LinkId",
                 table: "ProjectDetailLinks",
-                column: "ProjectLinkId");
+                column: "LinkId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetails_ProjectId",
@@ -369,9 +372,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectDetailTags_ProjectTagId",
+                name: "IX_ProjectDetailTags_TagId",
                 table: "ProjectDetailTags",
-                column: "ProjectTagId");
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_ImageId",

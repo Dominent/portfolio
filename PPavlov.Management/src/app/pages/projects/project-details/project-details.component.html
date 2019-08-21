@@ -121,7 +121,7 @@
                     <mat-card-content>
                         <mat-grid-list cols="3" rowHeight="300px">
                             <mat-grid-tile *ngFor="let image of projectImages | async" [colspan]="1" [rowspan]="1">
-                                <img [src]="image.path" [alt]="image.alt" class="full-width-height-image">
+                                <img [src]="image.path" [alt]="image.alt" class="full-height">
                             </mat-grid-tile>
                         </mat-grid-list>
                     </mat-card-content>

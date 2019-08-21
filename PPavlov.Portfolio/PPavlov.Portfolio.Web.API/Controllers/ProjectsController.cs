@@ -107,35 +107,22 @@ namespace PPavlov.Portfolio.Web.API.Controllers
             {
                 ProjectId = projectId,
                 Description = inputModelModel.Description,
-                Info = inputModelModel.Info
+                Info = inputModelModel.Info,
             };
 
-            images
-                .Select(x => new ProjectDetailImage()
-                {
-                    Image = x,
-                    ProjectDetail = projectDetails
-                })
-                .ToList()
-                .ForEach(x => _unitOfWork.ProjectDetailImageRepository.Add(x));
+            projectDetails.ProjectDetailImages = images
+                .Select(x => new ProjectDetailImage() {Image = x, ProjectDetail = projectDetails})
+                .ToList();
 
-            tags
-                .Select(x => new ProjectDetailTag()
-                {
-                    Tag = x,
-                    ProjectDetail = projectDetails
-                })
-                .ToList()
-                .ForEach(x => _unitOfWork.ProjectDetailTagRepository.Add(x));
+            projectDetails.ProjectDetailTags = tags
+                .Select(x => new ProjectDetailTag() {Tag = x, ProjectDetail = projectDetails})
+                .ToList();
 
-            links
-                .Select(x => new ProjectDetailLink()
-                {
-                    Link = x,
-                    ProjectDetail = projectDetails
-                })
-                .ToList()
-                .ForEach(x => _unitOfWork.ProjectDetailLinkRepository.Add(x));
+            projectDetails.ProjectDetailLinks = links
+                .Select(x => new ProjectDetailLink() {Link = x, ProjectDetail = projectDetails})
+                .ToList();
+
+            _unitOfWork.ProjectDetailsRepository.Add(projectDetails);
 
             await _unitOfWork.CompleteAsync();
 
