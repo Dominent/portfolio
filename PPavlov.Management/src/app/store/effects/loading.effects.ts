@@ -18,6 +18,7 @@ import {
     fetchProjectDetailsSuccessAction,
     fetchProjectDetailsFailureAction
 } from '../actions/project.actions';
+import { loginUserAction, loginUserSuccessAction, loginUserFailureAction } from '../actions/auth.actions';
 
 @Injectable()
 export class LoadingEffects {
@@ -32,7 +33,9 @@ export class LoadingEffects {
             createProjectDetailsAction.type,
 
             fetchProjectsAction.type,
-            fetchProjectDetailsAction.type
+            fetchProjectDetailsAction.type,
+
+            loginUserAction.type
         ),
         map((action) => new EnableLoadingAction())
     );
@@ -50,7 +53,10 @@ export class LoadingEffects {
             fetchProjectsFailureAction.type,
 
             fetchProjectDetailsSuccessAction.type,
-            fetchProjectDetailsFailureAction.type
+            fetchProjectDetailsFailureAction.type,
+
+            loginUserSuccessAction.type,
+            loginUserFailureAction.type
         ),
         map((action) => new DisableLoadingAction())
     )

@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { AuthService } from './components/auth/auth.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AppState } from './store/app.state';
 import { Store, select } from '@ngrx/store';
 import { selectLoading } from './store/selectors/loading.selector';
 import { selectAuthenticated, selectUsername } from './store/selectors/auth.selector';
+import { logoutUserAction } from './store/actions/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +12,14 @@ import { selectAuthenticated, selectUsername } from './store/selectors/auth.sele
 })
 export class AppComponent {
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   loading$ = this.store.pipe(select(selectLoading))
   authenticated$ = this.store.pipe(select(selectAuthenticated))
   username$ = this.store.pipe(select(selectUsername))
 
   logout() {
-    this.authService.Logout();
-
-    this.router.navigate(['auth', 'login']);
+    this.store.dispatch(logoutUserAction());
   }
 }

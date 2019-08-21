@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '../../@material/material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './components/shared/confirmation/confirmation.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ProjectsComponent } from './pages/projects/projects.component';
-import { AuthService } from './components/auth/auth.service';
 import { AuthGuardService } from './components/auth/auth-guard.service';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthLoginComponent } from './pages/login/auth-login.component';
@@ -27,8 +25,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { loadingReducer } from './store/reducers/loading.reducer';
 import { ProjectEffects } from './store/effects/project.effects';
 import { ProjectService } from './services/project.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services/alert.service';
+import { AuthService } from './services/auth.service';
+import { AuthEffects } from './store/effects/auth.effects';
+import { AuthTokenInterceptor } from './components/auth/auth-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AlertService } from './services/alert.service';
     }),
     EffectsModule.forRoot([
       LoadingEffects,
-      ProjectEffects
+      ProjectEffects,
+      AuthEffects
     ]),
     BrowserModule,
     FormsModule,
@@ -73,7 +75,11 @@ import { AlertService } from './services/alert.service';
       provide: MAT_DATE_LOCALE,
       useValue: 'en-GB'
     }, /* dd/MM/yyyy format for datepicker */
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true
+    },
     AuthService,
     AuthGuardService,
     AlertService,

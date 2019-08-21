@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AuthService } from 'src/app/components/auth/auth.service';
-import { Router } from '@angular/router';
-import { Login } from 'src/app/models/login.model';
+import { LoginInput } from 'src/app/models/input/login-input.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { loginUserAction } from 'src/app/store/actions/auth.actions';
 
 @Component({
     templateUrl: 'auth-login.component.html',
@@ -12,8 +13,7 @@ export class AuthLoginComponent {
     public formData: FormGroup;
 
     constructor(
-        private authService: AuthService,
-        private router: Router
+        private store: Store<AppState>
     ) {
         this.formData = new FormGroup({
             username: new FormControl(),
@@ -21,10 +21,8 @@ export class AuthLoginComponent {
         })        
     }
 
-    public submitHandler(login: Login) {
-        this.authService.Login(login);
-
-        this.router.navigate(['']);
+    public submitHandler(login: LoginInput) {
+        this.store.dispatch(loginUserAction({ payload: login }))
     }
 }
 
