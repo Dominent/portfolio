@@ -61,7 +61,7 @@ app.get('*', (req, res, next) => {
   }).catch(next);
 })
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6060;
 
 app.listen(port, () => {
   console.log(`Server runing on port: ${port}`);

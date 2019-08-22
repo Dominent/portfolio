@@ -11,11 +11,11 @@ class Count extends Component {
                     <div className="count__info">years <br /> of history</div>
                 </div>
                 <div className="count__section">
-                    <CountUp end={23} duration={2} className="count__number count__number--orange"/>
+                    <CountUp end={15} duration={2} className="count__number count__number--orange"/>
                     <div className="count__info">projects <br /> completed</div>
                 </div>
                 <div className="count__section">
-                    <CountUp end={23 * 60 * 24} duration={2} className="count__number count__number--green"/>
+                    <CountUp end={8760} duration={2} className="count__number count__number--green"/>
                     <div className="count__info">development hours <br /> experience</div>
                 </div>
             </div>

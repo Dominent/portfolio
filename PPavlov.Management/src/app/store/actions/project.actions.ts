@@ -8,6 +8,8 @@ export const createProjectDetailsAction = createAction('CREATE_PROJECT_DETAILS',
 export const createProjectDetailsSuccessAction = createAction('CREATE_PROJECT_DETAILS_SUCCESS', props<{ payload: ProjectDetail }>())
 export const createProjectDetailsFailureAction = createAction('CREATE_PROJECT_DETAILS_FAILURE', props<{ payload: any }>())
 
+export const cleanProjectDetailsAction = createAction('CLEAN__PROJECT_DETAILS');
+
 export const fetchProjectDetailsAction = createAction('FETCH_PROJECT_DETAILS', props<{ projectId: number }>())
 export const fetchProjectDetailsSuccessAction = createAction('FETCH_PROJECT_DETAILS_SUCCESS', props<{ payload: ProjectDetail }>())
 export const fetchProjectDetailsFailureAction = createAction('FETCH_PROJECT_DETAILS_Failure', props<{ payload: any }>())

@@ -1,5 +1,5 @@
 import { initialState, ProjectState } from '../state/project.state';
-import { createProjectSuccessAction, fetchProjectsSuccessAction, createProjectDetailsSuccessAction, fetchProjectDetailsSuccessAction } from '../actions/project.actions';
+import { createProjectSuccessAction, fetchProjectsSuccessAction, createProjectDetailsSuccessAction, fetchProjectDetailsSuccessAction, fetchProjectDetailsFailureAction, cleanProjectDetailsAction } from '../actions/project.actions';
 
 export function projectReducer(state = initialState, action): ProjectState {
     switch (action.type) {
@@ -25,6 +25,12 @@ export function projectReducer(state = initialState, action): ProjectState {
             return {
                 ...state,
                 projectDetails: action.payload
+            }
+        }
+        case cleanProjectDetailsAction.type: {
+            return {
+                ...state,
+                projectDetails: null
             }
         }
         default:

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 import { Link } from 'src/app/models/link.model';
 import { Image } from 'src/app/models/image.model';
 import { selectProjectDetails } from 'src/app/store/selectors/project.selector';
-import { fetchProjectDetailsAction } from 'src/app/store/actions/project.actions';
+import { fetchProjectDetailsAction, cleanProjectDetailsAction } from 'src/app/store/actions/project.actions';
 
 @Component({
     templateUrl: 'project-details.component.html',
@@ -26,6 +26,8 @@ export class ProjectDetailsComponent {
         private store: Store<AppState>,
         private route: ActivatedRoute
     ) {
+        this.store.dispatch(cleanProjectDetailsAction());
+        
         this.route.params.subscribe(x => {
             this.projectId = +x['id'];
 

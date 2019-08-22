@@ -11,5 +11,5 @@ export const selectProjects = createSelector(
 
 export const selectProjectDetails = createSelector(
     projectState,
-    (state: ProjectState) => state.projectDetails
+    (state: ProjectState ) => state.projectDetails
 )

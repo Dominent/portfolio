@@ -9,7 +9,7 @@ import { createProjectDetailsAction } from 'src/app/store/actions/project.action
     templateUrl: 'project-details-add.component.html',
 })
 export class ProjectDetailsAddDialogComponent {
-    private projectDetail = {
+    public projectDetail = {
         images: [],
         links: [],
         tags: []
