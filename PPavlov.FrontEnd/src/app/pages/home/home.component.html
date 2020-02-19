@@ -1,1 +1,25 @@
-<p>home works!</p>
+<mat-drawer-container autosize>
+  <mat-drawer opened="true" disableClose="true" mode="side" (mouseenter)="onMouserEnter($event)" (mouseleave)="onMouseLeave($event)">
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon>person</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Management A</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Management B</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>domain</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Management C</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>folder_shared</mat-icon>
+        <h4 mat-line *ngIf="isExpanded">Management X</h4>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="mat-drawer-container-content">
+  </div>
+</mat-drawer-container>
