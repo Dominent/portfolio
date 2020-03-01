@@ -71,9 +71,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
 
             if (!string.IsNullOrEmpty(inputModel.Image))
             {
-                var authority = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-
-                var image = await _uploadImageService.UploadImage(inputModel.Image, authority);
+                var image = await _uploadImageService.UploadImage(inputModel.Image);
 
                 project.Image = image;
             }
@@ -94,10 +92,8 @@ namespace PPavlov.Portfolio.Web.API.Controllers
                 return this.BadRequest(ModelState);
             }
 
-            var authority = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-
             var images = (await Task.WhenAll(inputModelModel.Images
-                .Select(x => _uploadImageService.UploadImage(x.Value, authority))
+                .Select(x => _uploadImageService.UploadImage(x.Value))
                 .ToList()))
                 .ToList();
 

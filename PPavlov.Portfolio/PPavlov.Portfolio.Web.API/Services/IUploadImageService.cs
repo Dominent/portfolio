@@ -6,6 +6,6 @@ namespace PPavlov.Portfolio.Web.API.Services
 {
     public interface IUploadImageService
     {
-        Task<Image> UploadImage([Base64] string image, string authority);
+        Task<Image> UploadImage([Base64] string image);
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using PPavlov.Portfolio.DAL.Entities;
 using PPavlov.Portfolio.Web.API.Controllers;
 
@@ -11,18 +12,25 @@ namespace PPavlov.Portfolio.Web.API.Services
     {
         private readonly IDocumentSerializer _documentSerializer;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UploadImageService(
             IDocumentSerializer documentSerializer,
-            IHostingEnvironment hostingEnvironment
+            IHostingEnvironment hostingEnvironment,
+            IHttpContextAccessor httpContextAccessor
         )
         {
             _documentSerializer = documentSerializer;
             _hostingEnvironment = hostingEnvironment;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<Image> UploadImage([Base64]string image, string authority)
+        public async Task<Image> UploadImage([Base64]string image)
         {
+            var request = this._httpContextAccessor.HttpContext.Request;
+
+            var authority = $"{request.Scheme}://{request.Host}{request.PathBase}";
+
             var document = _documentSerializer.Deserialize(image);
 
             var name = $"{Guid.NewGuid()}{document.Extension}";
