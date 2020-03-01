@@ -17,7 +17,12 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@admin/*": ["src/app/areas/admin/*"],
+      "@home/*": ["src/app/areas/home/*"],
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
