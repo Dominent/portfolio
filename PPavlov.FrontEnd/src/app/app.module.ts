@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule, ActionReducerMap, ActionReducer, Action, MetaReducer } from '@ngrx/store';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './components/shared/confirmation/confirmation.component';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoadingEffects } from './store/effects/loading.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { loadingReducer } from './store/reducers/loading.reducer';

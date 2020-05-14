@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import { MatDrawer } from '@angular/material';
 export class HomeComponent {
   public isExpanded: boolean;
 
-  @ViewChild(MatDrawer, { static: false })
+  @ViewChild(MatDrawer)
   public drawer: MatDrawer;
 
   public onMouserEnter($event: MouseEvent) {

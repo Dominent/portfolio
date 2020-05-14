@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ProjectDetail } from 'src/app/models/project-detail.model';
 import { AppState } from 'src/app/store/app.state';
 import { Store, select } from '@ngrx/store';
@@ -76,5 +76,9 @@ export class ProjectDetailsComponent {
 
     public addImageHandler() {
 
+    }
+
+    public onRowClicked(link) {
+        
     }
 }

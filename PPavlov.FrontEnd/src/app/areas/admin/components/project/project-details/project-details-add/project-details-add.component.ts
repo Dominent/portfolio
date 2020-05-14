@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectDetailInput } from 'src/app/models/input/project-detail-input.model';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';

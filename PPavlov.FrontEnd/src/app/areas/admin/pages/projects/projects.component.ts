@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Project } from 'src/app/models/project.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/store/app.state';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
