@@ -1,0 +1,28 @@
+:host {
+    width: 100%;
+
+    header {
+        padding: 40px 130px;
+        nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            h1 {
+                margin: 0;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: row;
+                list-style-type: none;
+
+                li {
+                    a {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

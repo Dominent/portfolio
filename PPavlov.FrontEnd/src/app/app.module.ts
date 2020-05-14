@@ -26,7 +26,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { projectReducer } from './store/reducers/project.reducer';
 import { authReducer } from './store/reducers/auth.reducer';
 import { AuthLoginComponent } from './pages/login/auth-login.component';
-import { HomeComponent } from './areas/home/pages/index/home.component';
 import { FhUploadComponent } from './components/shared/input/fh-upload/fh-upload.component';
 import { FhButtonComponent } from './components/shared/input/fh-button/fh-button.component';
 import { ProjectsComponent } from './areas/admin/pages/projects/projects.component';
@@ -57,7 +56,6 @@ export const metaReducers: Array<MetaReducer<AppState, Action>> = [localStorageS
   declarations: [
     AppComponent,
     AuthLoginComponent,
-    HomeComponent,
     ConfirmationDialogComponent,
 
     FhUploadComponent,

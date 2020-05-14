@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './areas/home/pages/index/home.component';
 import { AuthGuardService } from './components/auth/auth-guard.service';
 import { ProjectsComponent } from './areas/admin/pages/projects/projects.component';
 import { ProjectDetailsComponent } from './areas/admin/pages/projects/project-details/project-details.component';
@@ -9,7 +8,7 @@ import { DashboardComponent } from './areas/admin/pages/dashoard/dashboard.compo
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', pathMatch: 'full', loadChildren: () => import('@home/home.module').then(m => m.HomeModule) },
   {
     path: 'admin',
     canActivate: [AuthGuardService],
@@ -28,9 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
