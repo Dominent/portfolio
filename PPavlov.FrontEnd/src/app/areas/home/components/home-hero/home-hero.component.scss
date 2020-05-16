@@ -1,0 +1,27 @@
+:host {
+    section {
+        display: flex;
+        padding: 15% 0;
+
+        aside {
+            display: flex;
+            align-items: center;
+
+            ul {
+                list-style-type: none;
+
+                li {
+                    padding: 10px;
+                }
+            }
+        }
+
+        header {
+            padding-left: 15%;
+        }
+
+        h1 {
+            font-size: 5rem;
+        }
+    }
+}

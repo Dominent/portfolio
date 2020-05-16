@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
-import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
+import { HomeHeroComponent } from './components/home-hero/home-hero.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeExperienceComponent } from './components/home-experience/home-experience.component';
+import { HomeHeaderComponent } from './components/home-header/home-header.component';
+import { HomeComponent } from './home.component';
 
 @NgModule({
     imports: [
-        HomeRoutingModule
+        HomeRoutingModule,
+        FontAwesomeModule
     ],
     declarations: [
-        HeaderComponent,
-        HomeComponent
+        HomeComponent,
+        HomeHeaderComponent,
+        HomeHeroComponent,
+        HomeExperienceComponent
     ]
 })
 export class HomeModule {

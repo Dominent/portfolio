@@ -1,20 +1,26 @@
 :host {
     width: 100%;
+    top: 0;
+    top: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
 
     header {
-        padding: 40px 130px;
+        padding: 40px 5%;
 
         nav {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
 
+            a {
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
             h1 {
                 margin: 0;
-
-                a {
-                    text-decoration: none;
-                }
             }
 
             ul {
@@ -27,11 +33,6 @@
                 margin: 0;
                 
                 list-style-type: none;
-                li {
-                    a {
-                        text-decoration: none;
-                    }
-                }
             }
         }
     }
