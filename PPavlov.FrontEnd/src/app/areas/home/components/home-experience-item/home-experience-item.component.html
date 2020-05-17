@@ -1,0 +1,12 @@
+<section>
+    <header>
+        <h3>{{timeline}}</h3>
+    </header>
+    <img [src]="logoSrc" [alt]="logoAlt">
+    <footer>
+        <summary [innerHTML]="description | safe: 'html'"></summary>
+        <ng-container *ngIf="announcement && announcementHref">
+            <a [href]="announcementHref" target="_blank">{{announcement}}</a>
+        </ng-container>
+    </footer>
+</section>

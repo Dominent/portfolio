@@ -1,0 +1,21 @@
+:host {
+    section {
+        padding: 0 5% 5% 5%;
+        text-align: center;
+
+        header {
+            margin: 10%;
+
+            h2 {
+                font-size: 3rem;
+            }
+        }
+
+        section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+            grid-auto-rows: auto;
+            grid-gap: 2rem;
+        }
+    }
+}
