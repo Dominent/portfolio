@@ -7,24 +7,31 @@ import { Router } from '@angular/router';
 import { selectProjects } from 'src/app/store/selectors/project.selector';
 import { fetchProjectsAction } from 'src/app/store/actions/project.actions';
 import { ProjectAddDialogComponent } from '../../components/project/project-add/project-add.component';
+import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: './projects.component.html',
     styleUrls: ['projects.component.scss']
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit{
+    public projects$: Observable<Project[]>;
+    public displayedColumns: string[] = ['id', 'title', 'location', 'startDate', 'endDate', 'ongoing', 'edit', 'delete'];
+
     constructor(
         private dialog: MatDialog,
         private store: Store<AppState>,
         private router: Router
     ) { 
+    }
+
+    public ngOnInit(): void {
         this.store.dispatch(fetchProjectsAction());
+
+        this.projects$ = this.store.pipe(select(selectProjects));
+
+        
     }
     
-    projects$ = this.store.pipe(select(selectProjects));
-
-    public displayedColumns: string[] = ['id', 'title', 'location', 'startDate', 'endDate', 'ongoing', 'edit', 'delete'];
-
     public createProjectHandler(){
         this.dialog.open(ProjectAddDialogComponent, {
             width: '500px'

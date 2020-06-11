@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PPavlov.Portfolio.DAL.Contracts;
 
@@ -19,5 +20,9 @@ namespace PPavlov.Portfolio.DAL.Entities
 
         [ForeignKey(nameof(LinkId))]
         public virtual Link Link { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
     }
 }

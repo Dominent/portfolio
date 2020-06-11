@@ -5,6 +5,7 @@ import { ProjectsComponent } from './areas/admin/pages/projects/projects.compone
 import { ProjectDetailsComponent } from './areas/admin/pages/projects/project-details/project-details.component';
 import { AuthLoginComponent } from './pages/login/auth-login.component';
 import { DashboardComponent } from './areas/admin/pages/dashoard/dashboard.component';
+import { LayoutComponent } from './areas/admin/components/layout/layout.component';
 
 
 const routes: Routes = [
@@ -12,10 +13,13 @@ const routes: Routes = [
   {
     path: 'admin',
     canActivate: [AuthGuardService],
-    component: DashboardComponent,
+    component: LayoutComponent,
     children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'projects', component: ProjectsComponent },
-      { path: 'projects/:id/details', component: ProjectDetailsComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'projects/:id/details', component: ProjectDetailsComponent },
+      { path: 'media', loadChildren: () => import('@app/areas/admin/pages/media/media.module').then(m => m.MediaModule) }
     ]
   },
   {

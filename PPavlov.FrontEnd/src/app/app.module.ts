@@ -34,6 +34,8 @@ import { ProjectAddDialogComponent } from './areas/admin/components/project/proj
 import { ProjectDetailsAddDialogComponent } from './areas/admin/components/project/project-details/project-details-add/project-details-add.component';
 import { AuthGuardService } from './components/auth/auth-guard.service';
 import { DashboardComponent } from './areas/admin/pages/dashoard/dashboard.component';
+import { LibraryService } from './areas/admin/pages/media/services/library.service';
+import { LayoutComponent } from './areas/admin/components/layout/layout.component';
 
 const STORE_KEYS_TO_PERSIST = ['auth'];
 
@@ -65,7 +67,9 @@ export const metaReducers: Array<MetaReducer<AppState, Action>> = [localStorageS
     ProjectsComponent,
     ProjectDetailsComponent,
     ProjectAddDialogComponent,
-    ProjectDetailsAddDialogComponent
+    ProjectDetailsAddDialogComponent,
+
+    LayoutComponent
   ],
   imports: [
     MaterialModule,
@@ -104,7 +108,8 @@ export const metaReducers: Array<MetaReducer<AppState, Action>> = [localStorageS
     AuthService,
     AuthGuardService,
     AlertService,
-    ProjectService
+    ProjectService,
+    LibraryService
   ],
   bootstrap: [AppComponent]
 })

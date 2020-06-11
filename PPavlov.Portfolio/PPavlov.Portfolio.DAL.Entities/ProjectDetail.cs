@@ -1,4 +1,5 @@
 ﻿using PPavlov.Portfolio.DAL.Contracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,5 +26,9 @@ namespace PPavlov.Portfolio.DAL.Entities
         public virtual IEnumerable<ProjectDetailLink> ProjectDetailLinks { get; set; }
 
         public virtual IEnumerable<ProjectDetailTag> ProjectDetailTags { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
     }
 }

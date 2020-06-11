@@ -19,7 +19,9 @@ namespace PPavlov.Portfolio.DAL.Access
             this.ImagesRepository = new EfRepository<Image, int>(_dbContext);
             this.LinksRepository = new EfRepository<Link, int>(_dbContext);
             this.TagsRepository = new EfRepository<Tag, int>(_dbContext);
-            
+            this.MediaRepository = new EfRepository<Media, int>(_dbContext);
+            this.LibraryRepository = new EfRepository<Library, int>(_dbContext);
+
             this.ProjectDetailImageRepository = new EfRepository<ProjectDetailImage, int>(_dbContext);
             this.ProjectDetailTagRepository = new EfRepository<ProjectDetailTag, int>(_dbContext);
             this.ProjectDetailLinkRepository = new EfRepository<ProjectDetailLink, int>(_dbContext);
@@ -31,6 +33,9 @@ namespace PPavlov.Portfolio.DAL.Access
         public IRepository<Image, int> ImagesRepository { get; }
         public IRepository<Link, int> LinksRepository { get; }
         public IRepository<Tag, int> TagsRepository { get; }
+        public IRepository<Media, int> MediaRepository { get; }
+        public IRepository<Library, int> LibraryRepository { get; }
+
         public IRepository<ProjectDetailImage, int> ProjectDetailImageRepository { get; }
         public IRepository<ProjectDetailTag, int> ProjectDetailTagRepository { get; }
         public IRepository<ProjectDetailLink, int> ProjectDetailLinkRepository { get; }

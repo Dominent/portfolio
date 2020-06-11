@@ -20,6 +20,9 @@ namespace PPavlov.Portfolio.DAL.Access.Configurations
                .HasOne(x => x.Image)
                .WithMany()
                .HasForeignKey(x => x.ImageId);
+
+            builder.Property(b => b.CreatedAt).HasDefaultValueSql("getdate()");
+            builder.Property(b => b.UpdatedAt).HasDefaultValueSql("getdate()");
         }
     }
 }

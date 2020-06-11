@@ -135,7 +135,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
         public async Task<IActionResult> GetProjectDetails(int projectId)
         {
             var projectDetails = (await _unitOfWork.ProjectDetailsRepository
-                    .ApplyAsync(new ProjectDetailsByProjectIdSpecification(projectId)))
+                .ApplyAsync(new ProjectDetailsByProjectIdSpecification(projectId)))
                 .FirstOrDefault();
 
             if (projectDetails == null)

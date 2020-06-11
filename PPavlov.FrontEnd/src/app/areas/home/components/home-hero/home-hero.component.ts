@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faFacebookF, faInstagram, faTwitter, faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
 @Component({
   selector: 'app-home-hero',
@@ -10,7 +10,7 @@ import { faFacebookF, faInstagram, faTwitter, faGithub, faLinkedinIn } from '@fo
 export class HomeHeroComponent implements OnInit {
 
   constructor(private _library: FaIconLibrary) {
-    _library.addIcons(faFacebookF, faInstagram, faTwitter, faGithub, faLinkedinIn);
+    _library.addIcons(faGithub, faLinkedinIn);
    }
 
   ngOnInit(): void {

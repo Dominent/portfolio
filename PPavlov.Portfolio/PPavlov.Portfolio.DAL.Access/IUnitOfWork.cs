@@ -13,6 +13,8 @@ namespace PPavlov.Portfolio.DAL.Access
         IRepository<Image, int> ImagesRepository { get; }
         IRepository<Link, int> LinksRepository { get; }
         IRepository<Tag, int> TagsRepository { get; }
+        IRepository<Media, int> MediaRepository { get; }
+        IRepository<Library, int> LibraryRepository { get; }
 
         IRepository<ProjectDetailImage, int> ProjectDetailImageRepository { get; }
         IRepository<ProjectDetailTag, int> ProjectDetailTagRepository { get; }

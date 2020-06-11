@@ -40,7 +40,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,11 +56,35 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ImagePath = table.Column<string>(nullable: true),
-                    ImageAlt = table.Column<string>(nullable: true)
+                    ImageAlt = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Libraries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ParentId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Libraries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Libraries_Libraries_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Libraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,11 +94,32 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Href = table.Column<string>(nullable: true)
+                    Href = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Links", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Media",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Extension = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    Width = table.Column<int>(nullable: false),
+                    Height = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Media", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +128,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,27 +244,6 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectDetailImages",
-                columns: table => new
-                {
-                    ProjectDetailId = table.Column<int>(nullable: false),
-                    ImageId = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ImageId });
-                    table.UniqueConstraint("AK_ProjectDetailImages_Id", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProjectDetailImages_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
@@ -227,8 +255,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: true),
                     Ongoing = table.Column<bool>(nullable: false),
-                    ProjectDetailId = table.Column<int>(nullable: true),
-                    ImageId = table.Column<int>(nullable: true)
+                    ImageId = table.Column<int>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,6 +271,34 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LibraryMedia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LibraryId = table.Column<int>(nullable: false),
+                    MediaId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LibraryMedia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LibraryMedia_Libraries_LibraryId",
+                        column: x => x.LibraryId,
+                        principalTable: "Libraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LibraryMedia_Media_MediaId",
+                        column: x => x.MediaId,
+                        principalTable: "Media",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectDetails",
                 columns: table => new
                 {
@@ -249,7 +306,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProjectId = table.Column<int>(nullable: false),
                     Info = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,13 +322,44 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectDetailImages",
+                columns: table => new
+                {
+                    ProjectDetailId = table.Column<int>(nullable: false),
+                    ImageId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectDetailImages", x => new { x.ProjectDetailId, x.ImageId });
+                    table.UniqueConstraint("AK_ProjectDetailImages_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailImages_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
+                        column: x => x.ProjectDetailId,
+                        principalTable: "ProjectDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectDetailLinks",
                 columns: table => new
                 {
                     ProjectDetailId = table.Column<int>(nullable: false),
                     LinkId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
@@ -296,7 +386,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     ProjectDetailId = table.Column<int>(nullable: false),
                     TagId = table.Column<int>(nullable: false),
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
@@ -356,6 +448,36 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Libraries_Name",
+                table: "Libraries",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Libraries_ParentId",
+                table: "Libraries",
+                column: "ParentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryMedia_LibraryId",
+                table: "LibraryMedia",
+                column: "LibraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryMedia_MediaId",
+                table: "LibraryMedia",
+                column: "MediaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Media_Name",
+                table: "Media",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjectDetailImages_ImageId",
                 table: "ProjectDetailImages",
                 column: "ImageId");
@@ -380,39 +502,10 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "IX_Projects_ImageId",
                 table: "Projects",
                 column: "ImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectDetailId",
-                table: "Projects",
-                column: "ProjectDetailId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProjectDetailImages_ProjectDetails_ProjectDetailId",
-                table: "ProjectDetailImages",
-                column: "ProjectDetailId",
-                principalTable: "ProjectDetails",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Projects_ProjectDetails_ProjectDetailId",
-                table: "Projects",
-                column: "ProjectDetailId",
-                principalTable: "ProjectDetails",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Projects_Images_ImageId",
-                table: "Projects");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Projects_ProjectDetails_ProjectDetailId",
-                table: "Projects");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -427,6 +520,9 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "LibraryMedia");
 
             migrationBuilder.DropTable(
                 name: "ProjectDetailImages");
@@ -444,19 +540,25 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Libraries");
+
+            migrationBuilder.DropTable(
+                name: "Media");
+
+            migrationBuilder.DropTable(
                 name: "Links");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "ProjectDetails");
 
             migrationBuilder.DropTable(
+                name: "Tags");
+
+            migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "Images");
         }
     }
 }

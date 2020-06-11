@@ -8,12 +8,23 @@ import { HomeComponent } from './home.component';
 import { HomeExperienceItemComponent } from './components/home-experience-item/home-experience-item.component';
 import { CommonModule } from '@angular/common';
 import { SafePipe } from './pipes/safe.pipe';
+import { HomePortfolioComponent } from './components/home-portfolio/home-portfolio.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+const material = [
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule
+]
 
 @NgModule({
     imports: [
         CommonModule,
         HomeRoutingModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        ...material
     ],
     declarations: [
         HomeComponent,
@@ -21,7 +32,8 @@ import { SafePipe } from './pipes/safe.pipe';
         HomeHeroComponent,
         HomeExperienceComponent,
         HomeExperienceItemComponent,
-        SafePipe
+        SafePipe,
+        HomePortfolioComponent
     ]
 })
 export class HomeModule {

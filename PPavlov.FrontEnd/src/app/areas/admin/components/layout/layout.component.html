@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <div class="container container--fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <span>Portfolio</span>
+                </div>
+                <div class="offset-md-9 col-md-1">
+                    <button mat-icon-button [matMenuTriggerFor]="auth">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #auth="matMenu">
+                        <div mat-menu-item>
+                            <span>Hello&nbsp;</span>
+                            <span>{{username$ | async}}</span>
+                        </div>
+                        <button mat-menu-item (click)="logout()">
+                            <span>Logout</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container class="drawer-container">
+    <mat-drawer mode="side" [opened]="true" [disableClose]="true" class="drawer-container-nav">
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/admin', 'dashboard']">Dashboard</mat-list-item>
+            <mat-list-item [routerLink]="['/admin', 'projects']">Projects</mat-list-item>
+            <mat-list-item [routerLink]="['/admin', 'media']">Media</mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content class="drawer-container-content">
+        <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

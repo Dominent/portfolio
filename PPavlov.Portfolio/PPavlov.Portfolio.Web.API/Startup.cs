@@ -147,8 +147,6 @@ namespace PPavlov.Portfolio.Web.API
 
             app.UseStaticFiles();
 
-            app.UseHttpsRedirection();
-
             app.UseAuthentication();
 
             app.UseSwagger();

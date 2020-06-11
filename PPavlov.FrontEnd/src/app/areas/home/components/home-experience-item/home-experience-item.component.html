@@ -6,7 +6,7 @@
     <footer>
         <summary [innerHTML]="description | safe: 'html'"></summary>
         <ng-container *ngIf="announcement && announcementHref">
-            <a [href]="announcementHref" target="_blank">{{announcement}}</a>
+            <a mat-button color="primary" [href]="announcementHref" target="_blank">{{announcement}}</a>
         </ng-container>
     </footer>
 </section>

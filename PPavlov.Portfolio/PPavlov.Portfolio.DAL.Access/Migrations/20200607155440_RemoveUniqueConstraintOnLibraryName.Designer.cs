@@ -10,8 +10,8 @@ using PPavlov.Portfolio.DAL.Access;
 namespace PPavlov.Portfolio.DAL.Access.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    [Migration("20190821095146_DropProjectDetailsConstraint")]
-    partial class DropProjectDetailsConstraint
+    [Migration("20200607155440_RemoveUniqueConstraintOnLibraryName")]
+    partial class RemoveUniqueConstraintOnLibraryName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,13 +137,69 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("ImageAlt");
 
                     b.Property<string>("ImagePath");
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Library", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Libraries");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.LibraryMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("LibraryId");
+
+                    b.Property<int>("MediaId");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LibraryId");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("LibraryMedia");
                 });
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Link", b =>
@@ -152,13 +208,50 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("Href");
 
                     b.Property<string>("Name");
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.HasKey("Id");
 
                     b.ToTable("Links");
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Extension");
+
+                    b.Property<int>("Height");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("Width");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Project", b =>
@@ -166,6 +259,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<DateTime?>("EndDate");
 
@@ -181,6 +276,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<string>("Title");
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
@@ -194,11 +291,15 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Info");
 
                     b.Property<int>("ProjectId");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -214,9 +315,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("ImageId");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("ProjectDetailId", "ImageId");
 
@@ -233,9 +342,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("LinkId");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("ProjectDetailId", "LinkId");
 
@@ -252,9 +369,17 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<int>("TagId");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("ProjectDetailId", "TagId");
 
@@ -271,7 +396,11 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -287,6 +416,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -312,6 +443,8 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -371,6 +504,27 @@ namespace PPavlov.Portfolio.DAL.Access.Migrations
                     b.HasOne("PPavlov.Portfolio.DAL.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.Library", b =>
+                {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Library", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("PPavlov.Portfolio.DAL.Entities.LibraryMedia", b =>
+                {
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Library", "Library")
+                        .WithMany("LibraryMedia")
+                        .HasForeignKey("LibraryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PPavlov.Portfolio.DAL.Entities.Media", "Media")
+                        .WithMany()
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

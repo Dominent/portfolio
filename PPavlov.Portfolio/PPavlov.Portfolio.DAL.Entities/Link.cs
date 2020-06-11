@@ -1,4 +1,5 @@
 ﻿using PPavlov.Portfolio.DAL.Contracts;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,5 +14,9 @@ namespace PPavlov.Portfolio.DAL.Entities
         public string Name { get; set; }
 
         public string Href { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
     }
 }

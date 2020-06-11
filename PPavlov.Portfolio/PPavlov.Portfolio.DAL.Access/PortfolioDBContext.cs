@@ -17,6 +17,8 @@ namespace PPavlov.Portfolio.DAL.Access
         public DbSet<Image> Images { get; set; }
         public DbSet<Link> Links { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Media> Media { get; set; }
+        public DbSet<Library> Libraries { get; set; }
 
         public DbSet<ProjectDetailImage> ProjectDetailImages { get; set; }
         public DbSet<ProjectDetailTag> ProjectDetailTags { get; set; }
@@ -28,9 +30,22 @@ namespace PPavlov.Portfolio.DAL.Access
             builder.ApplyConfiguration(new ProjectDetailLinkConfiguration());
             builder.ApplyConfiguration(new ProjectDetailTagConfiguration());
 
+            builder.ApplyConfiguration(new MediaConfiguration());
+            builder.ApplyConfiguration(new LibraryConfiguration());
+
             builder.Entity<ProjectDetail>()
                 .HasIndex(x => x.ProjectId)
                 .IsUnique();
+
+            builder.Entity<Library>()
+                .HasOne(x => x.Parent)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Library>()
+                .HasMany(c => c.Media)
+                .WithOne(e => e.Library)
+                .IsRequired();
 
             base.OnModelCreating(builder);
         }
