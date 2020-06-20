@@ -7,6 +7,7 @@ using ImageMagick;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PPavlov.Portfolio.DAL.Access;
+using PPavlov.Portfolio.DAL.Access.Specifications;
 using PPavlov.Portfolio.DAL.Entities;
 using PPavlov.Portfolio.Web.API.Models.Output;
 
@@ -31,10 +32,24 @@ namespace PPavlov.Portfolio.Web.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var medias = await _unitOfWork.MediaRepository
+            var media = await _unitOfWork.MediaRepository
                 .GetAllAsync(_ => true);
 
-            var outputModel = medias
+            var outputModel = media
+                .Select(m => MediaOutputModel.FromEntity(m))
+                .ToList();
+
+            return this.Ok(outputModel);
+        }
+
+        [HttpGet("Library/{libraryId}")]
+        [Produces(typeof(IEnumerable<MediaOutputModel>))]
+        public async Task<IActionResult> GetMediaByLibraryId(int libraryId)
+        {
+            var media = await _unitOfWork.MediaRepository
+                .ApplyAsync(new MediaByLibraryId(libraryId));
+
+            var outputModel = media
                 .Select(m => MediaOutputModel.FromEntity(m))
                 .ToList();
 
@@ -51,7 +66,7 @@ namespace PPavlov.Portfolio.Web.API.Controllers
 
             var library = await _unitOfWork.LibraryRepository.GetByIdAsync(mediaInputModel.LibraryId);
 
-            if(library == null)
+            if (library == null)
             {
                 return this.NotFound(mediaInputModel.LibraryId);
             }

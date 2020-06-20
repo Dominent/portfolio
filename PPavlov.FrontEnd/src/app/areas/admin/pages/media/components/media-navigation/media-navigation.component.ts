@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LibraryNode } from '../../models/library-node';
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { LibraryService } from '../../services/library.service';
+import { Store } from '@ngrx/store';
+
+import * as fromSelectors from '../../store/media.selectors';
+import * as fromActions from '../../store/media.actions';
 
 @Component({
   selector: 'app-media-navigation',
@@ -11,16 +14,24 @@ import { LibraryService } from '../../services/library.service';
 })
 export class MediaNavigationComponent implements OnInit {
   public libraries$: Observable<LibraryNode[]>;
+  public library$: Observable<LibraryNode>;
+
   public libraryNodeTreeControl: NestedTreeControl<LibraryNode>;
 
-  constructor(private _libraryService: LibraryService) { }
+  constructor(private _store: Store<{}>) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.libraryNodeTreeControl = new NestedTreeControl<LibraryNode>(n => n.children);
-    this.libraries$ = this._libraryService.getAll();
+
+    this.libraries$ = this._store.select(fromSelectors.selectLibraries);
+    this.library$ = this._store.select(fromSelectors.selectLibrary);
   }
 
   public hasChild(_: number, node: LibraryNode): boolean {
     return !!node.children && node.children.length > 0;
+  }
+
+  public nodeSelected(node: LibraryNode): void {
+    this._store.dispatch(fromActions.SetLibraryAction({ library: node }))
   }
 }

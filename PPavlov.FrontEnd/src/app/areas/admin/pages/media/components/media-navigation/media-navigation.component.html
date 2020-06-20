@@ -8,25 +8,27 @@
     </header>
 </ng-template>
 
-<mat-tree [dataSource]="libraries$" [treeControl]="libraryNodeTreeControl">
-    <mat-tree-node *matTreeNodeDef="let node">
-        <li>
-            <ng-template [ngTemplateOutlet]="treeHeader" [ngTemplateOutletContext]="{node: node}">
-            </ng-template>
-        </li>
-    </mat-tree-node>
-    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-        <li>
-            <button mat-icon-button matTreeNodeToggle>
-                <mat-icon>
-                    {{libraryNodeTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                </mat-icon>
-            </button>
-            <ng-template [ngTemplateOutlet]="treeHeader" [ngTemplateOutletContext]="{node: node}">
-            </ng-template>
-        </li>
-        <ul [hidden]="!libraryNodeTreeControl.isExpanded(node)">
-            <ng-container matTreeNodeOutlet></ng-container>
-        </ul>
-    </mat-nested-tree-node>
-</mat-tree>
+<ng-container *ngIf="library$ | async as library">
+    <mat-tree [dataSource]="libraries$" [treeControl]="libraryNodeTreeControl">
+        <mat-tree-node *matTreeNodeDef="let node">
+            <li (click)="nodeSelected(node)" [class.selected-node]="node.value.id === library.value.id">
+                <ng-template [ngTemplateOutlet]="treeHeader" [ngTemplateOutletContext]="{node: node}">
+                </ng-template>
+            </li>
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+            <li (click)="nodeSelected(node)" [class.selected-node]="node.value.id === library.value.id">
+                <button mat-icon-button matTreeNodeToggle>
+                    <mat-icon>
+                        {{libraryNodeTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                <ng-template [ngTemplateOutlet]="treeHeader" [ngTemplateOutletContext]="{node: node}">
+                </ng-template>
+            </li>
+            <ul [hidden]="!libraryNodeTreeControl.isExpanded(node)">
+                <ng-container matTreeNodeOutlet></ng-container>
+            </ul>
+        </mat-nested-tree-node>
+    </mat-tree>
+</ng-container>
