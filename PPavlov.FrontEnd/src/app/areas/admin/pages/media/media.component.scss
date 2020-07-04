@@ -2,10 +2,28 @@
     display: flex;
     height: 100%;
 
+    ::ng-deep {
+        mat-sidenav {
+            width: 100%;
+            
+            td-sidesheet {
+                .td-sidesheet-content-wrapper {
+                    flex: none;
+                }
+            }
+        }
+    }
+
     main {
         display: flex;
         flex-basis: 80%;
         flex-direction: column;
+
+        section {
+            height: 100%;
+            display: flex;
+            position: relative;
+        }
     }
 
     aside {

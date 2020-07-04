@@ -2,14 +2,31 @@
     <app-media-navigation></app-media-navigation>
 </aside>
 <main>
-    <td-breadcrumbs>
-        <td-breadcrumb>Home</td-breadcrumb>
-        <td-breadcrumb>Breadcrumb 1</td-breadcrumb>
-        <td-breadcrumb>Breadcrumb 2</td-breadcrumb>
-        <td-breadcrumb>Current</td-breadcrumb>
-    </td-breadcrumbs>
-    <mat-divider></mat-divider>
+    <header>
+        <app-media-header></app-media-header>
+    </header>
     <section>
-        <app-media-list></app-media-list>
+        <mat-sidenav-container fullscreen>
+            <mat-sidenav position="end" mode="side" #sidesheet>
+                <ng-container *ngIf="media">
+                    <td-sidesheet>
+                        <td-sidesheet-header>
+                            <td-sidesheet-title>{{media.name}}</td-sidesheet-title>
+                            <button mat-icon-button td-sidesheet-header-action>
+                                <mat-icon matTooltipPosition="before" matTooltip="Close" (click)="sidesheet.toggle()">
+                                    close
+                                </mat-icon>
+                            </button>
+                        </td-sidesheet-header>
+                        <td-sidesheet-content>
+                            <img [src]="media.src">
+                        </td-sidesheet-content>
+                        <td-sidesheet-actions>
+                        </td-sidesheet-actions>
+                    </td-sidesheet>
+                </ng-container>
+            </mat-sidenav>
+            <app-media-list (mediaSelect)="mediaSelected($event)"></app-media-list>
+        </mat-sidenav-container>
     </section>
 </main>

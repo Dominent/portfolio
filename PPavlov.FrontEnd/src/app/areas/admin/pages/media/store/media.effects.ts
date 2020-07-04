@@ -5,11 +5,12 @@ import { LibraryService } from '../services/library.service';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 
-import * as fromActions from './media.actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LibraryNode } from '../models/library-node';
 import { MediaOutputModel } from '../models/media-output-model';
+
+import * as fromActions from './media.actions';
 
 @Injectable()
 export class MediaEffects {
