@@ -1,6 +1,12 @@
 :host {
     height: 100%;
 
+    button {
+        position: absolute;
+        bottom: 15%;
+        right: 5%;
+    }
+
     mat-table {
         height: 100%;
     }

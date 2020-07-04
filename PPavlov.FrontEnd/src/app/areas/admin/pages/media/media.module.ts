@@ -22,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MediaHeaderComponent } from './components/media-header/media-header.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const material = [
   MatIconModule,
@@ -31,7 +33,9 @@ const material = [
   MatTableModule,
 
   MatToolbarModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatFormFieldModule,
+  MatInputModule
 ]
 
 const covalent = [

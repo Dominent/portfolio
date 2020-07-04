@@ -16,17 +16,20 @@
                 </ng-template>
             </li>
         </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-form-field>
+              <input matInput placeholder="New item">
+            </mat-form-field>
+            <button mat-button (click)="addLibrary(node, 'placeholder')">Save</button>
+          </mat-tree-node>
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
             <li (click)="nodeSelected(node)" [class.selected-node]="node.value.id === library.value.id">
-                <button mat-icon-button matTreeNodeToggle>
-                    <mat-icon>
-                        {{libraryNodeTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                    </mat-icon>
-                </button>
                 <ng-template [ngTemplateOutlet]="treeHeader" [ngTemplateOutletContext]="{node: node}">
                 </ng-template>
+                <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
             </li>
-            <ul [hidden]="!libraryNodeTreeControl.isExpanded(node)">
+            <ul>
                 <ng-container matTreeNodeOutlet></ng-container>
             </ul>
         </mat-nested-tree-node>
